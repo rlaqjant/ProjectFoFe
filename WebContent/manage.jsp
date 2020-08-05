@@ -75,6 +75,51 @@
 			width: 100px;
 			height: 25px;
 		}
+		.filebox{
+                margin: 10px;
+                text-align: center;
+            }
+            .filebox input{
+                text-align: center;
+                display: inline-block; 
+                padding: .5em .75em; 
+                color: #999; 
+                font-size: inherit; 
+                line-height: normal; 
+                vertical-align: middle;
+                background-color: #fdfdfd; 
+                cursor: pointer; 
+                border: 1px solid #ebebeb;
+                border-bottom-color: #e2e2e2; 
+                border-radius: .25em;
+                width: 80%;
+            }
+            .filebox label{ 
+                text-align: center;
+                display: inline-block; 
+                padding: .5em .75em; 
+                color: #999; 
+                font-size: inherit; 
+                line-height: normal; 
+                vertical-align: middle;
+                background-color: #fdfdfd; 
+                cursor: pointer; 
+                border: 1px solid #ebebeb;
+                border-bottom-color: #e2e2e2; 
+                border-radius: .25em;
+                width: 80%;
+                } 
+
+            .filebox input[type="file"]{
+                position: absolute; 
+                width: 1px; 
+                height: 1px;
+                padding: 0; 
+                margin: -1px; 
+                overflow: hidden; 
+                clip:rect(0,0,0,0);
+                border: 0; 
+                }
 	</style>
 	</head>
 	<body>
@@ -91,16 +136,23 @@
 			</div>
 		</div>
 		<p>프로필 및 대문사진 변경</p>
+		
 		<div id="manage_photo">
 			<div class="manage_profile">
-				<div id="manage_profile_preveal"></div>
-				<button class="temporary">가져오기</button>
+			<form>
+				<div id="manage_profile_preveal"></div><!-- 프로필 사진 -->
+				<label for="ex_file">사진 가져오기</label><input class="temporary" type="file" name="uploadFile"/>
+			</form>
 			</div>
 			<div class="manage_profile">
-				<div id="manage_gate_preveal"></div>
-				<button class="temporary">가져오기</button>
+			<form>
+				<div id="manage_gate_preveal"></div><!-- 대문사진 -->
+				<label for="ex_file">사진 가져오기</label><input class="temporary" type="file" name="uploadFile"/>
+				<!-- <button class="temporary">가져오기</button> -->
 			</div>
+			</form>
 		</div>
+		
 	</body>
 	<script>
 	$(document).ready(function(){});

@@ -4,12 +4,12 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<style>
-		body{
+   <head>
+      <meta charset="UTF-8">
+      <title>Insert title here</title>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   <style>
+      body{
                 background-color: lightcoral;
                 padding: 20px;
             }
@@ -75,6 +75,7 @@
                 border: 1px solid snow;
             }
             #side_menu{
+            	
                 box-sizing: border-box;
                 width: 300px;
                 height: 600px;
@@ -104,7 +105,7 @@
                 width: 240px;
                 height: 50px;
                 margin-left: 30px;
-                margin-top: 130px;
+                margin-top: 40px;
                 border: 1px solid gray;
                 font-size: 15px;
             }
@@ -124,10 +125,15 @@
                 border: 1px solid white;
                 float: left;
             }
-	</style>
-	</head>
-	<body>
-		<div id="whole">
+            audio{
+                width: 150px;
+                height: 30px;
+                margin: 20px 70px;
+            }
+   </style>
+   </head>
+   <body>
+      <div id="whole">
             <div id="back">
                 <div id="dotted_line">
                     <div id="minihome">
@@ -148,23 +154,26 @@
                             <div id="side_menu">
                                 <div id="profile_image"></div>
                                 <div id="profile_message">볼리자베스의 미니홈피</br>0000 0000</div>
+                                <audio autoplay controls loop>
+						               <source src="C:\Users\gd\Desktop\project UI\싹쓰리.mp3" type="audio/mp3">
+						        </audio>
                                 <div id="email">조회수</br>bentory@world.com</div>
                             </div>
                             <div id="changer">
                                 <!--관리, 다이어리, 사진첩 등 들어갈 곳. 가로 640, 세로 600(순수 흰 구역) 설계시 마진 필요! -->
-								<jsp:include page="albumDetail.jsp"></jsp:include><!-- :인클루드는 편의상 사용함. 나중에 아이프레임으로 바꿀 때 삭제-->
+                        <jsp:include page="AlbumDetail.jsp"></jsp:include><!-- :인클루드는 편의상 사용함. 나중에 아이프레임으로 바꿀 때 삭제-->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="assist">
-				
+            
             </div>
         </div>
-	</body>
-	<script>
-	$(document).ready(function(){});
-		
-	</script>
+   </body>
+   <script>
+   $(document).ready(function(){});
+      
+   </script>
 </html>
