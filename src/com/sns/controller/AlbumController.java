@@ -13,7 +13,9 @@ import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 import com.sns.service.AlbumService;
 
-@WebServlet({"/upload"})
+
+
+@WebServlet({"/albumupload"})
 public class AlbumController extends HttpServlet {
 
 
@@ -27,13 +29,12 @@ public class AlbumController extends HttpServlet {
 		String ctx = req.getContextPath();
 		String url = uri.substring(ctx.length());
 		RequestDispatcher dis = null;
-		req.getSession().setAttribute("loginId", "tester");
 		req.setCharacterEncoding("UTF-8");
 		
-		AlbumService service = new AlbumService(req, resp);
+		AlbumService service = new AlbumService(req);
 		
 		switch(url) {
-		case "/upload":
+		case "/albumupload":
 			String msg = "저장 실패";
 			String page = "Albumlist.jsp";
 			AlbumDAO dao = new AlbumDAO();

@@ -40,7 +40,7 @@ public class AlbumDAO {
 		long pk=0;
 		boolean com = false;
 		try {
-			ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql, new String[] {"albumidx"});
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getAlbumcontent());
 			int success = ps.executeUpdate();
@@ -57,6 +57,7 @@ public class AlbumDAO {
 					ps.setString(3, dto.getAlbumNewFileName());
 					
 					com = (ps.executeUpdate()>0)?true:false;
+					System.out.println(com);
 				}
 			}
 		}catch(Exception e) {

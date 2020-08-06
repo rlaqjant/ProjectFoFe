@@ -70,7 +70,7 @@
 
 
         <div id="sidelogo"><img  src="images/로고.png" /></div>
-        <form action="#" method="POST">
+        <form action="join" method="POST">
             <img id="x" src="images/x.png"></div>
 
             

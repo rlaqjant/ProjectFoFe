@@ -2,6 +2,7 @@ package com.sns.dto;
 
 import java.sql.Date;
 
+
 public class AlbumDTO {
 	//사진첩 게시물 컬럼
 	private int albumidx;
