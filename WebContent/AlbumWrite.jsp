@@ -31,7 +31,7 @@
             #upload2{
                 font-size: 17px;
                 position: relative;
-                height: 40%;
+                height: 10%;
                 padding-top: 10px;
                 padding-left: 10px;
 
@@ -86,25 +86,26 @@
                 clip:rect(0,0,0,0);
                 border: 0; 
                 }
-         
+         	 input{
+         	 	outline: none;
+         	 }
            
         </style>
     </head>
     <body>
-        
         <div id="gray"></div><!-- 팝업뒷창 -->
         <div id="upload">
             <div>
                 <div style="padding-top:5px; border-bottom: 1px solid black; font-size: 25px; text-align: center; padding: 10px 0px; width: 100%; height: 10%;" >게시물만들기</div> 
                 <div id="upload2">
-                    <img src="#"/><!--주인프로필사진업로드-->
+                    <img src="upload"/><!--주인프로필사진업로드-->
                     <td>ㅇㅇ</td><br/><!--주인이름-->
-                    <input style="width: 95%; height: 95px; border: none;" type="text" placeholder="ㅇㅇ님 무슨 생각을 하고계신가요?"/><!-- ㅇㅇ은 주인 이름 데이터를 불러올것 -->
                 </div>
-                <form action="#" method="post" enctype="multipart/form-data">
-                    <div class="filebox"> <label for="ex_file">사진 가져오기</label> <input type="file" id="ex_file"></div>
+        		<form action="" method="post" enctype="multipart/form-data">
+        			<textarea style="width: 100%; height: 95px; border: none; resize: none; outline: none;" name="content" placeholder="ㅇㅇ님 무슨 생각을 하고계신가요?"></textarea>
+                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile"></div>
                    
-                    <div class="filebox"><input style="width: 88%; height: 13%;" id="submit" type="submit" name="업로드" value="게시" /></div>
+                    <div class="filebox"><input style="width: 88%; height: 13%;" type="submit" name="업로드" value="게시" /></div>
                 </form>
             </div>
         </div>
