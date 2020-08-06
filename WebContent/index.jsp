@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="icon" href="icon_ff.png">
+        <link rel="icon" href="images/icon_ff.png">
         <title>포플</title>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style>
@@ -32,7 +32,7 @@
             .friends_po{width: 100%; min-width:1230px; text-align: center;}
             .friends{width: 100%; height:300px; text-align: center; border-collapse: collapse;}
             .friendsPhoto{width: 300px; height: 300px; text-align:center;}
-            img{max-width: 300px; max-height: 300px; border-radius:30px;}
+            .ImgRadius{max-width: 300px; max-height: 300px; border-radius:30px;}
             td{max-width: 300px; max-height: 300px;}
             .friendName :link{color: #5aad01; text-decoration:none;}
             .friendName :visited{color: #5aad01;}
@@ -71,41 +71,15 @@
                 <div></div>
 
                 <!--검색창-->
-                <div class="search"><input id="srch" type="text" placeholder="포플 친구를 검색하세요!"></div>
-
-                <!--친구목록-->
-                <div class="friends_po">
-                    <table class="friends">
-                        <!--사진/이름 2행 4열-->
-                        <tr class="friendsPhoto">
-                            <td style="width: 300px;"></td>
-                            <td><img src="images/pengsoo.jpg" alt="" class="photo"></td>
-                            <td><img src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img src="images/pengsoo.jpg" alt="" class="photo"></td>                
-                            <td style="width: 300px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 300px;"></td>
-                            <td class="friendName"><a href="">친구 1</a></td>
-                            <td class="friendName"><a href="">친구 2</a></td>
-                            <td class="friendName"><a href="">친구 3</a></td>
-                            <td class="friendName"><a href="">친구 4</a></td>
-                            <td style="width: 300px;"></td>
-                        </tr>
-                    </table>
+                <div class="search">
+                		<input id="srch" type="text" name="srchText" placeholder="포플 친구를 검색하세요!">
+                		<input type="button" id="srchBtn" value="검색">
                 </div>
-
-                <!--더보기 버튼-->
                 <div>
-                    <a id="button" href="#ScreenB" style="text-align: center;">▼</a>
-                </div>
+                	<table id="searchResult">
+                	</table>
+                </div>                
             </div>
-        </div>
-
-        <!--2페이지-->
-        <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background-color: #e8ffdf;">
-            <a id="ScreenB">내가 팔로우한 친구 목록 더보기 창</a>
         </div>
 
 
@@ -113,19 +87,35 @@
 
     </body>
     <script>
-        /*친구목록*/
-        //사진
-        $(".photo").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
-        //사용자이름
-        $(".friendName").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
+    $("#srchBtn").click(function () {
+		var srchText = $("input[name='srchText']").val();
+		console.log("text : "+srchText);
+		$.ajax({
+			type:"post",
+			url:"memberSearch",
+			data:{"srchText" : srchText},
+			datatype:"JSON",
+			success:function(a){
+				console.log(a);
+				/* for (var i = 0; i < data.length; i++) {
+					var id = data[i].id;
+					var name = data[i].name;
+					$("#searchResult").append("<tr>"
+				            +"<td>"+id+"</td>"
+				            +"<td>"+name+"</td>"
+				            +"</tr>");
+	    		} */
+
+				/* list.forEach(function(item,num){
+					console.log(num,item);
+					content="<tr><td>"+item.name+"</td><td><a href='#?id="+item.id+"'>"+"</td></tr>";
+					$("#searchResult").append(content);
+				}); */
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	})
     </script>
 </html>
-
