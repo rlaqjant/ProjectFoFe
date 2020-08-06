@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="icon" href="icon_ff.png">
+        <link rel="icon" href="images/icon_ff.png">
         <title>포플</title>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style>
@@ -71,9 +71,15 @@
                 <div></div>
 
                 <!--검색창-->
-                <div class="search"><input id="srch" type="text" placeholder="포플 친구를 검색하세요!"></div>
 
-                
+                <div class="search">
+                		<input id="srch" type="text" name="srchText" placeholder="포플 친구를 검색하세요!">
+                		<input type="button" id="srchBtn" value="검색">
+                </div>
+                <div>
+                	<table id="searchResult">
+                	</table>
+                </div>                
             </div>
         </div>
 
@@ -82,7 +88,35 @@
 
     </body>
     <script>
-       
+    $("#srchBtn").click(function () {
+		var srchText = $("input[name='srchText']").val();
+		console.log("text : "+srchText);
+		$.ajax({
+			type:"post",
+			url:"memberSearch",
+			data:{"srchText" : srchText},
+			datatype:"JSON",
+			success:function(a){
+				console.log(a);
+				/* for (var i = 0; i < data.length; i++) {
+					var id = data[i].id;
+					var name = data[i].name;
+					$("#searchResult").append("<tr>"
+				            +"<td>"+id+"</td>"
+				            +"<td>"+name+"</td>"
+				            +"</tr>");
+	    		} */
+
+				/* list.forEach(function(item,num){
+					console.log(num,item);
+					content="<tr><td>"+item.name+"</td><td><a href='#?id="+item.id+"'>"+"</td></tr>";
+					$("#searchResult").append(content);
+				}); */
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	})
     </script>
 </html>
-

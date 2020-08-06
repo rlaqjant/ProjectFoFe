@@ -52,6 +52,23 @@
         </style>
     </head>
     <body >
+        <!--전체 감싸기-->
+        <div>
+            <!--로그인, 회원가입-->
+            <div class="login">
+                <span><a href="logout">로그아웃</a></span>
+                <span><a href="joinForm.jsp">회원가입</a></span>
+            </div>
+            <!--로고-->
+            <div class="logo">
+                <a href=""><img src="images/logo_fofriends.png" width="300px"></a>
+            </div>
+            <!--내 프로필-->
+            <div></div>
+            <!--검색창-->
+            <div class="search"><input id="srch" type="text" placeholder="당신의 포플을 찾아봐요"></div>
+            <!--친구목록-->
+            <div></div>
         <!--1페이지-->
         <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0;">
             <div>
@@ -110,8 +127,6 @@
         </div>
 
 
-        
-
     </body>
     <script>
         /*친구목록*/
@@ -129,4 +144,3 @@
         });
     </script>
 </html>
-
