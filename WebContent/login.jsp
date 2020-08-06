@@ -62,12 +62,12 @@
         <div id="miniimg"></div>
         <div id="loginbox">
         <div id="cyworld"><img src="images/cyworld_logo.png" alt=""></div>
-            <form action="post">
+            <form action="login" method="post">
                 <div id="id">
                     <input type="text" placeholder="싸이계정(이메일 또는 전화번호)
-                    " name="" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;" /><br/><br/><br/>
-                    <input type="text" placeholder="비밀번호
-                    " name="" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;"; /><br/>
+                    " name="id" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;" /><br/><br/><br/>
+                    <input type="password" placeholder="비밀번호
+                    " name="pw" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;"; /><br/>
                 </div>
                 <div id="loginbutton">
                     <input type="submit" value="로그인" style="margin-top: 50px; width:300px; height:50px; background-color: black; color: white; border-radius: 15px;";><br/>
@@ -77,4 +77,11 @@
             </form>
         </div>
     </body>
+    <script>
+    var msg="${msg}";
+    if(msg!=null){
+    	alert(msg);
+    }
+    
+    </script>
 </html>
