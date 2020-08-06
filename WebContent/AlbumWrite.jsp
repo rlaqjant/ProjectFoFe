@@ -101,7 +101,7 @@
                     <td>ㅇㅇ</td><br/><!--주인이름-->
                     <input style="width: 95%; height: 95px; border: none;" type="text" placeholder="ㅇㅇ님 무슨 생각을 하고계신가요?"/><!-- ㅇㅇ은 주인 이름 데이터를 불러올것 -->
                 </div>
-                <form action="#" method="post" enctype="multipart/form-data">
+                 <form action="#" method="post" enctype="multipart/form-data">
                     <div class="filebox"> <label for="ex_file">사진 가져오기</label> <input type="file" id="ex_file"></div>
                    
                     <div class="filebox"><input style="width: 88%; height: 13%;" id="submit" type="submit" name="업로드" value="게시" /></div>
