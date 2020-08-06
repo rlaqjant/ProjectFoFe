@@ -62,7 +62,7 @@
             <div>
                 <div class="wr">
                     <span><input class="btn" type="button" value="삭제"></span>
-                    <span><input class="btn" type="button" value="글쓰기" onclick="location.href='./diarywrite.html'"></span>
+                    <span><input class="btn" type="button" value="글쓰기" onclick="location.href='./diarywrite.jsp'"></span>
                 </div>
                 <div class="page">
                     <a href="./?page=${currPage-1}"><span>PREV</span></a>
@@ -72,5 +72,11 @@
             </div>
         </div>
 </body>
-<script></script>
+<script>
+ 	var msg ="${msg}";//msg보낸거 띄워야되는데...어떻게 띄우더라.
+	if(msg!=""){
+		alert(msg);
+	}
+ 
+</script>
 </html>

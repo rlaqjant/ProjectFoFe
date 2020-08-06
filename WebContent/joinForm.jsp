@@ -68,9 +68,11 @@
     </head>
     <body>
 
-        <div id="sidelogo"><img  src="로고자리.png" /></div>
-        <form action="join" method="post">
-            <img id="x" src="x.png"></div>
+
+        <div id="sidelogo"><img  src="images/로고.png" /></div>
+        <form action="#" method="POST">
+            <img id="x" src="images/x.png"></div>
+
             
             
             <div id="jointitle" style="font-size: 40px;"><h2>회원가입</h2></div>

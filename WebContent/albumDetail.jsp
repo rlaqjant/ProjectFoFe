@@ -75,7 +75,10 @@
             <div id="popup">
                 <div id="album_photo">(해당 앨범 사진 영역)</div>
                 <div id="album_text">(글 영역)</div>
-                <div id="album_reply">(댓글 영역)</div>
+                <div id="album_reply">
+	                (댓글 영역)
+	                <input id="reply" type="button" value="게시"/>
+                </div>
             </div>
         </div>
 	</body>

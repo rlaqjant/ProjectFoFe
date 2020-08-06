@@ -72,6 +72,7 @@
                 <div></div>
 
                 <!--검색창-->
+
                 <div class="search">
                 		<input id="srch" type="text" name="srchText" placeholder="포플 친구를 검색하세요!">
                 		<input type="button" id="srchBtn" value="검색">
