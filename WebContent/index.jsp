@@ -32,7 +32,7 @@
             .friends_po{width: 100%; min-width:1230px; text-align: center;}
             .friends{width: 100%; height:300px; text-align: center; border-collapse: collapse;}
             .friendsPhoto{width: 300px; height: 300px; text-align:center;}
-            img{max-width: 300px; max-height: 300px; border-radius:30px;}
+            .ImgRadius{max-width: 300px; max-height: 300px; border-radius:30px;}
             td{max-width: 300px; max-height: 300px;}
             .friendName :link{color: #5aad01; text-decoration:none;}
             .friendName :visited{color: #5aad01;}
@@ -73,39 +73,8 @@
                 <!--검색창-->
                 <div class="search"><input id="srch" type="text" placeholder="포플 친구를 검색하세요!"></div>
 
-                <!--친구목록-->
-                <div class="friends_po">
-                    <table class="friends">
-                        <!--사진/이름 2행 4열-->
-                        <tr class="friendsPhoto">
-                            <td style="width: 300px;"></td>
-                            <td><img src="images/pengsoo.jpg" alt="" class="photo"></td>
-                            <td><img src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img src="images/pengsoo.jpg" alt="" class="photo"></td>                
-                            <td style="width: 300px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 300px;"></td>
-                            <td class="friendName"><a href="">친구 1</a></td>
-                            <td class="friendName"><a href="">친구 2</a></td>
-                            <td class="friendName"><a href="">친구 3</a></td>
-                            <td class="friendName"><a href="">친구 4</a></td>
-                            <td style="width: 300px;"></td>
-                        </tr>
-                    </table>
-                </div>
-
-                <!--더보기 버튼-->
-                <div>
-                    <a id="button" href="#ScreenB" style="text-align: center;">▼</a>
-                </div>
+                
             </div>
-        </div>
-
-        <!--2페이지-->
-        <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background-color: #e8ffdf;">
-            <a id="ScreenB">내가 팔로우한 친구 목록 더보기 창</a>
         </div>
 
 
@@ -113,19 +82,7 @@
 
     </body>
     <script>
-        /*친구목록*/
-        //사진
-        $(".photo").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
-        //사용자이름
-        $(".friendName").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
+       
     </script>
 </html>
 
