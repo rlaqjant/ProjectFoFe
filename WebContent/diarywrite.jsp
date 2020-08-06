@@ -31,26 +31,35 @@
             .a1{height: 20%;}
             .a2{height: 80%;}
             .complete{text-align: right; }
+            
+            form{
+            	width:570px;
+            	height:600px;
+            
+            }
 	</style>
 </head>
 <body>
 	<div class="write">
-            <table>
-                <tr class="a1">
-                    <td style="width: 90%;">
-                        <input type="text" id="subject" style="width: 90%; height: 40%; font-size: 20pt;" placeholder="제목을 입력해 주세요.">
-                    </td>
-                </tr>
-                <tr class="a2">
-                    <td>
-                        <textarea id="content" style="width: 90%; height: 100%; resize: none;" placeholder="내용을 입력해 주세요"></textarea>
-                    </td>
-                </tr>
-            </table>
-            <div class="complete">
-                <input type="button" name="com" value="완료" style="width: 70px; height: 30px; margin-right: 30px;">
-            </div>
-        </div>
+		<form action="diaryWrite" method="post">
+	            <table>
+	                <tr class="a1">
+	                    <td style="width: 90%;">
+	                        <input type="text" id="subject" name="subject" style="width: 90%; height: 40%; font-size: 20pt;" placeholder="제목을 입력해 주세요.">
+	                    </td>
+	                </tr>
+	                <tr class="a2">
+	                    <td>
+	                        <textarea id="content" name="content" style="width: 90%; height: 100%; resize: none;" placeholder="내용을 입력해 주세요"></textarea>
+	                    </td>
+	                </tr>
+	            </table>
+            
+	            <div class="complete">
+	                <input type="submit" value="완료" style="width: 70px; height: 30px; margin-right: 30px;">
+	            </div>
+            </form>
+     </div>
 </body>
 <script></script>
 </html>

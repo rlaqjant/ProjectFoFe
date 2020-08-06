@@ -38,17 +38,17 @@
         <div id="profilechan">
             My Profile
             <hr style="width: 640px;"><br/>
-            <form action="#" method="POST">
+            <form action="profileWrite" method="post">
                 <div id="chartChan">
-                이름:&nbsp;<input type="text" style="width:190px; height:30px"; /><br/>
-                생일:&nbsp;<input type="text"  style="width:190px; height:30px"; /><br/>
-                혈액형:&nbsp;<input type="text" style="width:165px; height:30px"; /><br/>
-                주소:&nbsp;<input type="text" style="width:190px; height:30px"; /><br/>
+                이름:&nbsp;<input type="text" name="nickname" style="width:190px; height:30px" /><br/>
+                생일:&nbsp;<input type="text" name="myBirth" style="width:190px; height:30px" /><br/>
+                혈액형:&nbsp;<input type="text" name="blood" style="width:165px; height:30px" /><br/>
+                주소:&nbsp;<input type="text" name="addr" style="width:190px; height:30px"/><br/>
             
-                전공:&nbsp;<input type="text" style="width:190px; height:30px"; /><br/>
-                나만의 이성유혹법:&nbsp;<input type="text" style="width:335px; height:30px"; /><br/>
-                좌우명:&nbsp;<input type="text" style="width:255px; height:30px"; /><br/>
-                인생영화:&nbsp;<input type="text" style="width:230px; height:30px"; /><br/>
+                전공:&nbsp;<input type="text" name="major" style="width:190px; height:30px" /><br/>
+                나만의 이성유혹법:&nbsp;<input type="text" name="seduWay" style="width:335px; height:30px" /><br/>
+                좌우명:&nbsp;<input type="text" name="motto" style="width:255px; height:30px" /><br/>
+                인생영화:&nbsp;<input type="text" name="fMovie" style="width:230px; height:30px" /><br/>
 
                 
                 </div>

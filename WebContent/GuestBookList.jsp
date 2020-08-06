@@ -125,49 +125,6 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="viewDetail2"><!--여기 영역 하나가 방명록 DB에서 불러올 부분-->
-                        <table>
-                            <tr>
-                                <td>
-                                    <div class="userName">USER NAME</div>
-                                    <div class="date">2020.07.29 17:55:01</div>
-                                    <div class="updateDelete"><input type="button" value="수정"/><input type="button" value="삭제"/></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                    <img src="https://d2ph5fj80uercy.cloudfront.net/04/cat2410.jpg" alt="userProfile" title="userName">
-                                    </div>
-                                    <div class="GuestbookDetail">
-                                        GuestbookDetail
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="viewDetail2"><!--여기 영역 하나가 방명록 DB에서 불러올 부분-->
-                        <table>
-                            <tr>
-                                <td>
-                                    <div class="userName">USER NAME</div>
-                                    <div class="date">2020.07.29 17:55:01</div>
-                                    <div class="updateDelete"><input type="button" value="수정"/><input type="button" value="삭제"/></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                    <img src="https://d2ph5fj80uercy.cloudfront.net/04/cat2410.jpg" alt="userProfile" title="userName">
-                                    </div>
-                                    <div class="GuestbookDetail">
-                                        GuestbookDetail
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
             </div>
             <div id="pageing"><!--페이징 영역-->
                 <div class="pageArea">

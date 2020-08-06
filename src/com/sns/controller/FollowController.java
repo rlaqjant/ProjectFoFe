@@ -1,6 +1,8 @@
 package com.sns.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sns.service.GuestBookService;
+import com.google.gson.Gson;
+import com.sns.dto.SearchDTO;
+import com.sns.service.FollowService;
 
-@WebServlet({"/guestBookList","/guestbookWright"})
-public class GuestBookController extends HttpServlet {
+
+@WebServlet({"/memberSearch"})
+public class FollowController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,26 +29,20 @@ public class GuestBookController extends HttpServlet {
 		process(req,resp);
 	}
 
-	private void process(HttpServletRequest req, HttpServletResponse resp) {
-		String uri = req.getRequestURI();//URI 가져오기 (URI는 URL상위 개념으로 해당파일의 위치를 알려줌. 여기서는 모든 디렉토리 나타남)
-		String context = req.getContextPath();//context 가져오기
+	private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		String uri = req.getRequestURI();
+		String context = req.getContextPath();
 		String reqAddr = uri.substring(context.length());
 		
-		GuestBookService service = new GuestBookService();
-		
-		RequestDispatcher dis = null;
+		FollowService followService = new FollowService(req,resp);
 		
 		switch (reqAddr) {
-		case "/guestBookList":
-			
+		case "/memberSearch":
+			System.out.println("회원검색 요청");
+			followService.memberSearch();
 			break;
 
-		case "/guestbookWright":
-			
-			break;
 		}
-		
-		
 	}
 
 }
