@@ -1,9 +1,5 @@
 package com.sns.dto;
 
-
-public class AlbumDTO {
-
-
 import java.sql.Date;
 
 public class AlbumDTO {
