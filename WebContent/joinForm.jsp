@@ -69,7 +69,7 @@
     <body>
 
         <div id="sidelogo"><img  src="로고자리.png" /></div>
-        <form action="#" method="POST">
+        <form action="join" method="post">
             <img id="x" src="x.png"></div>
             
             
@@ -81,19 +81,16 @@
               <div id="joinchild"> 
                    
                     아이디<br/>
-                    <input type="text" placeholder="아이디" name="" style="width:190px; height:30px" ;/>
-                    <input type="button" value="중복확인" style="text-align:center; width:100px; height:30px";/><br/>
-                    
-                    
-
+                    <input type="text" placeholder="아이디" name="id" style="width:190px; height:30px" ;/>
+                    <input type="button" value="중복확인" style="text-align:center; width:100px; height:30px";/><br/> 
                     비밀번호<br/>
-                    <input type="text" placeholder="비밀번호(8~32자리)" name="" style="width:190px; height:30px"; /><br/>
+                    <input type="password" placeholder="비밀번호(8~32자리)" name="pw" style="width:190px; height:30px"; /><br/>
                     전화번호<br/>
-                    <input type="text" placeholder="10-0000-0000" name="" style="width:190px; height:30px";/><br/>
+                    <input type="text" placeholder="10-0000-0000" name="phone" style="width:190px; height:30px";/><br/>
                     이름<br/>
-                    <input type="text" placeholder="이름을 입력해주세요" name="" style="width:190px; height:30px";/><br/>
+                    <input type="text" placeholder="이름을 입력해주세요" name="name" style="width:190px; height:30px";/><br/>
                     이메일<br/>
-                    <input type="text" placeholder="이메일을 입력해주세요" name="" style="width:190px; height:30px";/><br/>
+                    <input type="text" placeholder="이메일을 입력해주세요" name="email" style="width:190px; height:30px";/><br/>
 
                   
                     <input id="joinbutton" type="submit" placeholder="회원가입" style="width:190px; height:30px";>

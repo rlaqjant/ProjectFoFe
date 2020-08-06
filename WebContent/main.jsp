@@ -23,8 +23,8 @@
         <div>
             <!--로그인, 회원가입-->
             <div class="login">
-                <span><a href="index.html">로그아웃</a></span>
-                <span><a href="joinForm.html">회원가입</a></span>
+                <span><a href="logout">로그아웃</a></span>
+                <span><a href="joinForm.jsp">회원가입</a></span>
             </div>
             <!--로고-->
             <div class="logo">
@@ -35,6 +35,7 @@
             <!--검색창-->
             <div class="search"><input id="srch" type="text" placeholder="당신의 포플을 찾아봐요"></div>
             <!--친구목록-->
+            <a href="Profile.jsp">프로필 테스트 중. 추후 지울 링크</a>
             <div></div>
         </div>
     </body>
