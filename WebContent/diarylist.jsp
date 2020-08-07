@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
             body{width: 640px; height: 600px;}
-            .diary{
+            #diary{
                 position: relative;
                 top: 1%;
                 left: 3%;
@@ -17,7 +18,7 @@
                 height: 590px;
                 margin: 0px;
             }
-            .list{
+            #list{
                 width: 590px;
                 border-top: solid 1px black; 
                 border-bottom: solid 1px black;
@@ -25,46 +26,52 @@
                 height: auto;
                 margin-top: 15px;
             }
-            .page{
+            #page{
                 margin-left: auto;
                 margin-right: auto;
                 text-align: center;
                 font-size: 15pt;
             }
-            .check{width: 15%; text-align: center;}
-            .subject{width: 35%;}
-            .user{width: 15%; text-align: center;}
-            .date{width: 25%; text-align: center;}
-            .hit{width: 10%; text-align: center;}
+            #check{width: 15%; text-align: center;}
+            #subject{width: 35%;}
+            #user{width: 15%; text-align: center;}
+            #date{width: 25%; text-align: center;}
+            #hit{width: 10%; text-align: center;}
             tr{height: 70px; margin: 0px;}
-            .btn{margin-top: 7px;}
-            .wr{text-align: right;}
+            #btn{margin-top: 7px;}
+            #wr{text-align: right;}
         </style>
 </head>
 <body>
-	<div class="diary">
-            <table class="list">
+	
+	 <form action=""><!-- 폼태그로 보내야...파라미터를받겠지? 근데 버튼으로안주고 보낼수가잇나? 일단 컨트롤러는 action으로 탈수있는데..아니다 꼭 form을 써야하나... -->
+            <table id="list">
                 <tr>
-                    <th class="check">체크</th>
-                    <th class="subject">제목</th>
-                    <th class="user">작성자</th>
-                    <th class="date">작성일</th>
-                    <th class="hit">조회</th>
+                    <th id="check">글번호</th>
+                    <th id="subject">제목</th>
+                    <th id="user">작성자</th>
+                    <th id="date">작성일</th>
+                    <th id="hit">조회수</th>
                 </tr>
-                <tr>
-                    <td class="check"><input type="checkbox">241</td>
-                    <td class="subject"><a href="./diarydetail.html">[스크랩]너는 내 운명</a></td>
-                    <td class="user">김예예</td>
-                    <td class="date">2007.07.27</td>
-                    <td class="hit">22</td>
-                </tr>
+                <c:forEach items="${list}" var="diary">
+                		<tr>
+                	
+		                    <td id="check"><input type="checkbox">${diary.diaryidx}</td><!--list안에있는 diaryidx를 가져올거야.  -->
+		                    <td id="subject"><a href="diaryDetail?idx=${diary.diaryidx}">${diary.diarysubject}</a></td><!--제목누르는순간 컨트롤러탄다.  -->
+		                    <!--  <a href="detail?idx=${bbs.idx}"> 얘는 list의  idx값을 idx안에 넣어준거다?  -->
+		                    <td id="user">${diary.id}</td>
+		                    <td id="date">${diary.diaryreg_date}</td>
+		                    <td id="hit">${diary.diarybhit}</td>
+	                    </tr>
+                    </c:forEach>
+               		 
             </table>
-            <div>
-                <div class="wr">
-                    <span><input class="btn" type="button" value="삭제"></span>
-                    <span><input class="btn" type="button" value="글쓰기" onclick="location.href='./diarywrite.jsp'"></span>
+          </form>
+                <div id="wr">
+                    <span><input id="btn" type="button" value="삭제"></span>
+                    <span><input id="btn" type="button" value="글쓰기" onclick="location.href='./diarywrite.jsp'"></span>
                 </div>
-                <div class="page">
+                <div id="page">
                     <a href="./?page=${currPage-1}"><span>PREV</span></a>
                     <span><b>${currPage}</b></span>
                     <a href="./?page=${currPage+1}"><span>NEXT</span></a>

@@ -49,14 +49,16 @@ public class DiaryController extends HttpServlet {
 		DiaryService service = new DiaryService(req, resp);//객체생성
 		switch(addr) {
 		case"/diaryWrite":
-			System.out.println("다이어리쓰기");
+			System.out.println("다이어리쓰기 컨트롤러");
 			service.write();//서비스한테 일을 시킨다.
 			break;
 		case"/diaryList":
-			
+			System.out.println("글 리스트 보기 컨트롤러");
+			service.list();
 			break;
 		case"/diaryDetail":
-	
+			System.out.println("글 자세히보기 컨트롤러");//이거타짐
+			service.detail();
 			break;
 		case"/diaryUpdate":
 	

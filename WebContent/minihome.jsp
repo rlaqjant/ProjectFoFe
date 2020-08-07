@@ -144,7 +144,7 @@
                             <div id="top-menu">
                                 <button class="top_menu">홈</button>
                                 <button class="top_menu">프로필</button>
-                                <button class="top_menu">다이어리</button>
+                                <button class="top_menu" >다이어리</button>
                                 <button class="top_menu">사진첩</button>
                                 <button class="top_menu">방명록</button>
                                 <button class="top_menu">관리</button>
@@ -161,7 +161,7 @@
                             </div>
                             <div id="changer">
                                 <!--관리, 다이어리, 사진첩 등 들어갈 곳. 가로 640, 세로 600(순수 흰 구역) 설계시 마진 필요! -->
-                        <jsp:include page="AlbumDetail.jsp"></jsp:include><!-- :인클루드는 편의상 사용함. 나중에 아이프레임으로 바꿀 때 삭제-->
+                        <jsp:include page="albumDetail.jsp"></jsp:include><!-- :인클루드는 편의상 사용함. 나중에 아이프레임으로 바꿀 때 삭제-->
                             </div>
                         </div>
                     </div>
