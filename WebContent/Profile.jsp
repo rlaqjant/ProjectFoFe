@@ -65,21 +65,21 @@
             <hr style="width: 640px;"><br/>
             <div id="posi">
             <table id="chart">
-            <tr><td>이름:</td></tr>&nbsp;<td>${profile.nickname}</td><br/>
-            <tr><td>생일:</td></tr>&nbsp;<td>${profile.myBirth}</td><br/>
-            <tr><td>혈액형:</td></tr>&nbsp;<td>${profile.blood}</td><br/>
-            <tr><td>주소:</td></tr>&nbsp;<td>${profile.addr}</td><br/>
+            <tr><td>이름:</td><td>${Profile.nickname}</td></tr><br/>
+            <tr><td>생일:</td><td>${Profile.myBirth}</td></tr><br/>
+            <tr><td>혈액형:</td><td>${Profile.blood}</td></tr><br/>
+            <tr><td>주소:</td><td>${Profile.addr}</td></tr><br/>
            
-            <tr><td>전공:</td></tr>&nbsp;<td>${profile.major}</td><br/>
-            <tr><td>나만의 이성유혹법:</td></tr>&nbsp;<td>${profile.seduWay}</td><br/>
-            <tr><td>좌우명:</td></tr>&nbsp;<td>${profile.motto}</td><br/>
-            <tr><td>인생영화:</td></tr>&nbsp;<td>${profile.fMovie}</td><br/>
+            <tr><td>전공:</td><td>${Profile.major}</td></tr><br/>
+            <tr><td>나만의 이성유혹법:</td><td>${Profile.seduWay}</td></tr><br/>
+            <tr><td>좌우명:</td><td>${Profile.motto}</td></tr><br/>
+            <tr><td>인생영화:</td><td>${Profile.fMovie}</td></tr><br/>
             </table>
             
             </div>
 
             <input id="write" type="button" value="글쓰기" onclick="location.href='ProfileWrite.jsp'"/>
-            <input id="update" type="button" value="수정" onclick="location.href='ProfileUpdate.jsp'"/>
+            <input id="update" type="button" value="수정" onclick="location.href='profileUpdateForm?idx=${Profile.id}'"/>
             
     
     

@@ -13,7 +13,7 @@ import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 import com.sns.service.AlbumService;
 
-@WebServlet({"/upload"})
+@WebServlet({"/albumUpload"})
 public class AlbumController extends HttpServlet {
 
 
@@ -33,7 +33,7 @@ public class AlbumController extends HttpServlet {
 		AlbumService service = new AlbumService(req, resp);
 		
 		switch(url) {
-		case "/upload":
+		case "/albumUpload":
 			String msg = "저장 실패";
 			String page = "Albumlist.jsp";
 			AlbumDAO dao = new AlbumDAO();
