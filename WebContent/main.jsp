@@ -63,7 +63,7 @@
                     <span><a href=""><img id="MyProfile" src="images/pengsoo.jpg"></a></span>
                     </div>
                 </div>
-
+				<a href="profileDetail?id=${Profile.id}">프로필 테스트 중. 추후 지울 링크</a>
                 <!--로고-->
                 <div class="logo">
                     <a href="#"><img src="images/logo_fofriends.png" width="300px"></a>

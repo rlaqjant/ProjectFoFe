@@ -76,8 +76,10 @@
                 <div id="album_photo">(해당 앨범 사진 영역)</div>
                 <div id="album_text">(글 영역)</div>
                 <div id="album_reply">
-	                (댓글 영역)
-	                <input id="reply" type="button" value="게시"/>
+	                (댓글 영역) </br>
+	                <!-- 게시 버튼 -->
+	                <input id="reply" type="text"/>
+	                <input id="replyBtn" type="button" value="게시"/>
                 </div>
             </div>
         </div>
@@ -89,5 +91,34 @@
 		$("#x_close").click(function(){
 			$("#dark").css("display","none");
 		});
+		
+		
+		//댓글 작성
+		$("#replyBtn").click(function(){
+			var reply = $("#reply").val(); //댓글 내용
+			console.log(reply);
+			
+			/* 여러개 받아오고 싶을 때
+			var param ={};
+			param.id = $id.val();
+			param.pw = $pw.val();
+			*/
+			
+			$.ajax({
+				type:'get',
+				url:'albumReply',
+				data: reply,
+				dataType:'JSON',//필수템
+				
+				success:function(result){
+					console.log(result);
+				},
+				error:function(error){
+					console.log(error);
+				}
+			});
+		});
+		
+		//댓글목록 불러오기
 	</script>
 </html>
