@@ -13,7 +13,7 @@ import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 import com.sns.service.AlbumService;
 
-@WebServlet({"/upload"})
+@WebServlet({"/albumUpload"})
 public class AlbumController extends HttpServlet {
 
 

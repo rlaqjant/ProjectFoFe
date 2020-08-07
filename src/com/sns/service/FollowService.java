@@ -22,27 +22,34 @@ public class FollowService {
 		this.resp = resp;
 	}
 
-	public void memberSearch() throws IOException {
-		String srchText = req.getParameter("srchText");
-		System.out.println("검색요청값 : "+srchText);
-		FollowDAO dao = new FollowDAO();
-		ArrayList<SearchDTO> list = null;
+	public void memberSearch() {
+		String srchName = req.getParameter("srchName");
+		System.out.println("검색 요청값 : "+srchName);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		ArrayList<SearchDTO> arrList = null;
+		FollowDAO dao = new FollowDAO();
+		boolean result = true;
 		try {
-			list = dao.memberSearch(srchText);
-		} catch (SQLException e) {
+			arrList = dao.list(srchName);
+			if(arrList.isEmpty()) {
+				result=false;
+			}
+			map.put("result",result);
+			map.put("arrList", arrList);
+			String obj = gson.toJson(map);
+			System.out.println(obj);
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.getWriter().println(obj);
+		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}finally {
 			dao.resClose();
 		}
-		map.put("list", list);
-		Gson gson = new Gson();
-		String obj = gson.toJson(map);
-		System.out.println(obj);
-		resp.setContentType("text/html; charset=UTF-8"); 
-		resp.getWriter().println(obj);
+		
+		
 	}
-	
+
 
 
 }
