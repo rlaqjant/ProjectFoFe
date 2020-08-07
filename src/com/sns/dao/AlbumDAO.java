@@ -16,6 +16,7 @@ public class AlbumDAO {
 	ResultSet rs = null;
 	
 	public AlbumDAO() {
+		//생성자 이용해 DB연결
 		try {
 			Context ctx = new InitialContext();
 			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle");
@@ -66,4 +67,8 @@ public class AlbumDAO {
 		}
 		return com;
 	}
+	
+	
+	
+	
 }

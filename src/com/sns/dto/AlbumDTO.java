@@ -14,6 +14,10 @@ public class AlbumDTO {
 	private String albumOriFileName;
 	private String albumNewFileName;
 	
+	//댓글 컬럼
+	private int replyIdx;
+	private String replyCont;
+	private String replyUser_name;
 	
 	public int getAlbumidx() {
 		return albumidx;
@@ -39,6 +43,8 @@ public class AlbumDTO {
 	public void setAlbumreg_date(Date albumreg_date) {
 		this.albumreg_date = albumreg_date;
 	}
+	
+	
 	public int getPhotoidx() {
 		return photoidx;
 	}
@@ -56,6 +62,26 @@ public class AlbumDTO {
 	}
 	public void setAlbumNewFileName(String albumNewFileName) {
 		this.albumNewFileName = albumNewFileName;
+	}
+	
+	
+	public int getReplyIdx() {
+		return replyIdx;
+	}
+	public void setReplyIdx(int replyIdx) {
+		this.replyIdx = replyIdx;
+	}
+	public String getReplyCont() {
+		return replyCont;
+	}
+	public void setReplyCont(String replyCont) {
+		this.replyCont = replyCont;
+	}
+	public String getReplyUser_name() {
+		return replyUser_name;
+	}
+	public void setReplyUser_name(String replyUser_name) {
+		this.replyUser_name = replyUser_name;
 	}
 	
 	

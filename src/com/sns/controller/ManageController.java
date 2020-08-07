@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sns.service.ManageService;
 
-@WebServlet("/upload")
+@WebServlet("/manageupload")
 public class ManageController extends HttpServlet {
 
 	@Override
@@ -27,7 +27,7 @@ public class ManageController extends HttpServlet {
 	
 	
 		
-	}
+}
 
 	
 	
