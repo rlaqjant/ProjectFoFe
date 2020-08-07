@@ -143,7 +143,7 @@
 				<div id="manage_profile_preveal"><img src="${path}" width="100%" height="100%"></div><!-- 프로필 사진 -->
 				 <!-- <form action="upload" method="POST" enctype="multipart/form-data"> -->
                     <!-- <div class="filebox"> <label for="ex_file">사진 가져오기</label> </div> -->
-					<form action="upload" method="POST" enctype="multipart/form-data"><!--파일 업로드의 method는 post로 설정한다./ enctype="multipart/form-data"반드시 있어야한다.-->
+					<form action="manageupload" method="POST" enctype="multipart/form-data"><!--파일 업로드의 method는 post로 설정한다./ enctype="multipart/form-data"반드시 있어야한다.-->
 						<input type="text" name="title"/>
 						<input type="file" name="profile"/>
 						<input type="submit" value="업로드"/>
@@ -153,7 +153,7 @@
 			<div class="manage_profile">
 			
 				<div id="manage_gate_preveal"></div><!-- 대문사진 -->
-				 <form action="upload" method="post" enctype="multipart/form-data">
+				 <form action="manageupload" method="post" enctype="multipart/form-data">
                     <div class="filebox"> <label for="ex_file">사진 가져오기</label> <input type="file" id="ex_file" name="manage_profile"></div>
                     <input type="text" name="title"/><input type="submit" value="업로드"/>
 				</form>

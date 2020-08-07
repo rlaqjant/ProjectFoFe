@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sns.service.ProfileService;
 
-@WebServlet({"/profileWrite"})
+@WebServlet({"/profileWrite","/profileDetail","/profileUpdateForm","/profileUpdate"})
 public class ProfileController extends HttpServlet {
 
 	@Override
@@ -22,7 +22,7 @@ public class ProfileController extends HttpServlet {
 		process(req,resp);
 	}
 
-	private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String uri=req.getRequestURI();
 		String path=req.getContextPath();
 		String reqAddr=uri.substring(path.length());
@@ -31,7 +31,37 @@ public class ProfileController extends HttpServlet {
 		
 		switch(reqAddr) {
 			case "/profileWrite":
-				service.profileWrite();
+				req.setCharacterEncoding("UTF-8");
+				
+				String id=(String) req.getSession().getAttribute("id");//id는 로그인 세션에 저장된 값을 가져옴
+				System.out.println("세션에 저장된 아이디: "+id);
+				String nickname=req.getParameter("nickname");
+				String myBirth=req.getParameter("myBirth");
+				String blood=req.getParameter("blood");
+				String addr=req.getParameter("addr");
+				String major=req.getParameter("major");
+				String seduWay=req.getParameter("seduWay");
+				String motto=req.getParameter("motto");
+				String fMovie=req.getParameter("fMovie");
+				
+				boolean success=service.profileWrite(id,nickname,myBirth,blood,addr,major,seduWay,motto,fMovie);
+				if(success) {
+					resp.sendRedirect("Profile.jsp");
+				}else {
+					resp.sendRedirect("ProfileWrite.jsp");
+				}
+				break;
+			
+			case "/profileDetail":
+				service.profileDetail();
+				break;
+				
+			case "/profileUpdateForm":
+				service.profileUpdateForm();
+				break;
+				
+			case "/profileUpdate":
+				service.profileUpdate();
 				break;
 		}
 	}

@@ -13,7 +13,8 @@ import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 import com.sns.service.AlbumService;
 
-@WebServlet({"/albumUpload"})
+@WebServlet({"/albumupload", "/albumlist"})
+
 public class AlbumController extends HttpServlet {
 
 
@@ -27,13 +28,13 @@ public class AlbumController extends HttpServlet {
 		String ctx = req.getContextPath();
 		String url = uri.substring(ctx.length());
 		RequestDispatcher dis = null;
-		req.getSession().setAttribute("loginId", "tester");
 		req.setCharacterEncoding("UTF-8");
 		
-		AlbumService service = new AlbumService(req, resp);
+		AlbumService service = new AlbumService(req);
 		
 		switch(url) {
-		case "/albumUpload":
+		case "/albumupload":
+
 			String msg = "저장 실패";
 			String page = "Albumlist.jsp";
 			AlbumDAO dao = new AlbumDAO();
@@ -44,6 +45,12 @@ public class AlbumController extends HttpServlet {
 			req.setAttribute("msg", msg);
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			break;
+			
+		case "/albumlist":
+			String obj=service.list();
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.getWriter().println(obj);
 			break;
 		}
 	}
