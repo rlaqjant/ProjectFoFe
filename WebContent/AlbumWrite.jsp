@@ -101,9 +101,9 @@
                     <img src="upload"/><!--주인프로필사진업로드-->
                     <td>ㅇㅇ</td><br/><!--주인이름-->
                 </div>
-        		<form action="" method="post" enctype="multipart/form-data">
+        		<form action="albumupload" method="post" enctype="multipart/form-data">
         			<textarea style="width: 100%; height: 95px; border: none; resize: none; outline: none;" name="content" placeholder="ㅇㅇ님 무슨 생각을 하고계신가요?"></textarea>
-                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile"></div>
+                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile" name="uploadFile"></div>
                     <div class="filebox"><input style="width: 88%; height: 13%;" type="submit" name="업로드" value="게시" /></div>
                 </form>
             </div>
@@ -112,12 +112,12 @@
 
 
     </body>
-    <script>
-        
+<script>
 
 
 
 
 
-    </script>
+
+</script>
 </html>
