@@ -13,7 +13,8 @@ import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 import com.sns.service.AlbumService;
 
-@WebServlet({"/albumupload", "/replyList","/albumReply","/replyDel","/replyUpdate"})
+
+@WebServlet({"/albumupload","/albumlist","/replyList","/albumReply","/replyDel","/replyUpdate"})
 public class AlbumController extends HttpServlet {
 	
 	@Override
@@ -37,11 +38,12 @@ public class AlbumController extends HttpServlet {
 		req.getSession().setAttribute("loginId", "tester");//로그인 구현한게 아니여서 임의로 넣어준 것. 세션에 저장
 		req.setCharacterEncoding("UTF-8");
 		
-		AlbumService service = new AlbumService(req, resp);
+		AlbumService service = new AlbumService(req);
+
 		switch(url) {
-		
 		//사진 업로드
 		case "/albumupload":
+
 			String msg = "저장 실패";
 			String page = "Albumlist.jsp";
 			AlbumDAO dao = new AlbumDAO();
@@ -53,7 +55,7 @@ public class AlbumController extends HttpServlet {
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			break;
-			
+
 		//사진첩 댓글 불러오기
 		case "/replyList":
 			break;
@@ -72,6 +74,12 @@ public class AlbumController extends HttpServlet {
 			
 		//사진첩 댓글 수정
 		case "/replyUpdate":
+
+		case "/albumlist":
+			String obj=service.list();
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.getWriter().println(obj);
+
 			break;
 		}
 	}

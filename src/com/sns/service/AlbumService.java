@@ -1,21 +1,22 @@
 package com.sns.service;
 
 import java.io.File;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
+import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 
 public class AlbumService {
 
 	HttpServletRequest req = null;
-	HttpServletResponse resp = null;
 	
-	public AlbumService(HttpServletRequest req, HttpServletResponse resp) {
+	public AlbumService(HttpServletRequest req) {
 		this.req = req;
-		this.resp = resp;
 	}
 
 	//사진 업로드
@@ -35,6 +36,7 @@ public class AlbumService {
 		
 		AlbumDTO dto = new AlbumDTO();
 		try {
+
 			//파일 업로드할 때 form action
 			//MultipartRequest 는 예외처리가 필요해서 try=catch문을 사용함.
 			MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "utf-8");
@@ -55,12 +57,26 @@ public class AlbumService {
 			oldName.renameTo(newName);
 			
 			dto.setAlbumOriFileName(oriFileName);
+			System.out.println(dto.getAlbumOriFileName());
 			dto.setAlbumNewFileName(newFileName);
+			System.out.println(dto.getAlbumNewFileName());
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+	
+
+	public String list() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		
+		AlbumDAO dao = new AlbumDAO();
+		map.put("list", dao.list());
+		String obj = gson.toJson(map);
+		
+		return obj;
 	}
 
 	

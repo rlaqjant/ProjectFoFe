@@ -67,23 +67,23 @@
 	<div class="diarydetail">
             <table>
                 <tr class="a1">
-                    <td id="index">글번호</td>
-                    <td id="date">2020-08-04</td>
-                    <td id="hit">4</td>
+                    <td id="index">글번호m</td>
+                    <td id="date">2020-08-04m</td>
+                    <td id="hit">조회수m</td>
                     <td id="update"><a href="./diaryupdate.html">수정</a></td>
                     <td id="delete">삭제</td>
                 </tr>
                 <tr class="a2">
-                    <td id="subject" colspan="5"><h3>제목</h3></td>
+                    <td id="subject" colspan="5"><h3>제목m</h3></td>
                 </tr>
                 <tr class="a3">
                     <td class="detail" colspan="5">
-                        <textarea id="detail" readonly>내용</textarea>
+                        <textarea id="detail" readonly>내용m</textarea>
                     </td>
                 </tr>
             </table>
             <div class="list">
-                <input type="button" name="list" value="목록보기" onclick="location.href='./board.html'">
+                <input type="button" name="list" value="목록보기" onclick="location.href='./diaryList.jsp'">
             </div>
         </div>
 </body>
