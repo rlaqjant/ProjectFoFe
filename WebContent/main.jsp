@@ -53,22 +53,6 @@
     </head>
     <body >
         <!--전체 감싸기-->
-        <div>
-            <!--로그인, 회원가입-->
-            <div class="login">
-                <span><a href="logout">로그아웃</a></span>
-                <span><a href="joinForm.jsp">회원가입</a></span>
-            </div>
-            <!--로고-->
-            <div class="logo">
-                <a href=""><img src="images/logo_fofriends.png" width="300px"></a>
-            </div>
-            <!--내 프로필-->
-            <div></div>
-            <!--검색창-->
-            <div class="search"><input id="srch" type="text" placeholder="당신의 포플을 찾아봐요"></div>
-            <!--친구목록-->
-            <div></div>
         <!--1페이지-->
         <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0;">
             <div>
@@ -89,7 +73,12 @@
                 <div></div>
 
                 <!--검색창-->
-                <div class="search"><input id="srch" type="text" placeholder="포플 친구를 검색하세요!"></div>
+                <div class="search">
+                		<input id="srch" type="text" name="srchName" placeholder="포플 친구를 검색하세요!"/>
+                		<input type="button" id="srchBtn" value="검색"/>
+                		<table id="searchResult">
+                		</table>
+                </div>    
 
                 <!--친구목록-->
                 <div class="friends_po">
@@ -142,5 +131,42 @@
         }, function(){
             $(this).fadeTo("slow",1);
         });
+      //친구 검색, 불러오기
+    	$("#srchBtn").click(function () {
+    		var srchName = $("input[name='srchName']").val();
+    		console.log("srchName : "+srchName);
+    		
+    		$.ajax({
+    			type:"get",
+    			url:"memberSearch",
+    			data:{"srchName":srchName},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data);
+    				if(!data.result){
+    					alert("친구가 없어요");
+    				}else{
+    					$("#searchResult").empty();
+    					for (var i = 0; i < data.arrList.length; i++) {
+        					var id = data.arrList[i].id;
+        					var name = data.arrList[i].name;
+        					
+        					$("#searchResult").append("<tr>"
+        				            +"<td><a href='loadMinihome?id="+id+"'>"+id+"</a></td>"
+        				            +"<td>"+name+"</td>"
+        				            +"</tr>");
+        				}
+    				}
+    					
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+    	})
+    	//로고 클릭시 검색창 없어짐
+    	$(".logo").click(function () {
+    		$("#searchResult").empty();
+		})
     </script>
 </html>

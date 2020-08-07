@@ -19,6 +19,7 @@ public class AlbumService {
 		this.req = req;
 	}
 
+	//사진 업로드
 	public AlbumDTO upload() {
 		
 		int maxSize = 10*1024*1024;//사진 용량 제한
@@ -35,7 +36,10 @@ public class AlbumService {
 		
 		AlbumDTO dto = new AlbumDTO();
 		try {
-			MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "UTF-8");
+
+			//파일 업로드할 때 form action
+			//MultipartRequest 는 예외처리가 필요해서 try=catch문을 사용함.
+			MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "utf-8");
 			
 			//dto를 이용하여 게시물 정보 저장
 			dto.setId((String) req.getSession().getAttribute("loginId"));
@@ -75,4 +79,16 @@ public class AlbumService {
 		return obj;
 	}
 
+	
+	
+	//댓글 작성
+	public AlbumDTO reply() {
+		AlbumDTO dto= new AlbumDTO();
+		return dto;
+			
+	}
+	
+	
+	
+	
 }

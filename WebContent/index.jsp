@@ -90,35 +90,43 @@
 
     </body>
     <script>
-    $("#srchBtn").click(function () {
-		var srchText = $("input[name='srchText']").val();
-		console.log("text : "+srchText);
-		$.ajax({
-			type:"post",
-			url:"memberSearch",
-			data:{"srchText" : srchText},
-			datatype:"JSON",
-			success:function(a){
-				console.log(a);
-				/* for (var i = 0; i < data.length; i++) {
-					var id = data[i].id;
-					var name = data[i].name;
-					$("#searchResult").append("<tr>"
-				            +"<td>"+id+"</td>"
-				            +"<td>"+name+"</td>"
-				            +"</tr>");
-	    		} */
-
-				/* list.forEach(function(item,num){
-					console.log(num,item);
-					content="<tr><td>"+item.name+"</td><td><a href='#?id="+item.id+"'>"+"</td></tr>";
-					$("#searchResult").append(content);
-				}); */
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
-	})
+    	//친구 검색, 불러오기
+    	$("#srchBtn").click(function () {
+    		var srchName = $("input[name='srchName']").val();
+    		console.log("srchName : "+srchName);
+    		
+    		$.ajax({
+    			type:"get",
+    			url:"memberSearch",
+    			data:{"srchName":srchName},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data);
+    				if(!data.result){
+    					alert("친구가 없어요");
+    				}else{
+    					$("#searchResult").empty();
+    					for (var i = 0; i < data.arrList.length; i++) {
+        					var id = data.arrList[i].id;
+        					var name = data.arrList[i].name;
+        					
+        					$("#searchResult").append("<tr>"
+        				            +"<td><a href='loadMinihome?id="+id+"'>"+id+"</a></td>"
+        				            +"<td>"+name+"</td>"
+        				            +"</tr>");
+        				}
+    				}
+    					
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+    	})
+    	//로고 클릭시 검색창 없어짐
+    	$(".logo").click(function () {
+    		$("#searchResult").empty();
+		})
+		
     </script>
 </html>
