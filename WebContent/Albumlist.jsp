@@ -96,97 +96,27 @@
 
     </body>
     <script>
-        //hover 시 댓글갯수 보이기
-        $("#ph1").mouseenter(function(){
-            $("#ph11").css("display","block");
-        });
-        $("#ph11").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph11").click(function(){
-            
-        });
-        $("#ph2").mouseenter(function(){
-            $("#ph12").css("display","block");
-        });
-        $("#ph12").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph11").click(function(){
-            
-        });
-        $("#ph3").mouseenter(function(){
-            $("#ph13").css("display","block");
-        });
-        $("#ph13").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph13").click(function(){
-            
-        });
-        $("#ph4").mouseenter(function(){
-            $("#ph21").css("display","block");
-        });
-        $("#ph21").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph21").click(function(){
-            
-        });
-        $("#ph5").mouseenter(function(){
-            $("#ph22").css("display","block");
-        });
-        $("#ph22").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph22").click(function(){
-            
-        });
-        $("#ph6").mouseenter(function(){
-            $("#ph23").css("display","block");
-        });
-        $("#ph23").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph23").click(function(){
-            
-        });
-        $("#ph7").mouseenter(function(){
-            $("#ph31").css("display","block");
-        });
-        $("#ph31").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph31").click(function(){
-            
-        });
-        $("#ph8").mouseenter(function(){
-            $("#ph32").css("display","block");
-        });
-        $("#ph32").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph32").click(function(){
-            
-        });
-        $("#ph9").mouseenter(function(){
-            $("#ph33").css("display","block");
-        });
-        $("#ph33").mouseleave(function(){
-            $(this).css("display","none");
-        });
-        //click시 photo detail 창 띄우기
-        $("#ph33").click(function(){
-            
-        });
+    albumlistCall();
+    function albumlistCall(){
+    	$.ajax({
+    		type:"post",
+    		url:"albumlist",
+    		data:{},
+    		dataType:"JSON",
+    		success:function(data){
+    			albumList(data.list);
+    		},error:function(e){
+    			console.log(e);
+    		}
+    	});
+    	
+    }
+    
+    function albumList(list){
+    	
+    	
+    }
+        
         
 
     </script>

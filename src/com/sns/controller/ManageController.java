@@ -15,7 +15,11 @@ import com.sns.dao.ManageDAO;
 import com.sns.dto.ManageDTO;
 import com.sns.service.ManageService;
 
+
 @WebServlet({"/manageUpload","/manageUpload1","/manageUpload2"})
+
+
+
 public class ManageController extends HttpServlet {
 
 	@Override

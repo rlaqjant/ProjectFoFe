@@ -59,14 +59,15 @@
                     <div class="login_box">
                     <span><a href="login.jsp">로그인</a></span>
                     <span><a href="joinForm.jsp">회원가입</a></span>
+                    <a href="Profile.jsp">프로필 테스트 중. 추후 지울 링크</a>   
                     </div>
                 </div>
-
+				
                 <!--로고-->
                 <div class="logo">
                     <a href="#"><img src="images/logo_fofriends.png" width="300px"></a>
                 </div>
-
+				
                 <!--내 프로필-->
                 <div></div>
 
@@ -79,7 +80,8 @@
                 <div>
                 	<table id="searchResult">
                 	</table>
-                </div>                
+                </div> 
+                            
             </div>
         </div>
 
