@@ -1,11 +1,14 @@
 package com.sns.service;
 
 import java.io.File;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
+import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
 
 public class AlbumService {
@@ -58,6 +61,18 @@ public class AlbumService {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+	
+
+	public String list() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		
+		AlbumDAO dao = new AlbumDAO();
+		map.put("list", dao.list());
+		String obj = gson.toJson(map);
+		
+		return obj;
 	}
 
 }

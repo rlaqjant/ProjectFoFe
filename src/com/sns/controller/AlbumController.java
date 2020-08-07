@@ -15,7 +15,7 @@ import com.sns.service.AlbumService;
 
 
 
-@WebServlet({"/albumupload"})
+@WebServlet({"/albumupload", "/albumlist"})
 public class AlbumController extends HttpServlet {
 
 
@@ -45,6 +45,12 @@ public class AlbumController extends HttpServlet {
 			req.setAttribute("msg", msg);
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			break;
+			
+		case "/albumlist":
+			String obj=service.list();
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.getWriter().println(obj);
 			break;
 		}
 	}

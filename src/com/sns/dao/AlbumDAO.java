@@ -3,6 +3,7 @@ package com.sns.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -66,5 +67,40 @@ public class AlbumDAO {
 			Close();
 		}
 		return com;
+	}
+
+	public ArrayList<AlbumDTO> list() {
+		String sql = "select albumidx from album";
+		AlbumDTO dto = null;
+		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				dto = new AlbumDTO();
+				dto.setAlbumidx(rs.getInt("albumidx"));
+				System.out.println("idx 값 : " + rs.getInt("albumidx"));
+				sql = "select albumnewfilename from albumupfile where albumidx=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, dto.getAlbumidx());
+				ResultSet rs2 = ps.executeQuery();
+				while(rs2.next()) {
+					if(rs.getString("albumnewfilename") == null) {
+						dto.setAlbumNewFileName("noneimage.png");
+					}else {
+						dto.setAlbumNewFileName(rs.getString("albumnewfilename"));
+					}
+					
+					System.out.println("의 사진 이름 : "+rs.getString("albumnewfilename"));
+				}
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return list;
 	}
 }
