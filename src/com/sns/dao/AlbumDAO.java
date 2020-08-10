@@ -51,16 +51,17 @@ public class AlbumDAO {
 			if(rs.next()) {
 				pk = rs.getLong(1);
 				System.out.println("album idx : " + pk);
-				if(dto.getAlbumOriFileName() != null) {
+				if(success>0) {
 					sql = "insert into albumupfile(albumidx, photoidx, albumorifilename, albumnewfilename) values(?,photoidx_seq.NEXTVAL,?,?)";
 					ps=conn.prepareStatement(sql);
 					ps.setLong(1, pk);
 					ps.setString(2, dto.getAlbumOriFileName());
 					ps.setString(3, dto.getAlbumNewFileName());
-					
-					com = (ps.executeUpdate()>0)?true:false;
-					System.out.println(com);
 				}
+				
+				
+				com = (ps.executeUpdate()>0)?true:false;
+				System.out.println(com);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
