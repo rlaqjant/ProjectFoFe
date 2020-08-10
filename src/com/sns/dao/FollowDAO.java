@@ -40,24 +40,25 @@ public class FollowDAO {
 		
 	}
 
-	public ArrayList<SearchDTO> memberSearch(String srchText) throws SQLException {
-		String sql = "SELECT id, name FROM member WHERE name=?";
-		
+	public ArrayList<SearchDTO> list(String srchName) throws SQLException {
+		ArrayList<SearchDTO> arrList = new ArrayList<SearchDTO>();
+		String sql = "SELECT id,name FROM member where name=?";
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, srchText);
+		ps.setString(1, srchName);
 		rs = ps.executeQuery();
 		
-		ArrayList<SearchDTO> list = new ArrayList<SearchDTO>();
 		while(rs.next()) {
 			SearchDTO dto = new SearchDTO();
 			dto.setId(rs.getString("id"));
 			dto.setName(rs.getString("name"));
-			list.add(dto);
+			arrList.add(dto);
 		}
 		
-		return list;
+		return arrList;
 	}
-		
 
+
+
+	
 
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sns.service.DiaryService;
 
-@WebServlet({"/diaryWrite","/diaryList","/diaryDetail","/diaryUpdate","/diaryDelete"})//글쓰기,목록,상세보기,글수정,삭제
+@WebServlet({"/diaryWrite","/diaryList","/diaryDetail","/diaryUpdate","/diaryDelete","/diaryComplete"})//글쓰기,목록,상세보기,글수정,삭제
 public class DiaryController extends HttpServlet {
 
 	@Override
@@ -49,17 +49,24 @@ public class DiaryController extends HttpServlet {
 		DiaryService service = new DiaryService(req, resp);//객체생성
 		switch(addr) {
 		case"/diaryWrite":
-			System.out.println("다이어리쓰기");
+			System.out.println("다이어리쓰기 컨트롤러");
 			service.write();//서비스한테 일을 시킨다.
 			break;
 		case"/diaryList":
-			
+			System.out.println("글 리스트 보기 컨트롤러");
+			service.list();
 			break;
 		case"/diaryDetail":
-	
+			System.out.println("글 자세히보기 컨트롤러");//이거타짐
+			service.detail();
 			break;
 		case"/diaryUpdate":
-	
+			System.out.println("글 수정 컨트롤러");
+			service.update();
+			break;
+		case"/diaryComplete":
+			System.out.println("글 수정 완료 컨트롤러");
+			service.complete();
 			break;
 		case"/diaryDelete":
 	

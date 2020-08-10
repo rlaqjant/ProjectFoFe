@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sns.service.MemberService;
 
-import jdk.internal.reflect.ReflectionFactory.GetReflectionFactoryAction;
-
 @WebServlet({"/join","/login","/logout","/idCheck"})
 public class MemberController extends HttpServlet {
 

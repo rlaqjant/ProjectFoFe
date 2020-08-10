@@ -10,7 +10,6 @@
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
    <style>
       body{
-                background-color: lightcoral;
                 padding: 20px;
             }
             #whole{
@@ -132,19 +131,19 @@
             }
    </style>
    </head>
-   <body>
+   <body style="background-color : ${minihome.backcolor}">
       <div id="whole">
             <div id="back">
                 <div id="dotted_line">
                     <div id="minihome">
                         <div id="top">
                             <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
-                                <a href="#" target="_parent">오늘의 볼 미니홈피</a>
+                                <a href="#" target="_parent">${minihome.minihname}</a>
                             </div>
                             <div id="top-menu">
                                 <button class="top_menu">홈</button>
                                 <button class="top_menu">프로필</button>
-                                <button class="top_menu">다이어리</button>
+                               	<button class="top_menu" >다이어리</button>
                                 <button class="top_menu">사진첩</button>
                                 <button class="top_menu">방명록</button>
                                 <button class="top_menu">관리</button>
@@ -153,11 +152,11 @@
                         <div id="center">
                             <div id="side_menu">
                                 <div id="profile_image"></div>
-                                <div id="profile_message">볼리자베스의 미니홈피</br>0000 0000</div>
+                                <div id="profile_message">${minihome.minihintro}</div>
                                 <audio autoplay controls loop>
 						               <source src="C:\Users\gd\Desktop\project UI\싹쓰리.mp3" type="audio/mp3">
 						        </audio>
-                                <div id="email">조회수</br>bentory@world.com</div>
+                                <div id="email">조회수</br>${minihome.email}</div>
                             </div>
                             <div id="changer">
                                 <!--관리, 다이어리, 사진첩 등 들어갈 곳. 가로 640, 세로 600(순수 흰 구역) 설계시 마진 필요! -->
@@ -174,6 +173,5 @@
    </body>
    <script>
    $(document).ready(function(){});
-      
    </script>
 </html>
