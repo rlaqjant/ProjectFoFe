@@ -25,7 +25,7 @@
                 top: 13%;
                 left: 45%;
                 width: 25%;
-                height: 65%;
+                height: 80%;
                 border: 1px solid black;
             }
             #cyworld{
