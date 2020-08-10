@@ -141,7 +141,61 @@ public class ManageController extends HttpServlet {
 			}
 			
 			break;
-
+			
+		case "/manageUpload2":
+			System.out.println("bgm 업로드 요청");
+			msg = "저장 실패";
+			page = "manage.jsp";
+			map= service.select2(req);
+			for(String key : map.keySet()) {
+				System.out.println("키 :  값 : "+ key  +"/ " +  map.get(key));
+			}
+			filename = (String) map.get("filename");
+			success = (boolean) map.get("success");
+			System.out.println("원래 파일 이름 : "+  filename);
+			
+			if(!success) {
+				System.out.println("파일이 하나도 없다");
+				ManageDTO dto = service.upload2(req);
+				ManageDAO dao = new ManageDAO();
+				System.out.println("컨트롤러로 이동");
+				if(dao.profileWrite2(dto)) {
+					msg = "저장 성공";
+					System.out.println(msg);
+				}
+				req.setAttribute("newfilename", dto.getNewFileName());
+				req.setAttribute("msg", msg);
+				dis=req.getRequestDispatcher(page);
+				dis.forward(req, resp);
+				
+			}else{
+				System.out.println("파일이 있다");
+				//원래 파일 삭제
+				File file = new File("C:/upload/" +filename);
+				if(file.exists()) {
+					if(file.delete()){
+						System.out.println("파일삭제 성공");
+					}else{ System.out.println("파일삭제 실패");
+					}
+				}else{
+					System.out.println("파일이 존재하지 않습니다.");
+				}
+				
+				//새로만들 파일 업로드
+				ManageDTO dto = service.upload2(req);
+				ManageDAO dao = new ManageDAO();
+				System.out.println("컨트롤러로 이동");
+				if(dao.profileWrite2(dto)) {
+					msg = "저장 성공";
+					System.out.println(msg);
+				}
+				req.setAttribute("newfilename", dto.getNewFileName());
+				req.setAttribute("msg", msg);
+				dis=req.getRequestDispatcher(page);
+				dis.forward(req, resp);
+			}
+			
+			break;
 		
 		}
 		

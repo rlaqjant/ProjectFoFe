@@ -30,15 +30,10 @@
             #srch::placeholder {color: #9bdf53; text-align:center;}
 
             /*친구목록*/
-            .friends_po{width: 100%; min-width:1230px; text-align: center;}
-            .friends{width: 100%; height:300px; text-align: center; border-collapse: collapse;}
-            .friendsPhoto{width: 300px; height: 300px; text-align:center;}
+            .friends_po{position: relative; top: 10px; width: 500px;  margin: 0 auto;}
+            .friends{position: absolute; border: 1px solid; width: 500px; }
             .ImgRadius{max-width: 300px; max-height: 300px; border-radius:30px;}
             td{max-width: 300px; max-height: 300px;}
-            .friendName :link{color: #5aad01; text-decoration:none;}
-            .friendName :visited{color: #5aad01;}
-            .friendName :hover{color: #3b7200;}
-            .friendName :active{color: #5aad01;}
             .photo{cursor: pointer;}
 
             /*웹폰트 : 적용은 안됨. 추후 시간나면 하려고 형식만 일단 가져옴.*/
@@ -52,6 +47,7 @@
         </style>
     </head>
     <body >
+    	<input type="hidden" name="loginId" value="${loginId}"/> <!-- 로그인된 아이디 확인용 히든 -->
         <!--전체 감싸기-->
         <!--1페이지-->
         <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0;">
@@ -83,23 +79,7 @@
                 <!--친구목록-->
                 <div class="friends_po">
                     <table class="friends">
-                        <!--사진/이름 2행 4열-->
-                        <tr class="friendsPhoto">
-                            <td style="width: 300px;"></td>
-                            <td><img class="ImgRadius" src="images/pengsoo.jpg" alt="" class="photo"></td>
-                            <td><img class="ImgRadius" src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img class="ImgRadius" src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img class="ImgRadius" src="images/pengsoo.jpg" alt="" class="photo"></td>                 
-                            <td style="width: 300px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 300px;"></td>
-                            <td class="friendName"><a href="">친구 1</a></td>
-                            <td class="friendName"><a href="">친구 2</a></td>
-                            <td class="friendName"><a href="">친구 3</a></td>
-                            <td class="friendName"><a href="">친구 4</a></td>
-                            <td style="width: 300px;"></td>
-                        </tr>
+
                     </table>
                 </div>
 
@@ -110,27 +90,37 @@
             </div>
         </div>
 
-        <!--2페이지-->
-        <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background-color: #e8ffdf;">
-            <a id="ScreenB">내가 팔로우한 친구 목록 더보기 창</a>
-        </div>
-
 
     </body>
     <script>
-        /*친구목록*/
-        //사진
-        $(".photo").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
-        //사용자이름
-        $(".friendName").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
+    	loadFollowList ();
+    	function loadFollowList () {
+    		var loginId = $("input[name='loginId']").val();
+    		$.ajax({
+    			type:"get",
+    			url:"loadFollowList",
+    			data:{"loginId":loginId},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data);
+    				for (var i = 0; i < data.arrList.length; i++) {
+    					var id = data.arrList[i].id;
+    					var name = data.arrList[i].name;
+    					
+    					$(".friends").empty();
+    					$(".friends").append("<tr>"
+    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+name+"</a></td>"
+    				            +"</tr>");
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+    	
+    
+    	
       //친구 검색, 불러오기
     	$("#srchBtn").click(function () {
     		var srchName = $("input[name='srchName']").val();
@@ -151,8 +141,9 @@
         					var id = data.arrList[i].id;
         					var name = data.arrList[i].name;
         					
+        					$("#searchResult").empty();
         					$("#searchResult").append("<tr>"
-        				            +"<td><a href='loadMinihome?id="+id+"'>"+id+"</a></td>"
+        				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
         				            +"</tr>");
         				}
@@ -168,5 +159,7 @@
     	$(".logo").click(function () {
     		$("#searchResult").empty();
 		})
+		
+		
     </script>
 </html>
