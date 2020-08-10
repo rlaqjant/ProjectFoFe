@@ -1,6 +1,7 @@
 package com.sns.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -63,12 +64,39 @@ public class DiaryService {
 		//1.db가 필요한 일인지 생각해본다.2. 파라미터를 받아서 보내야하는지 생각해본다. 
 		String idx = req.getParameter("idx");//값자체를 주지를 않았는데 어떻게 파라미터를 불러오지...? sql문 ?대응 idx값.. 이걸 불러와서 dao한테 준비물줘야되는데.
 		System.out.println("불러온 파라미터:"+idx);
-		DiaryDAO dao = new DiaryDAO();//다이어리객체화
+		DiaryDAO dao = new DiaryDAO();//db객체화
 		req.setAttribute("diary", dao.detail(idx));//1.dao한테 보낸다. 2. 얘네를 담아서 view에 보낸다.-> view는 뽑아서 띄워준다.
-		RequestDispatcher dis = req.getRequestDispatcher("diaryDetail.jsp");//여기로보낼거야
+		RequestDispatcher dis = req.getRequestDispatcher("diarydetail.jsp");//여기로보낼거야
 		dis.forward(req, resp);
 		
 		
+		
+		
+		
+	}
+	//글 수정
+	public void update() throws ServletException, IOException {
+		//diaryupdate.jsp에 DB에서 가져온 값들을 띄운다. 근데 inputtext태그안에 넣어야한다. 
+		//(확인버튼을누르면 또 컨트롤러를타고 그 안에있던 받은값들을 보내고 컨트롤러를 또 탄다)
+		String idx = req.getParameter("idx");
+		System.out.println("불러온 파라미터:"+idx);
+		DiaryDAO dao = new DiaryDAO();//dao객체화
+		req.setAttribute("diary", dao.update(idx));//diary라는 변수에 return받은 dto를 넣는다.
+		RequestDispatcher dis = req.getRequestDispatcher("diaryupdate.jsp");//여기로보낸다.
+		dis.forward(req, resp);
+		
+	}
+	//글 수정완료
+	public void complete() throws Exception {
+		//글 수정완료는... db에 넣어주고 list로 간다. 
+		//idx값을 그대로 보내서 그 idx에 insert하는거다.. 근데 유일한 값이라 그게 들어갈수있을지는 모르겠다... 그건 ?표에 원래가져온애.
+		req.setCharacterEncoding("utf-8");
+		String idx = req.getParameter("idx");
+		String subject = req.getParameter("diarysubject");
+		String content = req.getParameter("diarycontent");
+		System.out.println("글수정완료 받아온 파라미터"+idx+subject+content);
+		DiaryDAO dao = new DiaryDAO();
+		dao.complete(idx,subject,content);
 		
 		
 		

@@ -102,7 +102,7 @@ public class DiaryDAO {
 			DiaryDTO dto = null;//여기로 꺼내줘야 return할때 보낼수있다. 객체화를 if문 안에서 하면 객체화가 안된것이기 때문에 안된다.
 			try {
 				ps = conn.prepareStatement(sql);
-				ps.setString(1, idx);
+				ps.setString(1,idx);
 				rs = ps.executeQuery();
 				if(rs.next()) {
 					dto = new DiaryDTO();//여러개정보를 한번에 불러오려면 dto를 써야한다.
@@ -123,6 +123,28 @@ public class DiaryDAO {
 			return dto;//dto를 반환하기.
 			
 		}
+		//수정하기-일단 가져와서 띄우기
+		public DiaryDTO update(String idx) {
+			String sql ="SELECT diarysubject,diarycontent,diaryidx FROM diary where diaryidx=? ";
+			DiaryDTO dto = null;
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, idx);//물음표대응
+				rs = ps.executeQuery();
+				if(rs.next()) {//값이 있으면
+					dto = new DiaryDTO();//dto객체화하고
+					dto.setDiarysubject(rs.getString("diarysubject"));
+					dto.setDiarycontent(rs.getString("diarycontent"));
+					dto.setDiaryidx(rs.getString("diaryidx"));
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				resClose();
+			}return dto;//dto를 Service로 return
+		}
+		
 	
 	
 	//자원반납하기
@@ -135,7 +157,20 @@ public class DiaryDAO {
 		}catch(Exception e) {
 		}
 	}
-	
+	//글 수정완료
+	public void complete(String idx, String subject, String content) {
+		String sql="UPDATE diary SET diarysubject=?,diarycontent=? WHERE diaryidx=?";
+			//"update diary set 컬럼명=' '    ";
+		try {
+			ps = conn.prepareStatement(sql);
+			//주말동안 잊지말자ㅠㅠ유ㅜ유유
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 	
 	
 

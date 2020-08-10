@@ -83,8 +83,8 @@
               <div id="joinchild"> 
                    
                     아이디<br/>
-                    <input type="text" placeholder="아이디" name="id" style="width:190px; height:30px" ;/>
-                    <input type="button" value="중복확인" style="text-align:center; width:100px; height:30px";/><br/> 
+                    <input type="text" placeholder="아이디" value="${checkingId}" name="id" style="width:190px; height:30px" ;/>
+                    <input type="button" id="idCheck" value="중복확인" style="text-align:center; width:100px; height:30px";/><br/> 
                     비밀번호<br/>
                     <input type="password" placeholder="비밀번호(8~32자리)" name="pw" style="width:190px; height:30px"; /><br/>
                     전화번호<br/>
@@ -108,8 +108,28 @@
 
     </body>
     <script>
-        
-
+	$("#idCheck").click(function(){
+		var id=$("input[name='id']").val();
+		console.log(id);
+		$.ajax({
+			type:"get",
+			url:"idCheck",
+			data:{"id":id},
+			dataType:"JSON",
+			success:function(data){
+				console.log(data);
+				if(data.idCheck){
+					alert("이미 사용 중인 아이디입니다.");
+					$("input[name='id']").val("");
+				}else{
+					alert("사용 가능한 아이디입니다.");
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	});
 
     </script>
 </html>

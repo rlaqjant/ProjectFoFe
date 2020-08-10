@@ -31,26 +31,47 @@
             .a1{height: 20%;}
             .a2{height: 80%;}
             .complete{text-align: right; }
-		
+			
+			#subject{
+				width: 75%; height: 40%; font-size: 20pt
+			}
+			#content{
+				width: 90%; height: 100%; resize: none
+			}
+			#com{
+			style="width: 70px; height: 30px; margin-right: 30px
+			}
+			
 	</style>
 </head>
 <body>
+우웅${diary}<!--테이블이 불러와졌나 확인해본다.  -->
 	<div class="write">
+		<form action="diaryComplete" method="post">
             <table>
+            	<tr>글번호</tr>
+            		<th>${diary.diaryidx}</th>
+            		<input type="hidden" name="idx" value="${diary.diaryidx}"/><!-- 받아올 값 유일한 pk 서버엔 전송o사용자에겐 안보임 -->
+            		<!-- 파라미터보내서 나중에 ?대응하는 애 -->
+            		
                 <tr class="a1">
-                    <td style="width: 90%;">
-                        <input type="text" id="subject" style="width: 90%; height: 40%; font-size: 20pt;" placeholder="제목을 수정 해주세요.">
+                    <th>제목:</th>
+                    <td>
+                        <input type="text" id="subject" name="diarysubject" value="${diary.diarysubject}" />
                     </td>
                 </tr>
                 <tr class="a2">
                     <td>
-                        <textarea id="content" style="width: 90%; height: 100%; resize: none;" placeholder="내용을 수정 해주세요."></textarea>
+                        <input type="text" id="content" name="diarycontent" value="${diary.diarycontent}" />
                     </td>
                 </tr>
-            </table>
-            <div class="complete">
-                <input type="button" name="com" value="완료" style="width: 70px; height: 30px; margin-right: 30px;">
-            </div>
+                <div class="complete">
+                <input type="submit" id="com" value="완료"/></a>
+                <!-- 완료는 글쓰기 컨트롤러 그대로 타면 안되나?  안된당..ㅎㅎ-->
+            	</div>
+             </table>
+            </form>
+            
         </div>
 </body>
 <script></script>
