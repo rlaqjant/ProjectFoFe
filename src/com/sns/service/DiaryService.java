@@ -97,9 +97,15 @@ public class DiaryService {
 		String content = req.getParameter("diarycontent");
 		System.out.println("글수정완료 받아온 파라미터"+idx+subject+content);
 		DiaryDAO dao = new DiaryDAO();
-		dao.complete(idx,subject,content);
-		
-		
+		boolean result = dao.complete(idx,subject,content);
+		String page = "diarylist?diaryidx="+idx;//여기서가 쉽지않았는데... 음냐... 
+		String msg = "수정에 실패했습니다.";
+		if(result) {
+			msg="수정에 성공했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 		
 	}
 

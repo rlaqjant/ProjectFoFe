@@ -159,15 +159,26 @@ public class DiaryDAO {
 		}
 	}
 	//글 수정완료
-	public void complete(String idx, String subject, String content) {
+	public boolean complete(String idx, String subject, String content) {
 		String sql="UPDATE diary SET diarysubject=?,diarycontent=? WHERE diaryidx=?";
 			//"update diary set 컬럼명=' '    ";
+		boolean result = false;//기본값설정
 		try {
 			ps = conn.prepareStatement(sql);
 			//주말동안 잊지말자ㅠㅠ유ㅜ유유
+			ps.setString(1, subject);
+			ps.setString(2, content);
+			ps.setString(3, idx);
+			
+			if(ps.executeUpdate()>0) {//값이 0보다 크다면 ->1 이라면 ->성공
+				result = true;
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}finally {
+			resClose();
+		}return result;
 		
 		
 	}
