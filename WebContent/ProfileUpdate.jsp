@@ -40,15 +40,15 @@
             <hr style="width: 640px;"><br/>
             <form action="profileUpdate" method="post">
                 <div id="chartChan">
-                이름:&nbsp;<input type="text" value="${Profile.nickname}" style="width:190px; height:30px"><br/>
-                생일:&nbsp;<input type="text"  value="${Profile.myBirth}" style="width:190px; height:30px"><br/>
-                혈액형:&nbsp;<input type="text" value="${Profile.blood}" style="width:165px; height:30px"><br/>
-                주소:&nbsp;<input type="text" value="${Profile.addr}" style="width:190px; height:30px"><br/>
+                이름:&nbsp;<input type="text" name="nickname" value="${Profile.nickname}" style="width:190px; height:30px"><br/>
+                생일:&nbsp;<input type="text"  name="myBirth" value="${Profile.myBirth}" style="width:190px; height:30px"><br/>
+                혈액형:&nbsp;<input type="text" name="blood" value="${Profile.blood}" style="width:165px; height:30px"><br/>
+                주소:&nbsp;<input type="text" name="addr" value="${Profile.addr}" style="width:190px; height:30px"><br/>
             
-                전공:&nbsp;<input type="text" value="${Profile.major}" style="width:190px; height:30px"><br/>
-                나만의 이성유혹법:&nbsp;<input type="text" value="${Profile.seduWay}" style="width:335px; height:30px"><br/>
-                좌우명:&nbsp;<input type="text" value="${Profile.motto}" style="width:255px; height:30px"><br/>
-                인생영화:&nbsp;<input type="text" value="${Profile.fMovie}" style="width:230px; height:30px"><br/>
+                전공:&nbsp;<input type="text" name="major" value="${Profile.major}" style="width:190px; height:30px"><br/>
+                나만의 이성유혹법:&nbsp;<input type="text" name="seduWay" value="${Profile.seduWay}" style="width:335px; height:30px"><br/>
+                좌우명:&nbsp;<input type="text" name="motto" value="${Profile.motto}" style="width:255px; height:30px"><br/>
+                인생영화:&nbsp;<input type="text" name="fMovie" value="${Profile.fMovie}" style="width:230px; height:30px"><br/>
 
                 
                 </div>

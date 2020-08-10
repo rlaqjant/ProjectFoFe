@@ -1,10 +1,16 @@
 package com.sns.service;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
@@ -44,18 +50,23 @@ public class AlbumService {
 			//dto를 이용하여 게시물 정보 저장
 			dto.setId((String) req.getSession().getAttribute("loginId"));
 			dto.setAlbumcontent(multi.getParameter("content"));
-			
+			String ext = null;
 			String oriFileName = multi.getFilesystemName("uploadFile");
-			System.out.println("원본 파일 이름 : " + oriFileName);
-			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
-			System.out.println("확장자 확인" + ext);
-			newFileName = System.currentTimeMillis() + ext;
-			System.out.println(oriFileName +"- > " + newFileName);
+			if(oriFileName == null) {
+				oriFileName = "noneimage.png";
+				newFileName = "noneimage.png";
+			}else {
+				System.out.println("원본 파일 이름 : " + oriFileName);
+				ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+				System.out.println("확장자 확인" + ext);
+				newFileName = System.currentTimeMillis() + ext;
+				System.out.println(oriFileName +"- > " + newFileName);
+			}
 			
 			File oldName = new File(uploadPath+"/"+oriFileName);
 			File newName = new File(uploadPath+"/"+newFileName);
 			oldName.renameTo(newName);
-			
+			makeThum(uploadPath, newFileName,ext);
 			dto.setAlbumOriFileName(oriFileName);
 			System.out.println(dto.getAlbumOriFileName());
 			dto.setAlbumNewFileName(newFileName);
@@ -65,6 +76,28 @@ public class AlbumService {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void makeThum(String uploadPath, String newFileName, String ext) {
+		
+		int width = 170;
+		int height = 170;
+		System.out.println(uploadPath+"/"+newFileName);
+		File oriFile = new File(uploadPath+"/"+newFileName);
+		File thum = new File(uploadPath+"/thum_"+newFileName);
+		System.out.println(uploadPath+"/thum_"+newFileName);
+		Image src = null;
+		try {
+			BufferedImage im = ImageIO.read(oriFile);
+			if(ext.equals("bmp") || ext.equals("png") || ext.equals("gif")) {
+				src = ImageIO.read(oriFile);
+			}else {
+				src = new ImageIcon(oriFile.toURL()).getImage();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 

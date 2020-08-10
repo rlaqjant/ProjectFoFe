@@ -16,4 +16,8 @@ public class MemberService {
 		return success;
 	}
 
+	public void idCheck(String id) {
+		boolean success=false;
+	}
+
 }

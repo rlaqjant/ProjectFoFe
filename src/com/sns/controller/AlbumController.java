@@ -65,7 +65,10 @@ public class AlbumController extends HttpServlet {
 			System.out.println("albumReply 요청");
 			dao = new AlbumDAO();//객체만 미리 생성
 			dto = service.reply();
+
 //			dao.reply(dto);
+
+			
 			break;
 						
 		//사진첩 댓글 삭제
