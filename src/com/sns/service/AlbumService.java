@@ -66,7 +66,6 @@ public class AlbumService {
 			File oldName = new File(uploadPath+"/"+oriFileName);
 			File newName = new File(uploadPath+"/"+newFileName);
 			oldName.renameTo(newName);
-			makeThum(uploadPath, newFileName,ext);
 			dto.setAlbumOriFileName(oriFileName);
 			System.out.println(dto.getAlbumOriFileName());
 			dto.setAlbumNewFileName(newFileName);
@@ -77,29 +76,7 @@ public class AlbumService {
 		}
 		return dto;
 	}
-	
-	@SuppressWarnings("deprecation")
-	public void makeThum(String uploadPath, String newFileName, String ext) {
-		
-		int width = 170;
-		int height = 170;
-		System.out.println(uploadPath+"/"+newFileName);
-		File oriFile = new File(uploadPath+"/"+newFileName);
-		File thum = new File(uploadPath+"/thum_"+newFileName);
-		System.out.println(uploadPath+"/thum_"+newFileName);
-		Image src = null;
-		try {
-			BufferedImage im = ImageIO.read(oriFile);
-			if(ext.equals("bmp") || ext.equals("png") || ext.equals("gif")) {
-				src = ImageIO.read(oriFile);
-			}else {
-				src = new ImageIcon(oriFile.toURL()).getImage();
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 
 	public String list() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
