@@ -3,6 +3,7 @@ package com.sns.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -104,6 +105,95 @@ public class AlbumDAO {
 			Close();
 		}
 		return list;
+	}
+
+	
+	/* 사진첩 댓글 작성 */
+	public boolean replyWrite(AlbumDTO dto) {
+		// 길어서 자름
+		String sql = 	"insert into albumreply(replyidx, albumidx, replylevel, replyref, replycont, replyUser_id) ";
+		sql += 			" values(replyIdx_seq.NEXTVAL,?,||REPLYLEVEL||,||REPLYREF||,?,?)";
+		boolean com = false;
+		try {
+			// replyref, replylevel이 존재하지 않을 경우를 대비하여 replace 해줌
+			// -1 이라면 존재하지 않은 것이므로 기본 값으로 넣어줘야 함 (ref의 경우 자기 자신의 번호, level의 경우 1)
+			// 값이 -1이 아니라면 존재하는 값으로 치환해주면 됨.
+			if (dto.getReplyRef() == -1) {
+				sql = sql.replace("||REPLYREF||", "replyIdx_seq.NEXTVAL");
+			} else {
+				sql = sql.replace("||REPLYREF||", dto.getReplyRef() + "");
+			}
+			
+			if (dto.getReplyLevel() == -1) {
+				sql = sql.replace("||REPLYLEVEL||", "1");
+			} else {
+				sql = sql.replace("||REPLYLEVEL||", dto.getReplyLevel() + "");
+			}
+			
+			ps = conn.prepareStatement(sql);
+			// 테스트를 위해 하드코딩
+			ps.setInt(1, 1);
+//			ps.setInt(1, dto.getAlbumidx());
+			
+			ps.setString(2, dto.getReplyCont());
+			
+			// 테스트를 위해 하드코딩
+			ps.setString(3, "dbckdgur12");
+//			ps.setString(3, dto.getReplyUser_id());
+			
+			com = ps.executeUpdate() > 0;
+			System.out.println("albumreply insert 성공? 실패? : " + com);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return com;
+	}
+	
+	// 댓글 리스트
+	public ArrayList<AlbumDTO> replyList(AlbumDTO dto) {
+		String sql = "select * from albumreply where albumidx = ? order by replyref desc, replylevel asc";
+		ArrayList<AlbumDTO> list = new ArrayList<>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, dto.getAlbumidx());
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				AlbumDTO album = new AlbumDTO();
+				album.setAlbumidx(rs.getInt("albumIdx"));
+				album.setReplyIdx(rs.getInt("replyIdx"));
+				album.setReplyCont(rs.getString("replyCont"));
+				album.setReplyLevel(rs.getInt("replyLevel"));
+				album.setReplyRef(rs.getInt("replyRef"));
+				album.setReplyUser_id(rs.getString("replyUser_id"));
+				
+				list.add(album);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return list;
+	}
+
+	// 댓글 삭제
+	public boolean replyDelete(AlbumDTO dto) {
+		String sql = 	"delete from albumreply where replyidx = ?";
+		boolean com = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, dto.getReplyIdx());
+			com = ps.executeUpdate() > 0;
+			System.out.println("albumreply delete 성공? 실패? : " + com);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return com;
 	}
 
 }

@@ -31,7 +31,7 @@ public class FollowService {
 		FollowDAO dao = new FollowDAO();
 		boolean result = true;
 		try {
-			arrList = dao.list(srchName);
+			arrList = dao.memberSearch(srchName);
 			if(arrList.isEmpty()) {
 				result=false;
 			}
@@ -48,6 +48,79 @@ public class FollowService {
 		}
 		
 		
+	}
+
+	public void follow() {
+		String homephostId = req.getParameter("homephostId");
+		String loginId = (String) req.getSession().getAttribute("id");
+		System.out.println("로그인 된 아이디(팔로우 할 놈) : "+loginId);
+		System.out.println("팔로우당할 아이디(홈피주인) : "+homephostId);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		
+		FollowDAO dao = new FollowDAO();
+		boolean result = false;
+		
+		try {
+			if(loginId==null) {
+				result = false;
+			}else {
+				result = dao.follow(homephostId,loginId);
+			}
+			
+			map.put("result",result);
+			String obj = gson.toJson(map);
+			resp.getWriter().println(obj);
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+		}
+	}
+
+	public void unFollow() {
+		String homephostId = req.getParameter("homephostId");
+		String loginId = (String) req.getSession().getAttribute("id");
+		System.out.println("로그인 된 아이디(언팔 할 놈) : "+loginId);
+		System.out.println("언팔로우당할 아이디(홈피주인) : "+homephostId);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		
+		FollowDAO dao = new FollowDAO();
+		try {
+			boolean result = dao.unfollow(homephostId,loginId);
+			map.put("result",result);
+			String obj = gson.toJson(map);
+			resp.getWriter().println(obj);
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+		}
+	}
+
+	public void loadFollowList() {
+		String loginId = req.getParameter("loginId");
+		FollowDAO dao = new FollowDAO();
+		
+		ArrayList<SearchDTO> arrList = new ArrayList<SearchDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		
+		try {
+			arrList = dao.loadFollowList(loginId);
+			map.put("arrList", arrList);
+			String obj = gson.toJson(map);
+			System.out.println(obj);
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.getWriter().println(obj);
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+		}
 	}
 
 
