@@ -14,7 +14,6 @@ import com.sns.dto.DiaryDTO;
 
 
 
-
 	
 public class DiaryService {
 	HttpServletRequest req = null;

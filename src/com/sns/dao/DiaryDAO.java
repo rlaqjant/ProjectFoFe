@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 import com.sns.dto.DiaryDTO;
 
 
-
 public class DiaryDAO {
 
 	//생성자로 무조건적으로 먼저 실행해야하는 부분을 만들어준다.

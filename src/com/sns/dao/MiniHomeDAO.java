@@ -40,20 +40,26 @@ public class MiniHomeDAO {
 	}
 
 	public MiniHomeDTO loadMinihome(String id) {
-		String sql = "SELECT h.backcolor, h.minihname, h.minihintro, m.email FROM minihmain h, member m WHERE m.id = ?";
+		String sql = "SELECT backcolor, minihname, minihintro FROM minihmain WHERE id = ?"; //미니홈피 정보
 		MiniHomeDTO dto = new MiniHomeDTO();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
-			
 			while(rs.next()) {
 				dto.setBackcolor(rs.getString("backcolor"));
 				dto.setMinihname(rs.getString("minihname"));
 				dto.setMinihintro(rs.getString("minihintro"));
+			}
+			sql = "SELECT id, email FROM member WHERE id = ?";//회원 email, id
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				dto.setId(rs.getString("id"));
 				dto.setEmail(rs.getString("email"));
 			}
-			/*sql="SELECT newFileName FROM upfile where id=? and dataType=1";//프로필 사진
+			sql="SELECT newFileName FROM upfile where id=? and dataType=1";//프로필 사진
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
@@ -66,14 +72,34 @@ public class MiniHomeDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				dto.setMainphoto(rs.getString("newFileName"));
-			}*/
-			
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}
 		return dto;
+		
+	}
+
+	public boolean followCheck(String homephostId, String loginId) {
+		String sql="select id from follow where id=? and followId=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			ps.setString(2, homephostId);
+			rs = ps.executeQuery();
+			
+			result=rs.next();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return result;
 		
 	}
 

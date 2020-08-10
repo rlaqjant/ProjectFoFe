@@ -59,6 +59,7 @@ public class ProfileService {
 		String seduWay=req.getParameter("seduWay");
 		String motto=req.getParameter("motto");
 		String fMovie=req.getParameter("fMovie");
+		System.out.println("수정폼 입력값: 아이디="+id+", 영화="+fMovie+" 여기가 문제였네");
 		
 		ProfileDAO dao=new ProfileDAO();
 		String page="profileDetail?id="+id;
