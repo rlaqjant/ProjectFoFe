@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sns.service.MemberService;
 
-@WebServlet({"/join","/login","/logout"})
+@WebServlet({"/join","/login","/logout","/idCheck"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -70,6 +70,10 @@ public class MemberController extends HttpServlet {
 				resp.sendRedirect("login.jsp");
 				break;
 				
+			case "/idCheck":
+				id=req.getParameter("id");
+				service.idCheck(id);
+				break;
 		}
 	}
 

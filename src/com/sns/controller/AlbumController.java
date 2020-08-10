@@ -61,6 +61,7 @@ public class AlbumController extends HttpServlet {
 			dis.forward(req, resp);
 			break;
 		
+
 			//사진첩 댓글 불러오기
 			case "/replyList":
 				System.out.println("replyList 요청");
@@ -78,7 +79,7 @@ public class AlbumController extends HttpServlet {
 				dis=req.getRequestDispatcher(page);
 				dis.forward(req, resp);
 				break;
-			
+
 			//사진첩 댓글달기
 			case "/albumReply":
 				System.out.println("albumReply 요청");

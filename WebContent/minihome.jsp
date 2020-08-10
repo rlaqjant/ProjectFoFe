@@ -143,7 +143,7 @@
                             <div id="top-menu">
                                 <button class="top_menu">홈</button>
                                 <button class="top_menu">프로필</button>
-                                <button class="top_menu" >다이어리</button>
+                               	<button class="top_menu" >다이어리</button>
                                 <button class="top_menu">사진첩</button>
                                 <button class="top_menu">방명록</button>
                                 <button class="top_menu">관리</button>
