@@ -68,21 +68,26 @@
          }
 	</style>
 	</head>
-	<body>
-		<input type="button" value="이미지1" id="image1"/><!-- 이미지를 대신하는 버튼. 추후 삭제 -->
-		<div id="dark">
-			<button id="x_close">x</button>
-            <div id="popup">
-                <div id="album_photo">(해당 앨범 사진 영역)</div>
-                <div id="album_text">(글 영역)</div>
-                <div id="album_reply">
-	                (댓글 영역) </br>
-	                <!-- 게시 버튼 -->
-	                <input id="reply" type="text"/>
-	                <input id="replyBtn" type="button" value="게시"/>
-                </div>
-            </div>
-        </div>
+	<form name="detailForm">
+			<input type="button" value="이미지1" id="image1"/><!-- 이미지를 대신하는 버튼. 추후 삭제 -->
+			<input type="hidden" value="1" id="replyLevel" name="replyLevel" />
+			<input type="hidden" value="1" id="albumIdx" name="albumIdx" />
+			<div id="dark">
+				<button id="x_close">x</button>
+	            <div id="popup">
+	                <div id="album_photo">(해당 앨범 사진 영역)</div>
+	                <div id="album_text">(글 영역)</div>
+	                <div id="album_reply">
+		                (댓글 영역) </br>
+		                <!-- 게시 버튼 -->
+		                <input id="replyCont" name="replyCont" type="text"/>
+		                <input id="replyBtn" type="button" value="게시"/>
+	                	<div id="replyDiv">
+	                	</div>
+	                </div>
+	            </div>
+	        </div>
+    </form>
 	</body>
 	<script>
 		$("#image1").click(function(){
@@ -93,32 +98,66 @@
 		});
 		
 		
-		//댓글 작성
+		//댓글쓰기 버튼
 		$("#replyBtn").click(function(){
-			var reply = $("#reply").val(); //댓글 내용
-			console.log(reply);
-			
-			/* 여러개 받아오고 싶을 때
-			var param ={};
-			param.id = $id.val();
-			param.pw = $pw.val();
-			*/
+			var queryString = $("form[name=detailForm]").serialize();
+			console.log(queryString);
 			
 			$.ajax({
 				type:'get',
 				url:'albumReply',
-				data: reply,
-				dataType:'JSON',//필수템
-				
+				data: queryString,
+				dataType:'HTML',
 				success:function(result){
 					console.log(result);
+					// 댓글 리스트 갱신 이루어져야됨
+					ReplyListSearch();
+				},
+				error:function(error){
+					console.log(error);
+				}		
+			});
+		});
+		
+		//댓글목록 불러오기
+		var ReplyListSearch = function(){
+			$.ajax({
+				type:'get',
+				url:'replyList',
+				data: {
+					"albumIdx": $("#albumIdx").val()
+				},
+				dataType:'HTML',
+				success:function(result){
+					console.log(result);
+					// 댓글 리스트 갱신
+					$("#replyDiv").html(result);
+				},
+				error:function(error){
+					console.log("댓글 리스트 조회 에러");
+					console.log(error);
+				}
+			});
+		}
+		
+		var replyDelete = function(replyIdx){
+			$.ajax({
+				type:'get',
+				url:'replyDel',
+				data: {
+					"replyIdx": replyIdx
+				},
+				dataType:'HTML',
+				success:function(result){
+					// 댓글 리스트 갱신
+					ReplyListSearch();
 				},
 				error:function(error){
 					console.log(error);
 				}
 			});
-		});
+		}
 		
-		//댓글목록 불러오기
+		
 	</script>
 </html>

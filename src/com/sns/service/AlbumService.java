@@ -14,12 +14,14 @@ import com.sns.dto.AlbumDTO;
 public class AlbumService {
 
 	HttpServletRequest req = null;
+	HttpServletRequest resp = null;
 	
 	public AlbumService(HttpServletRequest req) {
 		this.req = req;
+		this.resp = resp;
 	}
 
-	//사진 업로드
+	/* 사진 업로드 */
 	public AlbumDTO upload() {
 		
 		int maxSize = 10*1024*1024;//사진 용량 제한
@@ -81,11 +83,27 @@ public class AlbumService {
 
 	
 	
-	//댓글 작성
+	/* 댓글 작성 */
 	public AlbumDTO reply() {
-		AlbumDTO dto= new AlbumDTO();
-		return dto;
+		AlbumDTO dto = new AlbumDTO();
+		try {
+			//dto를 이용하여 댓글 정보 저장
+			dto.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
+			dto.setReplyLevel(req.getParameter("replyLevel"));
+			dto.setReplyRef(req.getParameter("replyRef"));
+			dto.setReplyCont(req.getParameter("replyCont"));
 			
+			// 테스트용
+			dto.setReplyUser_id("dbckdgur12");
+//			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
+			
+			System.out.println(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return dto;
 	}
 	
 	
