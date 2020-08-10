@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 
 import com.sns.dto.DiaryDTO;
 
-import sun.rmi.server.Dispatcher;
 
 public class DiaryDAO {
 

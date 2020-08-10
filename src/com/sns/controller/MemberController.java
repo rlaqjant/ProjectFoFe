@@ -40,7 +40,7 @@ public class MemberController extends HttpServlet {
 				String name=req.getParameter("name");
 				String email=req.getParameter("email");
 				String phone=req.getParameter("phone");
-				
+				System.out.println(id+pw+name+email+phone);
 				boolean success=service.join(id,pw,name,email,phone);
 				if(success) {
 					resp.sendRedirect("login.jsp");
@@ -60,6 +60,7 @@ public class MemberController extends HttpServlet {
 					msg="로그인에 성공했습니다.";
 					req.getSession().setAttribute("id", id);
 				}
+				req.setAttribute("loginId", id);
 				req.setAttribute("msg", msg);
 				rd=req.getRequestDispatcher(page);
 				rd.forward(req, resp);

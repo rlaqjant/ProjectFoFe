@@ -42,16 +42,13 @@
                 padding: 10px;
                 font-size: 30px;
             }
-            #minihome a{
-                text-decoration: none;
-                color: black;
-            }
             #top{
                 width: 1000px;
                 height: 50px;
                 float: left;
             }
             #minihome_name{
+            	position: relative;
                 width: 400px;
                 height: 40px;
                 margin-bottom: 10px;
@@ -59,6 +56,16 @@
                 background-color: transparent;
                 border: 1px solid white;
                 float: left;
+            }
+            #minihome_nameBtn{
+            	position: absolute;
+            	top: 20px;
+            	left: 400px; 
+            }
+            #minihome_nameEdit{
+            	position: absolute;
+            	top: 20px;
+            	left: 400px; 
             }
             #top_menu{
                 width: 400px;
@@ -87,18 +94,48 @@
             #profile_image{
                 width: 240px;
                 height: 240px;
-                margin: 30px;
+                margin: 30px 30px 10px 30px;
                 border: 1px solid gray;
                 background-image: url("http://blogfiles.naver.net/MjAyMDAyMTBfMTA3/MDAxNTgxMjY5MDAxNDIw.VoXLiKsE_xVCpNzMacA6G3WtyYWSxbE015qUUcb8Tt8g.D-CiU-TmNEylK818HUowj9WniDj0OUXSngh8-il7r_Ug.GIF.o2oo_o/1581265188597.gif");
                 background-size: cover;
                 background-position: 50%;
             }
+            /* 팔로우 영역-----------------------------------------------*/
+            #followArea{
+            	position: relative;
+            	width: 240px;
+            	height: 30px;
+            	margin-left: 30px;
+            	margin-bottom: 10px;
+            	background-color: blue;
+            }
+            #follow{
+            	background-color: white;
+            	position: absolute;
+            }
+            #unFollow{
+            	background-color: black;
+            	color: white;
+            	position: absolute;
+            }
+            /* 팔로우 영역----------------------------------------------- */
             #profile_message{
+            	position: relative;
                 width: 240px;
                 height: 100px;
                 margin-left: 30px;
                 border: 1px solid gray;
                 font-size: 15px;
+            }
+            #profile_messageBtn{
+            	position: absolute;
+            	left: 193px;
+            	top: 100px;
+            }
+            #profile_messageEdit{
+           		position: absolute;
+            	left: 1px;
+            	top: 2px;
             }
             #email{
                 width: 240px;
@@ -129,6 +166,17 @@
                 height: 30px;
                 margin: 20px 70px;
             }
+            iframe {
+				width: 620px;
+                height: 580px;
+			}
+			#homeView{display: block;}
+			#profileView{display: none;}
+			#diaryView{display: none;}
+			#albumView{display: none;}
+			#guestBookView{display: none;}
+			#manageView{display: none;}
+            
    </style>
    </head>
    <body style="background-color : ${minihome.backcolor}">
@@ -138,29 +186,38 @@
                     <div id="minihome">
                         <div id="top">
                             <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
-                                <a href="#" target="_parent">${minihome.minihname}</a>
+                                <div id="minihome_nameDetail">${minihome.minihname}</div>
+                                <div><input type="button" name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
                             </div>
                             <div id="top-menu">
-                                <button class="top_menu">홈</button>
-                                <button class="top_menu">프로필</button>
-                                <button class="top_menu" >다이어리</button>
-                                <button class="top_menu">사진첩</button>
-                                <button class="top_menu">방명록</button>
-                                <button class="top_menu">관리</button>
+                                <button class="top_menu" id="homeBtn">홈</button>
+                                <button class="top_menu" id="profileBtn">프로필</button>
+                                <button class="top_menu" id="diaryBtn">다이어리</button>
+                                <button class="top_menu" id="albumBtn">사진첩</button>
+                                <button class="top_menu" id="guestBookBtn">방명록</button>
+                                <button class="top_menu" id="manageBtn">관리</button>
                             </div>
                         </div>
                         <div id="center">
                             <div id="side_menu">
                                 <div id="profile_image"></div>
-                                <div id="profile_message">${minihome.minihintro}</div>
+                                <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
+                                <div id="profile_message">
+                                	<div id="profile_messageDetail">${minihome.minihintro}</div>
+                                	<div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
+                                </div>
                                 <audio autoplay controls loop>
 						               <source src="C:\Users\gd\Desktop\project UI\싹쓰리.mp3" type="audio/mp3">
 						        </audio>
                                 <div id="email">조회수</br>${minihome.email}</div>
                             </div>
-                            <div id="changer">
-                                <!--관리, 다이어리, 사진첩 등 들어갈 곳. 가로 640, 세로 600(순수 흰 구역) 설계시 마진 필요! -->
-                        <jsp:include page="albumDetail.jsp"></jsp:include><!-- :인클루드는 편의상 사용함. 나중에 아이프레임으로 바꿀 때 삭제-->
+                            <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
+                            	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="profileView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="diaryView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="albumView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="manageView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             </div>
                         </div>
                     </div>
@@ -170,8 +227,99 @@
             
             </div>
         </div>
+        <input type="hidden" name="homephost" value="${minihome.id}"><!-- 현재 홈페이지 주인 확인용 hidden -->
    </body>
    <script>
-   $(document).ready(function(){});
+   		var homephostId = $("input[name='homephost']").val();
+   		
+   		minihomeCheck();//미니홈피 주인 확인
+   		function minihomeCheck() {
+   			$.ajax({
+    			type:"get",
+    			url:"minihomeCheck",
+    			data:{"homephostId": homephostId},
+    			dataType:"JSON",
+    			success:function(data){ 		
+					if(data.result){ //미니홈피 주인이 맞다면
+						$("#follow").css({"display":"none"});
+					}else{
+						followCheck();
+						$("#minihome_nameBtn").css({"display":"none"});
+						$("#manageBtn").css({"display":"none"});
+						$("#profile_messageBtn").css({"display":"none"});
+					}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+   		
+   		function followCheck() {//팔로우중인지 확인
+   			$.ajax({
+    			type:"get",
+    			url:"followCheck",
+    			data:{"homephostId": homephostId},
+    			dataType:"JSON",
+    			success:function(data){ 		
+    				if(data.result){
+    					$("input[name='followbtn']").attr({"onclick":"unFollow()", "value":"팔로잉", "id":"unFollow"});
+					}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+   		
+   		function follow() {//팔로우 버튼
+   			$.ajax({
+    			type:"post",
+    			url:"follow",
+    			data:{"homephostId": homephostId},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data.result);    		
+    				if(data.result){
+    					$("input[name='followbtn']").attr({"onclick":"unFollow()", "value":"팔로잉", "id":"unFollow"});
+    				}else{
+    					alert("로그인이 필요합니다.");
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+   		
+   		function unFollow() {//팔로잉 버튼(팔로우 중에만 나타남)
+   			$.ajax({
+    			type:"post",
+    			url:"unFollow",
+    			data:{"homephostId": homephostId},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data.result);    		
+    				if(data.result){
+    					$("input[name='followbtn']").attr({"onclick":"follow()", "value":"팔로우", "id":"follow"});
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+   		}
+   		
+   		function minihome_nameChange() {//미니홈피 이름 수정 버튼(주인만 나타남)
+			$("#minihome_nameDetail").empty();
+			$("#minihome_nameDetail").append("<input type='text' name='minihome_nameEdit' id='minihome_nameEditBox' value=''/>");
+			$("input[name='minihome_nameBtn']").attr({"onclick":"minihome_nameEdit()", "value":"수정"});
+		}
+   		function profile_messageChange() {//미니홈피 소개글 수정 버튼(주인만 나타남)
+			$("#profile_messageDetail").empty();
+			$("#profile_messageDetail").append("<input type='text' name='profile_messageEdit' id='profile_messageEditBox' value=''/>");
+			$("input[name='profile_messageBtn']").attr({"onclick":"profile_messageEdit()", "value":"수정"});
+		}
+   		
    </script>
 </html>

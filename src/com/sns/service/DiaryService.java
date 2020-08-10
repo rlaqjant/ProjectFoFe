@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.sns.dao.DiaryDAO;
 import com.sns.dto.DiaryDTO;
 
-import sun.rmi.server.Dispatcher;
 
 
 	
