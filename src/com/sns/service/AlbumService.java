@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -16,13 +18,14 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
+import com.sns.dto.ReplyDTO;
 
 public class AlbumService {
 
 	HttpServletRequest req = null;
-	HttpServletRequest resp = null;
+	HttpServletResponse resp = null;
 	
-	public AlbumService(HttpServletRequest req) {
+	public AlbumService(HttpServletRequest req,HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 	}
@@ -68,7 +71,6 @@ public class AlbumService {
 			File oldName = new File(uploadPath+"/"+oriFileName);
 			File newName = new File(uploadPath+"/"+newFileName);
 			oldName.renameTo(newName);
-			makeThum(uploadPath, newFileName,ext);
 			dto.setAlbumOriFileName(oriFileName);
 			System.out.println(dto.getAlbumOriFileName());
 			dto.setAlbumNewFileName(newFileName);
@@ -79,46 +81,30 @@ public class AlbumService {
 		}
 		return dto;
 	}
-	
-	@SuppressWarnings("deprecation")
-	public void makeThum(String uploadPath, String newFileName, String ext) {
-		
-		int width = 170;
-		int height = 170;
-		System.out.println(uploadPath+"/"+newFileName);
-		File oriFile = new File(uploadPath+"/"+newFileName);
-		File thum = new File(uploadPath+"/thum_"+newFileName);
-		System.out.println(uploadPath+"/thum_"+newFileName);
-		Image src = null;
-		try {
-			BufferedImage im = ImageIO.read(oriFile);
-			if(ext.equals("bmp") || ext.equals("png") || ext.equals("gif")) {
-				src = ImageIO.read(oriFile);
-			}else {
-				src = new ImageIcon(oriFile.toURL()).getImage();
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 
-	public String list() {
+
+	public void list() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		int page = Integer.parseInt(req.getParameter("page"));
+		System.out.println();
 		Gson gson = new Gson();
-		
+		ArrayList<AlbumDTO> list = null;
 		AlbumDAO dao = new AlbumDAO();
-		map.put("list", dao.list());
+		int allcnt = dao.listcnt();
+		list = dao.list(page);
+		map.put("list", list);
+		if(page == 1) {map.put("allcnt", allcnt);}
 		String obj = gson.toJson(map);
-		
-		return obj;
+		System.out.println(obj);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(obj);
 	}
 
 	
 	
 	/* 댓글 작성 */
-	public AlbumDTO reply() {
-		AlbumDTO dto = new AlbumDTO();
+	public ReplyDTO reply() {
+		ReplyDTO dto = new ReplyDTO();
 		try {
 			//dto를 이용하여 댓글 정보 저장
 			dto.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
@@ -126,9 +112,8 @@ public class AlbumService {
 			dto.setReplyRef(req.getParameter("replyRef"));
 			dto.setReplyCont(req.getParameter("replyCont"));
 			
-			// 테스트용
-			dto.setReplyUser_id("dbckdgur12");
-//			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
+			// 테스트용 : dto.setReplyUser_id("dbckdgur12");
+			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
 			
 			System.out.println(dto);
 		}catch(Exception e) {
