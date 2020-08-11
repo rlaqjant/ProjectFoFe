@@ -73,7 +73,7 @@
                     <td id="date">${diary.diaryreg_date}</td>
                     <td id="hit">${diary.diarybhit}</td>
                     <td id="update"><a href="./diaryUpdate?idx=${diary.diaryidx}">수정</a></td><!--컨트롤러탈때 idx값 넣어보내기  -->
-                    <td id="delete">삭제</td>
+                    <td id="delete"><a href="./diaryDetailDelete?idx=${diary.diaryidx}">삭제</a></td>
                 </tr>
                 <tr class="a2">
                     <td id="subject" colspan="5"><h3>${diary.diarysubject}</h3></td>
