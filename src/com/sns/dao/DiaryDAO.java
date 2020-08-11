@@ -1,6 +1,7 @@
 package com.sns.dao;
 
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +34,7 @@ public class DiaryDAO {
 			e.printStackTrace();
 		   }
 	}
+	
 	public boolean write(String subject, String content) {//db에 들어갔는지 확인하기... 디테일로 가야겠지? 일단 확인해보려면 근데 그냥 목록으로가도...되굿...
 		//sql문 준비하기 -> INSERT INTO diary (diaryidx,id,diarysubject,diarycontent,diarybhit,diaryreg_date)VALUES();
 		//preparestatement로 ..해주고
@@ -111,6 +113,7 @@ public class DiaryDAO {
 					dto.setDiarybhit(rs.getInt("diarybhit"));
 					dto.setDiarysubject(rs.getString("diarysubject"));
 					dto.setDiarycontent(rs.getString("diarycontent"));//불러온값들을 dto에 다 넣어줬다.
+					upHit(idx);
 					//조회수올리는메서드는 나중에... 이게 전부다 불러져온다는건 글제목을클릭하고 그순간 파라미터를 보내서 받았다는 걸 의미하기때문에 여기 안에 넣어줘야한다.
 				}
 				
@@ -181,7 +184,60 @@ public class DiaryDAO {
 		
 		
 	}
+	//조회수 올리기 메서드
+	public void upHit(String idx) {
+		//디테일 컨트롤러 타면 diarybhit 이거올려야되
+		String sql = "UPDATE diary SET diarybhit = diarybhit+1 WHERE diaryidx=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, idx);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+	}
 
+	public int delete(String[] checkdel) {
+		String sql = "DELETE FROM diary WHERE diaryidx=?";
+		int delCount= 0;
+		try {
+				ps = conn.prepareStatement(sql);
+				for (String del : checkdel) {
+					System.out.println("삭제 글 번호 : " +del);
+					ps.setString(1,del);
+					delCount +=ps.executeUpdate();//delCount 는 execute성공시킨 수를 계속 넣는것... execute는 정말 실행하는것.
+				}
+				System.out.println("삭제 성공 개수 : " + delCount);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				resClose();
+			}
+			return delCount;//그 수를 리턴
+	}
+	//다이어리 디테일 삭제
+	public boolean detaildelete(String idx) {
+		boolean success = false;
+		String sql="DELETE FROM diary WHERE diaryidx=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, idx);
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}return success;
+		
+		
+	}
 	
 	
 
