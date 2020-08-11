@@ -39,7 +39,7 @@ public class AlbumController extends HttpServlet {
 		req.getSession().setAttribute("loginId", "tester");//로그인 구현한게 아니여서 임의로 넣어준 것. 세션에 저장
 		req.setCharacterEncoding("UTF-8");
 		
-		AlbumService service = new AlbumService(req);
+		AlbumService service = new AlbumService(req, resp);
 		AlbumDAO dao = new AlbumDAO();
 		
 		String msg = "";
@@ -48,7 +48,6 @@ public class AlbumController extends HttpServlet {
 		switch(url) {
 			//사진 업로드
 			case "/albumupload":
-
 			msg = "저장 실패";
 			page = "Albumlist.jsp";
 			dao = new AlbumDAO();
@@ -60,6 +59,10 @@ public class AlbumController extends HttpServlet {
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			break;
+			
+			case "/albumlist":
+				service.list();
+				break;
 		
 			//사진첩 댓글 불러오기
 			case "/replyList":

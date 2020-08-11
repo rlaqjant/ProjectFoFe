@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -20,9 +22,9 @@ import com.sns.dto.AlbumDTO;
 public class AlbumService {
 
 	HttpServletRequest req = null;
-	HttpServletRequest resp = null;
+	HttpServletResponse resp = null;
 	
-	public AlbumService(HttpServletRequest req) {
+	public AlbumService(HttpServletRequest req,HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 	}
@@ -80,15 +82,21 @@ public class AlbumService {
 	}
 
 
-	public String list() {
+	public void list() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		int page = Integer.parseInt(req.getParameter("page"));
+		System.out.println();
 		Gson gson = new Gson();
-		
+		ArrayList<AlbumDTO> list = null;
 		AlbumDAO dao = new AlbumDAO();
-		map.put("list", dao.list());
+		int allcnt = dao.listcnt();
+		list = dao.list(page);
+		map.put("list", list);
+		if(page == 1) {map.put("allcnt", allcnt);}
 		String obj = gson.toJson(map);
-		
-		return obj;
+		System.out.println(obj);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(obj);
 	}
 
 	
