@@ -91,7 +91,7 @@ public class MemberDAO {
 		}finally {
 			resClose();
 		}		
-		System.out.println("dao. id 중복 여부: "+success);//ID 중복 시 true 반환
+		System.out.println("dao/id: "+id+", id 중복 여부: "+success);//ID 중복 시 true 반환
 		return success;
 	}
 

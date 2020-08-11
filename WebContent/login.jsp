@@ -9,33 +9,39 @@
         <meta charset="UTF-8">
         <title>login</title> 
         <style>
-            
+            #helper{
+            	width: 900px;
+            	height: 500px;
+            	margin-left: auto;
+            	margin-right: auto;
+            	margin-top: 150px;
+            }
             #miniimg{
                 display: inline-block;
-                position: absolute;
-                top: 10%;
-                left: 23%;
-                width: 20%;
-                height: 80%;
+                width: 400px;
+                height: 600px;
                 border: 1px solid black;
+                float: left;
+                margin-right: 20px;
             }
             #loginbox{
                 display: inline-block;
-                position: absolute;
-                top: 13%;
-                left: 45%;
-                width: 25%;
-                height: 65%;
+                width: 400px;
+                height: 600px;
                 border: 1px solid black;
+                float: left;
+                text-align: center;
             }
             #cyworld{
-                margin-top: 5%;
+                margin-top: 10px;
+                margin-bottom: 50px;
+                background-image: url("images/cyworld_logo.png");
                 text-align: center;
                 position: relative;
                 width: 100%;
                 height: 30%;
-
             }
+
             #id{
                 text-align: center;
                 width: 100%;
@@ -52,36 +58,44 @@
                 width: 100%;
                 height: 20%;
             }
-            form{
-                text-align: center;
+            #joining{
+            	text-align: center;
+            	margin-top: 5px;
+            	width:300px; 
+            	height:50px; 
+            	background-color: black; 
+            	color: white; 
+            	border-radius: 15px;
             }
 
         </style>
     </head>
     <body>
+    <div id="helper">
         <div id="miniimg"></div>
         <div id="loginbox">
-        <div id="cyworld"><img src="images/cyworld_logo.png" alt=""></div>
-            <form action="login" method="post">
-                <div id="id">
-                    <input type="text" placeholder="싸이계정(이메일 또는 전화번호)
-                    " name="id" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;" /><br/><br/><br/>
-                    <input type="password" placeholder="비밀번호
-                    " name="pw" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;"; /><br/>
-                </div>
-                <div id="loginbutton">
-                    <input type="submit" value="로그인" style="margin-top: 50px; width:300px; height:50px; background-color: black; color: white; border-radius: 15px;";><br/>
-                </div>
-               
-               <div style="position: relative; width: 30%; left: 70%; font-size: 22px; text-align: center; top: 30px;">회원가입</div>
-            </form>
+        	<div id="cyworld"><img src="" alt=""></div>
+        	<div id="login_texting">
+	            <form action="login" method="post">
+	                <div id="id">
+	                    <input type="text" placeholder="싸이계정(이메일 또는 전화번호)
+	                    " name="id" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;" /><br/><br/><br/>
+	                    <input type="password" placeholder="비밀번호
+	                    " name="pw" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;"; /><br/>
+	                </div>
+	                <div id="loginbutton">
+	                    <input type="submit" value="로그인" style="margin-top: 50px; width:300px; height:50px; background-color: black; color: white; border-radius: 15px;";><br/>
+	                </div>
+	            </form>
+            </div>
+            <button id="joining">회원가입</button>
         </div>
+    </div>
     </body>
     <script>
     var msg="${msg}";
     if(msg!=null){
     	alert(msg);
-    }
-    
+    }    
     </script>
 </html>

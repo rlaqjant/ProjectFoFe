@@ -54,7 +54,7 @@ public class MemberController extends HttpServlet {
 				pw=req.getParameter("pw");
 				
 				String page="login.jsp";
-				String msg="로그인에 실패했습니다.";
+				String msg="아이디와 비밀번호를 확인해주세요.";
 				if(service.login(id,pw)) {
 					page="main.jsp";
 					msg="로그인에 성공했습니다.";
@@ -73,7 +73,7 @@ public class MemberController extends HttpServlet {
 				
 			case "/idCheck":
 				id=req.getParameter("id");
-				service.idCheck(id);
+				resp.getWriter().println(service.idCheck(id));
 				break;
 		}
 	}
