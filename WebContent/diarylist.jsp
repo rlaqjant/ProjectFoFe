@@ -44,7 +44,7 @@
 </head>
 <body>
 	
-	 <form action=""><!-- 폼태그로 보내야...파라미터를받겠지? 근데 버튼으로안주고 보낼수가잇나? 일단 컨트롤러는 action으로 탈수있는데..아니다 꼭 form을 써야하나... -->
+	 <form action="diaryDelete" method="get"><!-- 폼태그로 보내야...파라미터를받겠지? 근데 버튼으로안주고 보낼수가잇나? 일단 컨트롤러는 action으로 탈수있는데..아니다 꼭 form을 써야하나... -->
             <table id="list">
                 <tr>
                     <th id="check">글번호</th>
@@ -56,7 +56,7 @@
                 <c:forEach items="${list}" var="diary">
                 		<tr>
                 	
-		                    <td id="check"><input type="checkbox">${diary.diaryidx}</td><!--list안에있는 diaryidx를 가져올거야.  -->
+		                    <td id="check"><input type="checkbox" name="check" value="${diary.diaryidx}">${diary.diaryidx}</td><!--list안에있는 diaryidx를 가져올거야.  -->
 		                    <td id="subject"><a href="./diaryDetail?idx=${diary.diaryidx}">${diary.diarysubject}</a></td><!--제목누르는순간 컨트롤러탄다.  -->
 		                    <!--  <a href="detail?idx=${bbs.idx}"> 얘는 list의  idx값을 idx안에 넣어준거다?  -->
 		                    <td id="user">${diary.id}</td>
@@ -66,11 +66,12 @@
                     </c:forEach>
                		 
             </table>
-          </form>
+          
                 <div id="wr">
-                    <span><input id="btn" type="button" value="삭제"></span>
+                    <span><input id="btn" type="submit" value="삭제"></span>
                     <span><input id="btn" type="button" value="글쓰기" onclick="location.href='./diarywrite.jsp'"></span>
                 </div>
+              </form>  
                 <div id="page">
                     <a href="./?page=${currPage-1}"><span>PREV</span></a>
                     <span><b>${currPage}</b></span>
