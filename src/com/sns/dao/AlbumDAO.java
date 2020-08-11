@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.sns.dto.AlbumDTO;
+import com.sns.dto.ReplyDTO;
 
 public class AlbumDAO {
 	Connection conn = null;
@@ -109,7 +110,7 @@ public class AlbumDAO {
 
 	
 	/* 사진첩 댓글 작성 */
-	public boolean replyWrite(AlbumDTO dto) {
+	public boolean replyWrite(ReplyDTO dto) {
 		// 길어서 자름
 		String sql = 	"insert into albumreply(replyidx, albumidx, replylevel, replyref, replycont, replyUser_id) ";
 		sql += 			" values(replyIdx_seq.NEXTVAL,?,||REPLYLEVEL||,||REPLYREF||,?,?)";
@@ -131,15 +132,13 @@ public class AlbumDAO {
 			}
 			
 			ps = conn.prepareStatement(sql);
-			// 테스트를 위해 하드코딩
-			ps.setInt(1, 1);
-//			ps.setInt(1, dto.getAlbumidx());
+			// 테스트를 위해 하드코딩 : ps.setInt(1, 1);
+			ps.setInt(1, dto.getAlbumidx());
 			
 			ps.setString(2, dto.getReplyCont());
 			
-			// 테스트를 위해 하드코딩
-			ps.setString(3, "dbckdgur12");
-//			ps.setString(3, dto.getReplyUser_id());
+			// 테스트를 위해 하드코딩 : ps.setString(3, "dbckdgur12");
+			ps.setString(3, dto.getReplyUser_id());
 			
 			com = ps.executeUpdate() > 0;
 			System.out.println("albumreply insert 성공? 실패? : " + com);
@@ -153,15 +152,15 @@ public class AlbumDAO {
 	}
 	
 	// 댓글 리스트
-	public ArrayList<AlbumDTO> replyList(AlbumDTO dto) {
+	public ArrayList<ReplyDTO> replyList(ReplyDTO dto1) {
 		String sql = "select * from albumreply where albumidx = ? order by replyref desc, replylevel asc";
-		ArrayList<AlbumDTO> list = new ArrayList<>();
+		ArrayList<ReplyDTO> list = new ArrayList<>();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, dto.getAlbumidx());
+			ps.setInt(1, dto1.getAlbumidx());
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				AlbumDTO album = new AlbumDTO();
+				ReplyDTO album = new ReplyDTO();
 				album.setAlbumidx(rs.getInt("albumIdx"));
 				album.setReplyIdx(rs.getInt("replyIdx"));
 				album.setReplyCont(rs.getString("replyCont"));
@@ -180,12 +179,12 @@ public class AlbumDAO {
 	}
 
 	// 댓글 삭제
-	public boolean replyDelete(AlbumDTO dto) {
+	public boolean replyDelete(ReplyDTO dto1) {
 		String sql = 	"delete from albumreply where replyidx = ?";
 		boolean com = false;
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, dto.getReplyIdx());
+			ps.setInt(1, dto1.getReplyIdx());
 			com = ps.executeUpdate() > 0;
 			System.out.println("albumreply delete 성공? 실패? : " + com);
 		}catch(Exception e) {
