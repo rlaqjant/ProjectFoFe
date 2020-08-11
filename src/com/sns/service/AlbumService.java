@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
+import com.sns.dto.ReplyDTO;
 
 public class AlbumService {
 
@@ -102,8 +103,8 @@ public class AlbumService {
 	
 	
 	/* 댓글 작성 */
-	public AlbumDTO reply() {
-		AlbumDTO dto = new AlbumDTO();
+	public ReplyDTO reply() {
+		ReplyDTO dto = new ReplyDTO();
 		try {
 			//dto를 이용하여 댓글 정보 저장
 			dto.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
@@ -111,9 +112,8 @@ public class AlbumService {
 			dto.setReplyRef(req.getParameter("replyRef"));
 			dto.setReplyCont(req.getParameter("replyCont"));
 			
-			// 테스트용
-			dto.setReplyUser_id("dbckdgur12");
-//			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
+			// 테스트용 : dto.setReplyUser_id("dbckdgur12");
+			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
 			
 			System.out.println(dto);
 		}catch(Exception e) {

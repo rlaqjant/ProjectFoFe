@@ -123,6 +123,28 @@ public class FollowService {
 		}
 	}
 
+	public void loadFollowerList() {
+		String loginId = req.getParameter("loginId");
+		FollowDAO dao = new FollowDAO();
+		
+		ArrayList<SearchDTO> arrList = new ArrayList<SearchDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		
+		try {
+			arrList = dao.loadFollowerList(loginId);
+			map.put("arrList", arrList);
+			String obj = gson.toJson(map);
+			System.out.println(obj);
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.getWriter().println(obj);
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+		}
+	}
+
 
 
 }

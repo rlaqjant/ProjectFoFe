@@ -253,4 +253,35 @@ public boolean profileWrite2(ManageDTO dto) {
 		}
 		
 	}
+
+	public boolean profileUpload(HttpServletRequest req, ManageDTO dto) {//프로필 업로드
+		String sql = "INSERT INTO PROFILEPHOTOUP(id, orifilename, newfilename) VALUES(?, ? ,?)";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getOriFileName());
+			ps.setString(3, dto.getNewFileName());
+			
+			if(ps.executeUpdate()>0) {
+				success  = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return success;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

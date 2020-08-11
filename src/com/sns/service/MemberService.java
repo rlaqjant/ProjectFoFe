@@ -1,6 +1,5 @@
 package com.sns.service;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
@@ -20,7 +19,7 @@ public class MemberService {
 		return success;
 	}
 
-	public boolean idCheck(String id) {
+	public String idCheck(String id) {
 		boolean success=false;
 		MemberDAO dao=new MemberDAO();
 		success=dao.idCheck(id);//ID 중복 시 true 반환. 가입 불가/false 시 가입 가능
@@ -29,8 +28,9 @@ public class MemberService {
 		map.put("idCheck", success);
 		Gson gson=new Gson();
 		String obj=gson.toJson(map);
-		System.out.println("service. 가입 가능 여부(false면 가입 가능): "+obj);		
-		return success;
+		System.out.println("service/가입 가능 여부(false면 가입 가능): "+obj+", "+gson);
+		
+		return obj;
 	}
 
 }

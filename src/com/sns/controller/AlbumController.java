@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sns.dao.AlbumDAO;
 import com.sns.dto.AlbumDTO;
+import com.sns.dto.ReplyDTO;
 import com.sns.service.AlbumService;
 
 
-@WebServlet({"/albumupload","/albumlist","/replyList","/albumReply","/replyDel","/replyUpdate"})
+@WebServlet({"/albumupload","/albumlist","/replyList","/albumReply","/AlbumReply","/replyDel","/replyUpdate"})
 public class AlbumController extends HttpServlet {
 	
 	@Override
@@ -63,42 +64,42 @@ public class AlbumController extends HttpServlet {
 			case "/albumlist":
 				service.list();
 				break;
-		
-			//사진첩 댓글 불러오기
-			case "/replyList":
-				System.out.println("replyList 요청");
-				page = "AlbumReply.jsp";
-				dto = new AlbumDTO();
-				dto.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
-				
-				ArrayList<AlbumDTO> replyList = dao.replyList(dto);
-				System.out.println(replyList);
-				req.setAttribute("replyList", replyList);
-				
-				// 댓글 보여줄 페이지에서 사용할 앨범 idx 정보 같이 넘겨줌
-				req.setAttribute("albumIdx", dto.getReplyIdx());
-				req.setAttribute("msg", msg);
-				dis=req.getRequestDispatcher(page);
-				dis.forward(req, resp);
-				break;
 
 			//사진첩 댓글달기
 			case "/albumReply":
 				System.out.println("albumReply 요청");
 				msg = "저장 실패";
-				page = "AlbumReply.jsp";
-				dto = service.reply();
-				if(dto == null) {
+				page = "albumReply.jsp";
+				ReplyDTO dto1 = service.reply();
+				if(dto1 == null) {
 					msg = "에러 발생";
 				} else {
-					if (dao.replyWrite(dto)) {
+					if (dao.replyWrite(dto1)) {
 						msg = "저장 성공";
 					}
 				}
-				System.out.println("[댓글 작성 " + msg + "] " + dto);
+				System.out.println("[댓글 작성 " + msg + "] " + dto1);
 				
 				// 댓글 보여줄 페이지에서 사용할 앨범 idx 정보 같이 넘겨줌
-				req.setAttribute("albumIdx", dto.getReplyIdx());
+				req.setAttribute("albumIdx", dto1.getReplyIdx());
+				req.setAttribute("msg", msg);
+				dis=req.getRequestDispatcher(page);
+				dis.forward(req, resp);
+				break;
+				
+			//사진첩 댓글 불러오기
+			case "/replyList":
+				System.out.println("replyList 요청");
+				page = "albumReply.jsp";
+				dto1 = new ReplyDTO();
+				dto1.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
+				
+				ArrayList<ReplyDTO> replyList = dao.replyList(dto1);
+				System.out.println(replyList);
+				req.setAttribute("replyList", replyList);
+				
+				// 댓글 보여줄 페이지에서 사용할 앨범 idx 정보 같이 넘겨줌
+				req.setAttribute("albumIdx", dto1.getReplyIdx());
 				req.setAttribute("msg", msg);
 				dis=req.getRequestDispatcher(page);
 				dis.forward(req, resp);
@@ -109,9 +110,9 @@ public class AlbumController extends HttpServlet {
 				System.out.println("replyDel 요청");
 				msg = "삭제 실패";
 				page = "AlbumReply.jsp";
-				dto = new AlbumDTO();
-				dto.setReplyIdx(Integer.parseInt(req.getParameter("replyIdx")));
-				if (dao.replyDelete(dto)) {
+				dto1 = new ReplyDTO();
+				dto1.setReplyIdx(Integer.parseInt(req.getParameter("replyIdx")));
+				if (dao.replyDelete(dto1)) {
 					msg = "삭제 성공";
 				}
 				
@@ -122,6 +123,9 @@ public class AlbumController extends HttpServlet {
 				
 			//사진첩 댓글 수정
 			case "/replyUpdate":
+				System.out.println("replyDel 요청");
+				msg = "수정 실패";
+				page = "AlbumReply.jsp";
 				break;
 			}
 	}
