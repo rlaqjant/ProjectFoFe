@@ -212,12 +212,12 @@
                                 <div id="email">조회수</br>${minihome.email}</div>
                             </div>
                             <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
-                            	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="profileView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="diaryView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="albumView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="manageView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="homeView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="profileView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="guestBookView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="manageView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             </div>
                         </div>
                     </div>
@@ -320,6 +320,54 @@
 			$("#profile_messageDetail").append("<input type='text' name='profile_messageEdit' id='profile_messageEditBox' value=''/>");
 			$("input[name='profile_messageBtn']").attr({"onclick":"profile_messageEdit()", "value":"수정"});
 		}
-   		
+
+   		$("#homeBtn").click(function () {
+			$("#homeView").css({"display": "block"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#profileBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "block"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#diaryBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "block"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#albumBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "block"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#guestBookBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "block"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#manageBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "block"});
+		});
    </script>
 </html>

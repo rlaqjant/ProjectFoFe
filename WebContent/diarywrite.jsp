@@ -56,6 +56,7 @@
 	            </table>
             
 	            <div class="complete">
+	            	<input type="hidden" name="homephost" value="${homephost}"/>
 	                <input type="submit" value="완료" style="width: 70px; height: 30px; margin-right: 30px;">
 	            </div>
             </form>

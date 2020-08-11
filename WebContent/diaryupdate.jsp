@@ -66,6 +66,7 @@
                     </td>
                 </tr>
                 <div class="complete">
+                <input type="hidden" name="homephost" value="${diary.id}"/>
                 <input type="submit" id="com" value="완료"/></a>
                 <!-- 완료는 글쓰기 컨트롤러 그대로 타면 안되나?  안된당..ㅎㅎ-->
             	</div>
