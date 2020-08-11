@@ -67,13 +67,13 @@
 	${diary}
 	<div class="diarydetail">
             <table>
-            
+            	<input type="hidden" value="${diary.id}" name="homephost"/>
                 <tr class="a1">
                     <td id="index">${diary.diaryidx}</td>
                     <td id="date">${diary.diaryreg_date}</td>
                     <td id="hit">${diary.diarybhit}</td>
-                    <td id="update"><a href="./diaryUpdate?idx=${diary.diaryidx}">수정</a></td><!--컨트롤러탈때 idx값 넣어보내기  -->
-                    <td id="delete"><a href="./diaryDetailDelete?idx=${diary.diaryidx}">삭제</a></td>
+                    <td id="update" ><a id="detailUpdate" href="./diaryUpdate?idx=${diary.diaryidx}">수정</a></td><!--컨트롤러탈때 idx값 넣어보내기  -->
+                    <td id="delete"><a id="detailDelete" href="./diaryDetailDelete?idx=${diary.diaryidx}">삭제</a></td>
                 </tr>
                 <tr class="a2">
                     <td id="subject" colspan="5"><h3>${diary.diarysubject}</h3></td>
@@ -86,9 +86,32 @@
             </table>
             <div class="list">
                 <!-- <input type="button" name="list" value="목록보기" onclick="location.href='./diaryList.jsp'"> -->
-                <button><a href="./diaryList">목록보기</a></button>
+                <button><a href="diaryList?homephost=${diary.id}">목록보기</a></button>
             </div>
         </div>
 </body>
-<script></script>
+<script>
+var homephostId = $("input[name='homephost']").val();
+minihomeCheck();//미니홈피 주인 확인
+	function minihomeCheck() {
+		$.ajax({
+		type:"get",
+		url:"minihomeCheck",
+		data:{"homephostId": homephostId},
+		dataType:"JSON",
+		success:function(data){ 		
+			if(data.result){ //미니홈피 주인이 맞다면
+				
+			}else{
+				$("#detailUpdate").css({"display":"none"});
+				$("#detailDelete").css({"display":"none"});
+			}
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+</script>
 </html>
