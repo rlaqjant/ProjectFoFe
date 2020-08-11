@@ -213,7 +213,7 @@
                             </div>
                             <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
                             	<iframe id="homeView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="profileView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="guestBookView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
@@ -281,6 +281,7 @@
     			success:function(data){
     				console.log(data.result);    		
     				if(data.result){
+    					alert("팔로우 완료.");
     					$("input[name='followbtn']").attr({"onclick":"unFollow()", "value":"팔로잉", "id":"unFollow"});
     				}else{
     					alert("로그인이 필요합니다.");
