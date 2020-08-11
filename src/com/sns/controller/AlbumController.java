@@ -63,6 +63,7 @@ public class AlbumController extends HttpServlet {
 			
 			case "/albumlist":
 				service.list();
+				
 				break;
 
 			//사진첩 댓글달기
