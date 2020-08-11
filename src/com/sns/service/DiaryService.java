@@ -34,7 +34,7 @@ public class DiaryService {
 		req.setCharacterEncoding("utf-8");
 		String subject = req.getParameter("subject");//넣는애들만 넣을거고 sql에서 자동으로 들어가는 부분따로 그리고 걔네 다 채워서 나중에 글에 다 띄워준다.
 		String content = req.getParameter("content");
-		String page = "diarylist.jsp";//성공해도 실패해도 여기로간다.
+		String page = "/diaryList";//성공해도 실패해도 여기로간다.
 		String msg ="게시글 작성에 실패하였습니다.";
 		if(dao.write(subject,content)) {//1.dao에게 일시키기//2. 받아온값이 true면 
 			
@@ -96,10 +96,49 @@ public class DiaryService {
 		String content = req.getParameter("diarycontent");
 		System.out.println("글수정완료 받아온 파라미터"+idx+subject+content);
 		DiaryDAO dao = new DiaryDAO();
-		dao.complete(idx,subject,content);
+		boolean result = dao.complete(idx,subject,content);
+		String page = "diaryList?diaryidx="+idx;//★정확한 의미를 모르겠다. diaryList라는컨트롤러를 탄다.diaryidx파라미터의 값은 우리가 수정한 글의 idx??그대상이 처음누른 글..
+		String msg = "수정에 실패했습니다.";
+		if(result) {
+			msg="수정에 성공했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 		
-		
-		
+	}
+	//글 삭제 메서드
+	public void delete() throws ServletException, IOException {
+		//보내준파라미터를 받아온다.-> 잘받아왔는지 확인한다.
+		//한글변환이 필요한지 생각한다.
+		//db가 필요한지 생각한다.
+		String[] checkdel =req.getParameterValues("check");//여러개의 파라미터이므로 배열에 담는다.
+		System.out.println("length:"+checkdel.length);
+		DiaryDAO dao = new DiaryDAO();
+		String msg = "삭제에 실패하였습니다.";
+		String page = "/diaryList";
+		if(dao.delete(checkdel)==checkdel.length) {
+			msg="삭제에 성공하였습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	}
+
+	//디테일 창 안에서 삭제하기 
+	public void detaildelete() throws ServletException, IOException {
+		String idx = req.getParameter("idx");
+		System.out.println("디테일 삭제파라미터:"+idx);
+		DiaryDAO dao = new DiaryDAO();
+		boolean result = dao.detaildelete(idx);
+		String page ="/diaryList";
+		String msg="삭제에 실패했습니다.";
+		if(result) {
+			msg = "삭제에 성공했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 	}
 
 	
