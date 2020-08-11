@@ -99,6 +99,23 @@ public class FollowDAO {
 		return arrList;
 	}
 
+	public ArrayList<SearchDTO> loadFollowerList(String loginId) throws SQLException {
+		String sql = "select id,name from member where id in(SELECT Id FROM follow where followid=?)";
+		ArrayList<SearchDTO> arrList = new ArrayList<SearchDTO>();
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, loginId);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			SearchDTO dto = new SearchDTO();
+			dto.setId(rs.getString("Id"));
+			dto.setName(rs.getString("name"));
+			arrList.add(dto);
+		}
+		
+		return arrList;
+	}
+
 
 
 	
