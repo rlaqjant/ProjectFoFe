@@ -35,10 +35,11 @@ public class AlbumService {
 		
 		int maxSize = 10*1024*1024;//사진 용량 제한
 		
-		String root = "C:/";
+		String root = "../MVC_STUDY/ProjectFoFe/";
 		String newFileName = "";
 		String uploadPath = root+"upload";
-		
+		System.out.println(uploadPath);
+		System.out.println(System.getProperty("user.dir"));
 		File dir = new File(uploadPath);
 		if(!dir.exists()) {
 			System.out.println("해당 폴더가 없음, 생성");

@@ -133,7 +133,7 @@
     		console.log(list[i].albumidx);
     		console.log(list[i].albumNewFileName);
     		$('tr').last().append(
-    			"<td><img id='"+list[i].albumidx+"' src='upload/"+list[i].albumNewFileName+"'></td>"		
+    			"<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"'></td>"		
     		);
     	}
     }
