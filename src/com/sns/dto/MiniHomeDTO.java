@@ -2,6 +2,7 @@ package com.sns.dto;
 
 public class MiniHomeDTO {
 	
+	private String id;
 	private String backcolor; 
 	private String minihname; 
 	private String minihintro; 
@@ -9,6 +10,13 @@ public class MiniHomeDTO {
 	private String profilephoto; 
 	private String mainphoto;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getBackcolor() {
 		return backcolor;
 	}

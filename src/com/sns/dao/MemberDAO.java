@@ -78,4 +78,21 @@ public class MemberDAO {
 		return result;
 	}
 
+	public boolean idCheck(String id) {
+		boolean success=false;
+		String sql="select id from member where id=?";
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			rs=ps.executeQuery();
+			success=rs.next();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}		
+		System.out.println("dao/id: "+id+", id 중복 여부: "+success);//ID 중복 시 true 반환
+		return success;
+	}
+
 }

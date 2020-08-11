@@ -108,7 +108,8 @@
                         </div>
                         <div class="information">
                             <span>${msg}</span>
-                            <form action="manageUpload" method="POST" enctype="multipart/form-data">
+                            <span>${newfilename}</span>
+                            <form action="profileUpload" method="POST" enctype="multipart/form-data">
                                 <input type="text" name="title"/>
                                 <input type="file" name="profile"/>
                                 <input type="submit" value="업로드"/>
@@ -121,7 +122,7 @@
                     </div>
                     <div class="information">
                         <span>${msg}</span>
-                        <form action="manageUpload1" method="POST" enctype="multipart/form-data">
+                        <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
                             <input type="text" name="title"/>
                             <input type="file" name="profile1"/>
                             <input type="submit" value="업로드"/>
@@ -139,7 +140,7 @@
                 <div class="input1">
                     <div class="information">
                         <span>${msg}</span>
-                        <form action="manageUpload2" method="POST" enctype="multipart/form-data">
+                        <form action="BgmUpload" method="POST" enctype="multipart/form-data">
                             <input type="text" name="title"/>
                             <input type="file" name="profile2"/>
                             <input type="submit" value="업로드"/>

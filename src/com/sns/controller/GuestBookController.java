@@ -29,13 +29,14 @@ public class GuestBookController extends HttpServlet {
 		String context = req.getContextPath();//context 가져오기
 		String reqAddr = uri.substring(context.length());
 		
-		GuestBookService service = new GuestBookService();
+		GuestBookService guestBookService = new GuestBookService();
 		
 		RequestDispatcher dis = null;
 		
 		switch (reqAddr) {
 		case "/guestBookList":
-			
+			String homephost = req.getParameter("homephost");
+			System.out.println("방명록 띄울 미니홈피 주인 아이디 : "+homephost);
 			break;
 
 		case "/guestbookWright":

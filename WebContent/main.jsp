@@ -23,24 +23,34 @@
 
             /*검색창*/
             .search{min-width:1230px; text-align:center;}
-            #srch{width:400px; height:50px; padding:5px; border-radius:30px; color:#5aad01; font-size: 12pt; font-weight: bold; box-shadow:0px 3px 3px 2px #d3fdb8;
+            #srch{width:400px; padding:5px; border-radius:30px; color:#5aad01; font-size: 12pt; font-weight: bold; box-shadow:0px 3px 3px 2px #d3fdb8;
             border: 1px solid #d6ffab; background-image:url(); background-repeat: no-repeat; padding: 5px;}
             #srch:focus {outline:none;}
             #srch:hover {border: 4px solid #d3fdb8;}
             #srch::placeholder {color: #9bdf53; text-align:center;}
 
             /*친구목록*/
-            .friends_po{width: 100%; min-width:1230px; text-align: center;}
-            .friends{width: 100%; height:300px; text-align: center; border-collapse: collapse;}
-            .friendsPhoto{width: 300px; height: 300px; text-align:center;}
+            .friends_po{position: relative; top: 10px; width: 500px;  margin: 0 auto;}
+            .followingFriends{position: absolute; border: 1px solid; width: 500px; top: 40px; display: block;}
+            .followerFriends{position: absolute; border: 1px solid; width: 500px; top: 40px; display: none;}
             .ImgRadius{max-width: 300px; max-height: 300px; border-radius:30px;}
             td{max-width: 300px; max-height: 300px;}
-            .friendName :link{color: #5aad01; text-decoration:none;}
-            .friendName :visited{color: #5aad01;}
-            .friendName :hover{color: #3b7200;}
-            .friendName :active{color: #5aad01;}
             .photo{cursor: pointer;}
-
+			#following{
+			position: absolute;
+			height: 30px;
+			width: 200px;
+			background-color: green;
+			font-weight: 700;
+			}
+			#follower{
+			position: absolute;
+			height: 30px;
+			width: 200px;
+			background-color: green;
+			left: 300px;
+			font-weight: 400;
+			}
             /*웹폰트 : 적용은 안됨. 추후 시간나면 하려고 형식만 일단 가져옴.*/
             @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
             body { font: 17px 'Nanum Gothic', sans-serif; }
@@ -52,6 +62,7 @@
         </style>
     </head>
     <body >
+    	<input type="hidden" name="loginId" value="${loginId}"/> <!-- 로그인된 아이디 확인용 히든 -->
         <!--전체 감싸기-->
         <!--1페이지-->
         <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0;">
@@ -82,24 +93,12 @@
 
                 <!--친구목록-->
                 <div class="friends_po">
-                    <table class="friends">
-                        <!--사진/이름 2행 4열-->
-                        <tr class="friendsPhoto">
-                            <td style="width: 300px;"></td>
-                            <td><img class="ImgRadius" src="images/pengsoo.jpg" alt="" class="photo"></td>
-                            <td><img class="ImgRadius" src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img class="ImgRadius" src="images/UI 컨셉.jpg" alt="" class="photo"></td>
-                            <td><img class="ImgRadius" src="images/pengsoo.jpg" alt="" class="photo"></td>                 
-                            <td style="width: 300px;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 300px;"></td>
-                            <td class="friendName"><a href="">친구 1</a></td>
-                            <td class="friendName"><a href="">친구 2</a></td>
-                            <td class="friendName"><a href="">친구 3</a></td>
-                            <td class="friendName"><a href="">친구 4</a></td>
-                            <td style="width: 300px;"></td>
-                        </tr>
+                	<div id="following" onclick="followingView()">팔로잉</div><div id="follower" onclick="followerView()">팔로워</div>
+                    <table class="followingFriends">
+
+                    </table>
+                    <table class="followerFriends">
+
                     </table>
                 </div>
 
@@ -110,27 +109,81 @@
             </div>
         </div>
 
-        <!--2페이지-->
-        <div style="width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background-color: #e8ffdf;">
-            <a id="ScreenB">내가 팔로우한 친구 목록 더보기 창</a>
-        </div>
-
 
     </body>
     <script>
-        /*친구목록*/
-        //사진
-        $(".photo").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
-        //사용자이름
-        $(".friendName").hover(function(){
-            $(this).fadeTo("fast",0.6);
-        }, function(){
-            $(this).fadeTo("slow",1);
-        });
+    	loadFollowList ();
+    	loadFollowerList();
+    	function loadFollowList () { //팔로우 리스트 불러오기
+    		var loginId = $("input[name='loginId']").val();
+    		$.ajax({
+    			type:"get",
+    			url:"loadFollowList",
+    			data:{"loginId":loginId},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data);
+    				$(".followingFriends").empty();
+    				for (var i = 0; i < data.arrList.length; i++) {
+    					var id = data.arrList[i].id;
+    					var name = data.arrList[i].name;
+    					
+    					$(".followingFriends").append("<tr>"
+    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
+    				            +"<td>"+name+"</td>"
+    				            +"</tr>");
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+    	function loadFollowerList () { //팔로워 리스트 불러오기
+    		var loginId = $("input[name='loginId']").val();
+    		$.ajax({
+    			type:"get",
+    			url:"loadFollowerList",
+    			data:{"loginId":loginId},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data);
+    				$(".followerFriends").empty();
+    				for (var i = 0; i < data.arrList.length; i++) {
+    					var id = data.arrList[i].id;
+    					var name = data.arrList[i].name;
+    					
+    					$(".followerFriends").append("<tr>"
+    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
+    				            +"<td>"+name+"</td>"
+    				            +"<td><input type='button' value='"+id+"' class='unfollowBtn'/></td>"
+    				            +"</tr>");
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+    	
+    	function followingView() {//팔로우 목록 보기
+    		$(".followingFriends").css({"display":"block"});
+    		$(".followerFriends").css({"display":"none"});
+    		$("#following").css({"font-weight":"700"});
+    		$("#follower").css({"font-weight":"400"});
+		}
+		function followerView() {//팔로워 목록 보기
+			$(".followingFriends").css({"display":"none"});
+    		$(".followerFriends").css({"display":"block"});
+    		$("#following").css({"font-weight":"400"});
+    		$("#follower").css({"font-weight":"700"});
+		}
+
+		$(".unfollowBtn").click(function () {
+			var a = $(this);
+			console.log(a);
+		})
+		
       //친구 검색, 불러오기
     	$("#srchBtn").click(function () {
     		var srchName = $("input[name='srchName']").val();
@@ -147,12 +200,14 @@
     					alert("친구가 없어요");
     				}else{
     					$("#searchResult").empty();
+    					
     					for (var i = 0; i < data.arrList.length; i++) {
         					var id = data.arrList[i].id;
         					var name = data.arrList[i].name;
         					
+        					
         					$("#searchResult").append("<tr>"
-        				            +"<td><a href='loadMinihome?id="+id+"'>"+id+"</a></td>"
+        				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
         				            +"</tr>");
         				}
@@ -168,5 +223,11 @@
     	$(".logo").click(function () {
     		$("#searchResult").empty();
 		})
+		
+		var msg="${msg}";
+		if(msg!=""){
+			alert(msg);	
+		}
+		
     </script>
 </html>

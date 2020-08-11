@@ -92,7 +92,7 @@
     <script>
     	//친구 검색, 불러오기
     	$("#srchBtn").click(function () {
-    		var srchName = $("input[name='srchName']").val();
+    		var srchName = $("input[name='srchText']").val();
     		console.log("srchName : "+srchName);
     		
     		$.ajax({
@@ -111,7 +111,7 @@
         					var name = data.arrList[i].name;
         					
         					$("#searchResult").append("<tr>"
-        				            +"<td><a href='loadMinihome?id="+id+"'>"+id+"</a></td>"
+        				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
         				            +"</tr>");
         				}

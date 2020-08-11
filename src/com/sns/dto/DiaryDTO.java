@@ -9,6 +9,8 @@ public class DiaryDTO {
 	private String diarycontent;
 	private int diarybhit;
 	private String diaryreg_date;
+	private String[] checkdel;
+	
 	
 	
 	
@@ -48,6 +50,13 @@ public class DiaryDTO {
 	}
 	public void setDiarycontent(String diarycontent) {
 		this.diarycontent = diarycontent;
+	}
+	
+	public String[] getCheckdel() {
+		return checkdel;
+	}
+	public void setCheckdel(String[] checkdel) {
+		this.checkdel = checkdel;
 	}
 
 	

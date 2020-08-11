@@ -13,4 +13,11 @@ public class MiniHomeService {
 		
 	}
 
+	public boolean followCheck(String homephostId, String loginId) {
+		
+		MiniHomeDAO dao = new MiniHomeDAO();
+		return dao.followCheck(homephostId, loginId);
+		
+	}
+
 }
