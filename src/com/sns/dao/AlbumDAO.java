@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.sns.dto.AlbumDTO;
+import com.sns.dto.ReplyDTO;
 
 public class AlbumDAO {
 	Connection conn = null;
@@ -72,31 +73,24 @@ public class AlbumDAO {
 		return com;
 	}
 
-	public ArrayList<AlbumDTO> list() {
-		String sql = "select albumidx from album";
-		AlbumDTO dto = null;
+	public ArrayList<AlbumDTO> list(int page) {
+		
+		int pagecnt = 9;//페이지 내의 게시물 갯수
+		int end = page * pagecnt;
+		int start = (end-pagecnt)+1;
+		String sql = "select  rnum,albumidx, albumnewfilename from "+
+				"(select row_number() over(order by albumidx desc) as rnum,albumidx, albumnewfilename from albumupfile) where rnum between ? and ?";
 		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				dto = new AlbumDTO();
+				AlbumDTO dto = new AlbumDTO();
 				dto.setAlbumidx(rs.getInt("albumidx"));
-				System.out.println("idx 값 : " + rs.getInt("albumidx"));
-				sql = "select albumnewfilename from albumupfile where albumidx=?";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, dto.getAlbumidx());
-				ResultSet rs2 = ps.executeQuery();
-				while(rs2.next()) {
-					if(rs.getString("albumnewfilename") == null) {
-						dto.setAlbumNewFileName("noneimage.png");
-					}else {
-						dto.setAlbumNewFileName(rs.getString("albumnewfilename"));
-					}
-					
-					System.out.println("의 사진 이름 : "+rs.getString("albumnewfilename"));
-				}
+				dto.setAlbumNewFileName(rs.getString("albumnewfilename"));
 				list.add(dto);
 			}
 		}catch(Exception e) {
@@ -109,7 +103,7 @@ public class AlbumDAO {
 
 	
 	/* 사진첩 댓글 작성 */
-	public boolean replyWrite(AlbumDTO dto) {
+	public boolean replyWrite(ReplyDTO dto) {
 		// 길어서 자름
 		String sql = 	"insert into albumreply(replyidx, albumidx, replylevel, replyref, replycont, replyUser_id) ";
 		sql += 			" values(replyIdx_seq.NEXTVAL,?,||REPLYLEVEL||,||REPLYREF||,?,?)";
@@ -131,15 +125,13 @@ public class AlbumDAO {
 			}
 			
 			ps = conn.prepareStatement(sql);
-			// 테스트를 위해 하드코딩
-			ps.setInt(1, 1);
-//			ps.setInt(1, dto.getAlbumidx());
+			// 테스트를 위해 하드코딩 : ps.setInt(1, 1);
+			ps.setInt(1, dto.getAlbumidx());
 			
 			ps.setString(2, dto.getReplyCont());
 			
-			// 테스트를 위해 하드코딩
-			ps.setString(3, "dbckdgur12");
-//			ps.setString(3, dto.getReplyUser_id());
+			// 테스트를 위해 하드코딩 : ps.setString(3, "dbckdgur12");
+			ps.setString(3, dto.getReplyUser_id());
 			
 			com = ps.executeUpdate() > 0;
 			System.out.println("albumreply insert 성공? 실패? : " + com);
@@ -153,15 +145,15 @@ public class AlbumDAO {
 	}
 	
 	// 댓글 리스트
-	public ArrayList<AlbumDTO> replyList(AlbumDTO dto) {
+	public ArrayList<ReplyDTO> replyList(ReplyDTO dto1) {
 		String sql = "select * from albumreply where albumidx = ? order by replyref desc, replylevel asc";
-		ArrayList<AlbumDTO> list = new ArrayList<>();
+		ArrayList<ReplyDTO> list = new ArrayList<>();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, dto.getAlbumidx());
+			ps.setInt(1, dto1.getAlbumidx());
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				AlbumDTO album = new AlbumDTO();
+				ReplyDTO album = new ReplyDTO();
 				album.setAlbumidx(rs.getInt("albumIdx"));
 				album.setReplyIdx(rs.getInt("replyIdx"));
 				album.setReplyCont(rs.getString("replyCont"));
@@ -180,12 +172,12 @@ public class AlbumDAO {
 	}
 
 	// 댓글 삭제
-	public boolean replyDelete(AlbumDTO dto) {
+	public boolean replyDelete(ReplyDTO dto1) {
 		String sql = 	"delete from albumreply where replyidx = ?";
 		boolean com = false;
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, dto.getReplyIdx());
+			ps.setInt(1, dto1.getReplyIdx());
 			com = ps.executeUpdate() > 0;
 			System.out.println("albumreply delete 성공? 실패? : " + com);
 		}catch(Exception e) {
@@ -194,6 +186,28 @@ public class AlbumDAO {
 			Close();
 		}
 		return com;
+	}
+	
+	public int listcnt() {
+		String sql = "select count(albumidx) from albumupfile";
+		int pagecnt = 9;
+		int allcnt = 0;
+		try {
+			int p=0;
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				p = (int) rs.getLong(1);
+			}
+			if((p%pagecnt)>=0 && (p%pagecnt)<=8) {
+				allcnt = (p/pagecnt)+1;
+			}else {
+				allcnt = p/pagecnt;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return allcnt;
 	}
 
 }

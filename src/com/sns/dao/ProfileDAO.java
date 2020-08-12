@@ -71,14 +71,15 @@ public class ProfileDAO {
 	}
 
 	public ProfileDTO profileDetail(String id) {
-		String sql="select nickname, myBirth, blood, addr, major, seduWay, motto, fMovie from profile where id=?";
+		String sql="select id, nickname, myBirth, blood, addr, major, seduWay, motto, fMovie from profile where id=?";
 		ProfileDTO dto=null;
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, id);
-			rs=ps.executeQuery();			
+			rs=ps.executeQuery();	
 			if(rs.next()) {
 				dto=new ProfileDTO();
+				dto.setId(rs.getString("id"));
 				dto.setNickname(rs.getString("nickname"));
 				dto.setMyBirth(rs.getString("myBirth"));
 				dto.setBlood(rs.getString("blood"));
@@ -88,7 +89,6 @@ public class ProfileDAO {
 				dto.setMotto(rs.getString("motto"));
 				dto.setfMovie(rs.getString("fMovie"));
 			}
-			System.out.println("여기가 문제일까");			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

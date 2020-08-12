@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sns.service.FollowService;
 
 
-@WebServlet({"/memberSearch", "/loadFollowList", "/follow", "/unFollow" })
+@WebServlet({"/memberSearch", "/loadFollowList", "/loadFollowerList", "/follow", "/unFollow"})
 public class FollowController extends HttpServlet {
 
 	@Override
@@ -40,6 +40,11 @@ public class FollowController extends HttpServlet {
 			case "/loadFollowList":
 			System.out.println("팔로우 목록 가져오기");
 			followService.loadFollowList();
+			break;
+			
+			case "/loadFollowerList":
+			System.out.println("팔로워 목록 가져오기");
+			followService.loadFollowerList();
 			break;
 			
 			case "/follow":

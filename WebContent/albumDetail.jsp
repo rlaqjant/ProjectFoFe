@@ -130,6 +130,7 @@
 				dataType:'HTML',
 				success:function(result){
 					console.log(result);
+					console.log("댓글 리스트 조회 성공");
 					// 댓글 리스트 갱신
 					$("#replyDiv").html(result);
 				},
@@ -140,6 +141,7 @@
 			});
 		}
 		
+		//댓글 삭제
 		var replyDelete = function(replyIdx){
 			$.ajax({
 				type:'get',
