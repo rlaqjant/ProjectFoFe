@@ -103,4 +103,42 @@ public class MiniHomeDAO {
 		
 	}
 
+	public boolean minihomeNameEdit(String homephostId, String minihome_nameEdit) {
+		String sql="UPDATE minihmain SET minihname = ? WHERE id=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, minihome_nameEdit);
+			ps.setString(2, homephostId);
+			if(0<ps.executeUpdate()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;
+	}
+
+	public boolean profileMessageEdit(String homephostId, String profile_messageEdit) {
+		String sql="UPDATE minihmain SET minihintro = ? WHERE id=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, profile_messageEdit);
+			ps.setString(2, homephostId);
+			if(0<ps.executeUpdate()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;
+	}
+
 }

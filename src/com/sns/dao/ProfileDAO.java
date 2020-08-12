@@ -28,37 +28,6 @@ public class ProfileDAO {
 		}
 	}
 	
-	public boolean profileWrite(String id, String nickname, String myBirth, String blood, String addr, String major,
-			String seduWay, String motto, String fMovie) {
-		boolean success=false;
-		System.out.println("1 로딩이 너무 기네");
-		String sql="insert into profile(id, nickname, myBirth, blood, addr, major, seduWay, motto, fMovie) values(?,?,?,?,?,?,?,?,?)";
-		try {
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, id);
-			ps.setString(2, nickname);
-			ps.setString(3, myBirth);
-			ps.setString(4, blood);
-			ps.setString(5, addr);
-			ps.setString(6, major);
-			ps.setString(7, seduWay);
-			ps.setString(8, motto);
-			ps.setString(9, fMovie);
-			System.out.println("2 로딩이 너무 기네");
-			int result=ps.executeUpdate();
-			System.out.println("성공 여부: "+result);
-			if(result>0) {
-				success=true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			success=false;
-		}finally {
-			resClose();
-		}		
-		System.out.println("3 로딩이 너무 기네");
-		return success;
-	}
 
 	private void resClose() {
 		try {

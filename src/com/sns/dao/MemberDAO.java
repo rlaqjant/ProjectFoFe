@@ -39,9 +39,21 @@ public class MemberDAO {
 			int success=ps.executeUpdate();
 			if(success>0) {
 				result=true;
+				sql="insert into minihmain(id, backcolor, minihname, minihintro) values(?,?,?,?)";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				ps.setString(2, "green");
+				ps.setString(3, name+"의 미니홈피 입니다.");
+				ps.setString(4, name+"의 미니홈피에 오신것을 환영합니다.");
+				ps.executeUpdate();
+				sql="insert into profile(id) values(?)";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				ps.executeUpdate();
 			}else {
 				result=false;
 			}			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			result=false;
