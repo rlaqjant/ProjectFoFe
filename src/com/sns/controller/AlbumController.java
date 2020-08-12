@@ -16,7 +16,7 @@ import com.sns.dto.ReplyDTO;
 import com.sns.service.AlbumService;
 
 
-@WebServlet({"/albumupload","/albumlist","/replyList","/albumReply","/AlbumReply","/replyDel","/replyUpdate"})
+@WebServlet({"/albumupload","/albumlist","/albumdetail","/albumdel","/replyList","/albumReply","/AlbumReply","/replyDel","/replyUpdate"})
 public class AlbumController extends HttpServlet {
 	
 	@Override
@@ -40,7 +40,7 @@ public class AlbumController extends HttpServlet {
 		req.getSession().setAttribute("loginId", "tester");//로그인 구현한게 아니여서 임의로 넣어준 것. 세션에 저장
 		req.setCharacterEncoding("UTF-8");
 		
-		AlbumService service = new AlbumService(req);
+		AlbumService service = new AlbumService(req, resp);
 		AlbumDAO dao = new AlbumDAO();
 		
 		String msg = "";
@@ -49,7 +49,6 @@ public class AlbumController extends HttpServlet {
 		switch(url) {
 			//사진 업로드
 			case "/albumupload":
-
 			msg = "저장 실패";
 			page = "Albumlist.jsp";
 			dao = new AlbumDAO();
@@ -61,7 +60,26 @@ public class AlbumController extends HttpServlet {
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			break;
-
+			
+			case "/albumlist":
+				service.list();
+				break;
+			
+			case "/albumdetail":
+				service.detail();
+				break;
+			
+			case "/albumdel":
+				boolean success = service.del();
+				String delmsg = "삭제 실패";
+				if(success) {
+					delmsg = "삭제 성공";
+				}
+				req.setAttribute("msg", msg);
+				dis=req.getRequestDispatcher("Albumlist.jsp");
+				dis.forward(req, resp);
+				break;
+				
 			//사진첩 댓글달기
 			case "/albumReply":
 				System.out.println("albumReply 요청");

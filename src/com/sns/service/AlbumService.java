@@ -1,16 +1,12 @@
 package com.sns.service;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
@@ -21,9 +17,9 @@ import com.sns.dto.ReplyDTO;
 public class AlbumService {
 
 	HttpServletRequest req = null;
-	HttpServletRequest resp = null;
+	HttpServletResponse resp = null;
 	
-	public AlbumService(HttpServletRequest req) {
+	public AlbumService(HttpServletRequest req,HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 	}
@@ -33,10 +29,11 @@ public class AlbumService {
 		
 		int maxSize = 10*1024*1024;//사진 용량 제한
 		
-		String root = "C:/";
+		String root = "../MVC_STUDY/ProjectFoFe/";
 		String newFileName = "";
 		String uploadPath = root+"upload";
-		
+		System.out.println(uploadPath);
+		System.out.println(System.getProperty("user.dir"));
 		File dir = new File(uploadPath);
 		if(!dir.exists()) {
 			System.out.println("해당 폴더가 없음, 생성");
@@ -69,7 +66,6 @@ public class AlbumService {
 			File oldName = new File(uploadPath+"/"+oriFileName);
 			File newName = new File(uploadPath+"/"+newFileName);
 			oldName.renameTo(newName);
-			makeThum(uploadPath, newFileName,ext);
 			dto.setAlbumOriFileName(oriFileName);
 			System.out.println(dto.getAlbumOriFileName());
 			dto.setAlbumNewFileName(newFileName);
@@ -80,41 +76,40 @@ public class AlbumService {
 		}
 		return dto;
 	}
-	
-	@SuppressWarnings("deprecation")
-	public void makeThum(String uploadPath, String newFileName, String ext) {
-		
-		int width = 170;
-		int height = 170;
-		System.out.println(uploadPath+"/"+newFileName);
-		File oriFile = new File(uploadPath+"/"+newFileName);
-		File thum = new File(uploadPath+"/thum_"+newFileName);
-		System.out.println(uploadPath+"/thum_"+newFileName);
-		Image src = null;
-		try {
-			BufferedImage im = ImageIO.read(oriFile);
-			if(ext.equals("bmp") || ext.equals("png") || ext.equals("gif")) {
-				src = ImageIO.read(oriFile);
-			}else {
-				src = new ImageIcon(oriFile.toURL()).getImage();
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 
-	public String list() {
+
+	public void list() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		int page = Integer.parseInt(req.getParameter("page"));
+		System.out.println();
 		Gson gson = new Gson();
-		
+		ArrayList<AlbumDTO> list = null;
 		AlbumDAO dao = new AlbumDAO();
-		map.put("list", dao.list());
+		int allcnt = dao.listcnt();
+		list = dao.list(page);
+		map.put("list", list);
+		if(page == 1) {map.put("allcnt", allcnt);}
 		String obj = gson.toJson(map);
-		
-		return obj;
+		System.out.println(obj);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(obj);
 	}
 
+	public void detail() throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
+		System.out.println("받아온 idx : "+req.getParameter("albumidx"));
+		int albumidx = Integer.parseInt(req.getParameter("albumidx"));
+		System.out.println(albumidx);
+		AlbumDAO dao = new AlbumDAO();
+		list = dao.detail(albumidx);
+		map.put("list",list);
+		Gson gson = new Gson();
+		String obj = gson.toJson(map);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(obj);
+		
+	}
 	
 	
 	/* 댓글 작성 */
@@ -138,6 +133,35 @@ public class AlbumService {
 		
 		return dto;
 	}
+
+	public boolean del() {
+		AlbumDAO dao = new AlbumDAO();
+		int albumidx = Integer.parseInt(req.getParameter("albumidx"));
+		System.out.println("detail에서 받아온 idx 값 : "+ albumidx);
+		String newfilename = dao.getfilename(albumidx);
+		System.out.println(newfilename);
+		dao = new AlbumDAO();
+		int replycom = dao.albumreplydel(albumidx);
+		int albumfilecom = 0;
+		albumfilecom = dao.albumfiledel(albumidx);
+		if(!newfilename.equals("noneimage.png")) {
+			boolean filedel = false;
+			String path = "C:/MVC_STUDY/ProjectFoFe/upload/";
+			File file = new File(path+newfilename);
+			if(file.exists()) {
+				filedel = file.delete();
+				System.out.println(filedel);
+			}
+		}
+		int albumcom = dao.albumdel(albumidx);
+		boolean delsuccess = false;
+		
+		if(replycom >=0 && albumcom>0 && albumfilecom>0) {
+			delsuccess = true;
+		}
+		return delsuccess;
+	}
+
 	
 	
 	

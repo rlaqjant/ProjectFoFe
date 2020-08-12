@@ -186,6 +186,11 @@
 			});
 		}
 		
+		$("#x_close").click(function(){
+			$("#dark").css("display","none");
+		});
+		
+		$("#")
 		
 	</script>
 </html>

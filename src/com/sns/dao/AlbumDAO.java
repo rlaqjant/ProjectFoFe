@@ -29,11 +29,16 @@ public class AlbumDAO {
 		}
 	}
 
-	public void Close() {
+	public void close() {
 		try {
 			if(rs != null) {rs.close();}
 			if(ps != null) {ps.close();}
 			if(conn != null) {conn.close();}
+			//System.out.println("자원반납");
+			//System.out.println("conn : "+conn);
+			//System.out.println("rs : "+rs);
+			//System.out.println("ps : "+ps);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -68,42 +73,35 @@ public class AlbumDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			Close();
+			close();
 		}
 		return com;
 	}
 
-	public ArrayList<AlbumDTO> list() {
-		String sql = "select albumidx from album";
-		AlbumDTO dto = null;
+	public ArrayList<AlbumDTO> list(int page) {
+		
+		int pagecnt = 9;//페이지 내의 게시물 갯수
+		int end = page * pagecnt;
+		int start = (end-pagecnt)+1;
+		String sql = "select  rnum,albumidx, albumnewfilename from "+
+				"(select row_number() over(order by albumidx desc) as rnum,albumidx, albumnewfilename from albumupfile) where rnum between ? and ?";
 		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				dto = new AlbumDTO();
+				AlbumDTO dto = new AlbumDTO();
 				dto.setAlbumidx(rs.getInt("albumidx"));
-				System.out.println("idx 값 : " + rs.getInt("albumidx"));
-				sql = "select albumnewfilename from albumupfile where albumidx=?";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, dto.getAlbumidx());
-				ResultSet rs2 = ps.executeQuery();
-				while(rs2.next()) {
-					if(rs.getString("albumnewfilename") == null) {
-						dto.setAlbumNewFileName("noneimage.png");
-					}else {
-						dto.setAlbumNewFileName(rs.getString("albumnewfilename"));
-					}
-					
-					System.out.println("의 사진 이름 : "+rs.getString("albumnewfilename"));
-				}
+				dto.setAlbumNewFileName(rs.getString("albumnewfilename"));
 				list.add(dto);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			Close();
+			close();
 		}
 		return list;
 	}
@@ -146,7 +144,7 @@ public class AlbumDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			Close();
+			close();
 		}
 		return com;
 	}
@@ -173,7 +171,7 @@ public class AlbumDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			Close();
+			close();
 		}
 		return list;
 	}
@@ -190,9 +188,117 @@ public class AlbumDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			Close();
+			close();
 		}
 		return com;
+	}
+	
+	public int listcnt() {
+		String sql = "select count(albumidx) from albumupfile";
+		int pagecnt = 9;
+		int allcnt = 0;
+		try {
+			int p=0;
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				p = (int) rs.getLong(1);
+			}
+			if((p%pagecnt)>=0 && (p%pagecnt)<=8) {
+				allcnt = (p/pagecnt)+1;
+			}else {
+				allcnt = p/pagecnt;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return allcnt;
+	}
+
+	public ArrayList<AlbumDTO> detail(int albumidx) {
+		String sql = "select a.albumcontent, b.albumnewfilename from album a, albumupfile b where a.albumidx=? and b.albumidx=?";
+		AlbumDTO dto = new AlbumDTO();
+		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
+		try {
+			System.out.println(sql);
+			System.out.println(albumidx);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, albumidx);
+			ps.setInt(2, albumidx);
+			
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				dto.setAlbumcontent(rs.getString("albumcontent"));
+				dto.setAlbumNewFileName(rs.getString("albumnewfilename"));
+				dto.setAlbumidx(albumidx);
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return list;
+		
+	}
+
+	public String getfilename(int albumidx) {
+		String sql = "select albumnewfilename from albumupfile where albumidx=?";
+		String newfilename = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, albumidx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				newfilename = rs.getString("albumnewfilename");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return newfilename;
+	}
+
+	public int albumreplydel(int albumidx) {
+		String sql = "delete from albumreply where albumidx=?";
+		int success =0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, albumidx);
+			success = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+	public int albumdel(int albumidx) {
+		String sql = "delete from album where albumidx=?";
+		int success = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, albumidx);
+			success = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return success;
+	}
+
+	public int albumfiledel(int albumidx) {
+		String sql = "delete from albumupfile where albumidx=?";
+		int success = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, albumidx);
+			success = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 }

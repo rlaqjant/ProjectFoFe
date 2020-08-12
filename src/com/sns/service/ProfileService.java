@@ -21,16 +21,9 @@ public class ProfileService {
 		this.resp=resp;
 	}
 
-	//프로필 작성
-	public boolean profileWrite(String id, String nickname, String myBirth, String blood, String addr, String major, String seduWay, String motto, String fMovie) throws IOException {
-		ProfileDAO dao=new ProfileDAO();
-		boolean success=dao.profileWrite(id, nickname, myBirth, blood, addr, major, seduWay, motto, fMovie);
-		return success;
-	}
-
 	//프로필 상세보기
 	public void profileDetail() throws ServletException, IOException {
-		String id=(String) req.getSession().getAttribute("id");
+		String id= req.getParameter("homephost");
 		System.out.println("디테일. 세션 아이디: "+id);
 		ProfileDAO dao=new ProfileDAO();
 		req.setAttribute("Profile", dao.profileDetail(id));
@@ -40,8 +33,8 @@ public class ProfileService {
 
 	public void profileUpdateForm() throws ServletException, IOException {
 		ProfileDAO dao=new ProfileDAO();
-		String id=(String) req.getSession().getAttribute("id");
-		System.out.println("업데이트폼. 세션 아이디: "+id);
+		String id=req.getParameter("id");
+		System.out.println("업데이트폼. 아이디: "+id);
 		ProfileDTO dto=dao.profileDetail(id);
 		req.setAttribute("Profile", dto);
 		RequestDispatcher rd=req.getRequestDispatcher("ProfileUpdate.jsp");
@@ -50,7 +43,7 @@ public class ProfileService {
 
 	public void profileUpdate() throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String id=(String) req.getSession().getAttribute("id");
+		String id=req.getParameter("homephost");
 		String nickname=req.getParameter("nickname");
 		String myBirth=req.getParameter("myBirth");
 		String blood=req.getParameter("blood");
@@ -62,7 +55,7 @@ public class ProfileService {
 		System.out.println("수정폼 입력값: 아이디="+id+", 영화="+fMovie+" 여기가 문제였네");
 		
 		ProfileDAO dao=new ProfileDAO();
-		String page="profileDetail?id="+id;
+		String page="profileDetail?homephost="+id;
 		String msg="수정에 실패했습니다.";
 		if(dao.profileUpdate(id, nickname, myBirth, blood, addr, major, seduWay, motto, fMovie)) {
 			msg="수정에 성공했습니다.";

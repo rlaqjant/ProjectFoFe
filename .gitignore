@@ -5,3 +5,4 @@ build/
 WebContent/META-INF/
 WebContent/WEB-INF/lib/
 bin/
+upload/

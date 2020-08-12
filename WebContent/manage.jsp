@@ -89,10 +89,13 @@
                 </div>
                 <div class="input1">
                     <div id="choice">
-                        <div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
-                        <div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
-                        <div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
-                        <div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
+	                	<form action="backgrounduplolad" method="POST">
+	                        <div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
+	                        <div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
+	                        <div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
+	                        <div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
+	                        <input type="submit" value="업로드"/>
+	                    </form>
                     </div>
                 </div>
                 
@@ -124,7 +127,7 @@
                         <span>${msg}</span>
                         <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
                             <input type="text" name="title"/>
-                            <input type="file" name="profile1"/>
+                            <input type="file" name="mainPhoto"/>
                             <input type="submit" value="업로드"/>
                         </form>
                     </div>
@@ -142,7 +145,7 @@
                         <span>${msg}</span>
                         <form action="BgmUpload" method="POST" enctype="multipart/form-data">
                             <input type="text" name="title"/>
-                            <input type="file" name="profile2"/>
+                            <input type="file" name="BGM"/>
                             <input type="submit" value="업로드"/>
                         </form>
                     </div>
