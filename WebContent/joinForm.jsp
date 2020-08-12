@@ -26,7 +26,7 @@
                 color: blanchedalmond;
                 width: 200px;
                 height: 40px;
-                margin: 35px;
+                margin: 10px;
             }
             #jointitle{
                 font-size: 20px;
@@ -43,7 +43,12 @@
                	margin-left: auto;
                	margin-right: auto;
             }
-           
+           	#checkMessage{
+           		width: 200px;
+           		height: 8px;
+           		font-size: 7px;
+           		margin-bottom: 5px;
+           	}
             #sidelogo{
                 position: absolute;
                 top: 30%;
@@ -54,7 +59,6 @@
                 width: 100%;
                 height: 100%;
                 background-image: url(#);
-
             }
             #x{
                 position: absolute;
@@ -68,37 +72,41 @@
             	height: 50px;
          		text-align: center;
             }
+            .forMargin{
+            	margin-bottom: 10px;
+            }
         </style>
     </head>
     <body>
         <div id="sidelogo"><img  src="images/로고.png" /></div>
-            <!-- <img id="x" src="images/x.png"> -->
-			<div id="jointitle" style="font-size: 40px;"><h2>회원가입</h2></div>
-	        <form action="join" method="post">
-	            <div id="join">
-	                <!--아이디 부분은 중복확인을 위해 따로 데이터전송을 해줘야하므로
-	                    그 부분은 추후에 추가-->
-		            <div id="joinchild">                      
-	                    아이디<br/>
-	                    <input type="text" placeholder="아이디" value="${checkingId}" name="id" style="width:190px; height:30px" ;/>
-	                    <input type="button" id="idCheck" value="중복확인" style="text-align:center; width:100px; height:30px";/><br/> 
-	                    비밀번호<br/>
-	                    <input type="password" placeholder="비밀번호(8~32자리)" name="pw" style="width:298px; height:30px"; /><br/>
-	                    전화번호<br/>
-	                    <input type="text" placeholder="10-0000-0000" name="phone" style="width:298px; height:30px";/><br/>
-	                    이름<br/>
-	                    <input type="text" placeholder="이름을 입력해주세요" name="name" style="width:298px; height:30px";/><br/>
-	                    이메일<br/>
-	                    <input type="text" placeholder="이메일을 입력해주세요" name="email" style="width:298px; height:30px";/><br/> 
-	                    <div id="makeJoinbuttonCenter">                
-	                    	<input id="joinbutton" type="submit" value="회원가입"> 
-	                    </div> 
-                    </div>                 
-	            </div>
-	        </form>
+           <!-- <img id="x" src="images/x.png"> -->
+		<div id="jointitle" style="font-size: 40px;"><h2>회원가입</h2></div>
+        <form action="join" method="post">
+            <div id="join">
+                <!--아이디 부분은 중복확인을 위해 따로 데이터전송을 해줘야하므로 그 부분은 추후에 추가-->
+	            <div id="joinchild">
+	               	아이디<br/>
+	                <input type="text" placeholder="아이디" value="${checkingId}" name="id" style="width:190px; height:30px"/>
+	                <input type="button" id="idCheck" value="중복확인" style="text-align:center; width:100px; height:30px"/><br/>
+	                <div id="checkMessage"></div>
+	               	비밀번호<br/>
+	                <input type="password" placeholder="비밀번호(8~32자리)" name="pw" class="forMargin" style="width:298px; height:30px" /><br/>
+	               	이름<br/>
+	                <input type="text" placeholder="이름을 입력해주세요" name="name" class="forMargin" style="width:298px; height:30px"/><br/>
+	               	전화번호<br/>
+	                <input type="text" placeholder="10-0000-0000" name="phone" class="forMargin" style="width:298px; height:30px"/><br/>
+	               	이메일<br/>
+	                <input type="text" placeholder="이메일을 입력해주세요" name="email" style="width:298px; height:30px"/><br/> 
+	                <div id="makeJoinbuttonCenter">
+	                	<input id="joinbutton" type="submit" value="회원가입">
+	                </div>
+                </div>
+            </div>
+        </form>
     </body>
     <script>
-    $(document).ready(function(){ 	
+    $(document).ready(function(){
+    	var ability=false;
 		$("#idCheck").click(function(){
 			var id=$("input[name='id']").val();
 			console.log(id);
@@ -112,12 +120,12 @@
 					if(id==""){
 						alert("아이디를 입력하세요.");
 						$id.focus();
-						console.log("아이디 미입력");
 					}else if(data.idCheck){
-						alert("이미 사용 중인 아이디입니다.");
+						$("#checkMessage").html("사용 중인 아이디입니다.").css({"color":"red"});
 						$("input[name='id']").val("");
 					}else{
-						alert("사용 가능한 아이디입니다.");
+						$("#checkMessage").html("사용 가능한 아이디입니다.").css({"color":"green"});
+						ability=true;
 					}
 				},
 				error:function(e){
@@ -125,7 +133,28 @@
 				}
 			});
 		});
+		/*
+		$("#joinbutton").click(function(){
+			if(ability){
+				if($("input[name='id']").val()==""){
+					alert("아이디를 입력하세요.");
+				}else if($("input[name='pw']").val()==""){
+					alert("비밀번호를 입력하세요.");
+				}else if($("input[name='name']").val()==""){
+					alert("이름을 입력하세요.");
+				}else if($("input[name='phone']").val()==""){
+					alert("전화번호를 입력하세요.");
+				}else if($("input[name='email']").val()==""){
+					alert("이메일을 입력하세요.");
+				}
+			}
+		});
+		*/
     });
 
+    var msg="";
+    if(msg!=""){
+    	alert(msg);
+    }
     </script>
 </html>
