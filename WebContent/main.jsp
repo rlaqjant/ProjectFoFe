@@ -82,7 +82,7 @@
                 <!--로그인, 회원가입-->
                 <div class="login">
                     <div class="login_box">
-                    <span><a href="login.jsp">로그아웃</a></span>
+                    <span><a href="logout">로그아웃</a></span>
                     <span><a href=""><img id="MyProfile" src="images/pengsoo.jpg"></a></span>
                     </div>
                 </div>
