@@ -20,7 +20,19 @@
 
             /*로고*/
             .logo{min-width:1230px; height:260px; text-align:center;}
-
+			
+			/*내 미니홈피 가기*/
+			#myhome{
+				width: 100px;
+				height: 100px;
+				background-color: lightgreen;
+				position: relative;
+				margin: 0 auto;
+			}
+			#myhome{
+				cursor: pointer;
+			}
+			
             /*검색창*/
             .search{min-width:1230px; text-align:center;}
             #srch{width:400px; padding:5px; border-radius:30px; color:#5aad01; font-size: 12pt; font-weight: bold; box-shadow:0px 3px 3px 2px #d3fdb8;
@@ -70,7 +82,7 @@
                 <!--로그인, 회원가입-->
                 <div class="login">
                     <div class="login_box">
-                    <span><a href="login.jsp">로그아웃</a></span>
+                    <span><a href="logout">로그아웃</a></span>
                     <span><a href=""><img id="MyProfile" src="images/pengsoo.jpg"></a></span>
                     </div>
                 </div>
@@ -80,8 +92,8 @@
                     <a href="#"><img src="images/logo_fofriends.png" width="300px"></a>
                 </div>
 
-                <!--내 프로필-->
-                <div></div>
+                <!--내 미니홈피 가기-->
+                <div id="myhome" onclick="goMyHome()"><a href='loadMinihome?id=${loginId}' target='_blank'>내 미니홈피</a></div>
 
                 <!--검색창-->
                 <div class="search">
@@ -183,7 +195,7 @@
 			var a = $(this);
 			console.log(a);
 		})
-		
+
       //친구 검색, 불러오기
     	$("#srchBtn").click(function () {
     		var srchName = $("input[name='srchName']").val();

@@ -30,7 +30,7 @@ public class ProfileService {
 
 	//프로필 상세보기
 	public void profileDetail() throws ServletException, IOException {
-		String id=(String) req.getSession().getAttribute("id");
+		String id= req.getParameter("homephost");
 		System.out.println("디테일. 세션 아이디: "+id);
 		ProfileDAO dao=new ProfileDAO();
 		req.setAttribute("Profile", dao.profileDetail(id));

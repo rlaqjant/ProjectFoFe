@@ -61,6 +61,7 @@
     </head>
     <body>
         <div id="profile">
+        <input type="hidden" name="homephost" value="${Profile.id}">
             My Profile
             <hr style="width: 640px;"><br/>
             <div id="posi">
@@ -100,7 +101,27 @@
         $("#write").click(function(){
             location.href="#";
         });
-
+		
+        var homephostId = $("input[name='homephost']").val();
+        minihomeCheck();//미니홈피 주인 확인
+   		function minihomeCheck() {
+   			$.ajax({
+    			type:"get",
+    			url:"minihomeCheck",
+    			data:{"homephostId": homephostId},
+    			dataType:"JSON",
+    			success:function(data){ 		
+					if(data.result){ //미니홈피 주인이 맞다면
+					}else{
+						$("#write").css({"display":"none"});
+						$("#update").css({"display":"none"});
+					}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
 
 
 

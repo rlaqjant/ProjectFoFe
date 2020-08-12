@@ -88,7 +88,7 @@
 	                </div>
 	            </form>
             </div>
-            <button id="joining">회원가입</button>
+            <a href="joinForm.jsp"><button id="joining">회원가입</button></a>
         </div>
     </div>
     </body>
@@ -96,6 +96,6 @@
     var msg="${msg}";
     if(msg!=null){
     	alert(msg);
-    }    
+    }
     </script>
 </html>
