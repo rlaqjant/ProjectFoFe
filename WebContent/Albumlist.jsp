@@ -11,9 +11,58 @@
             #phli{
                 position: relative;
                 width: 640px;
-                height: 610px;
-               left: 5%;
+                height: 600px;
+                left: 5%;
             }
+            #dark{
+                width: 640px;
+                height: 600px;
+                background: rgba(0,0,0,0.4);
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: none;
+            }
+            #popup{
+             box-sizing: border-box;
+             width: 90%;
+             height: 90%;
+             background-color: snow;
+             margin-left: auto;
+             margin-right: auto;
+             margin-top: 15px;
+            }
+            #album_photo{
+             box-sizing: border-box;
+             width: 320px;
+             height: 540px;
+             border-right: 1px solid gray;
+             float: left;
+             }
+            #album_text{
+             box-sizing: border-box;
+             width: 256px;
+             height: 200px;
+             border-bottom: 1px solid gray;
+             float: left;
+	         }
+	         #x_close{
+	         	position: fixed;
+	         	top: 2px;
+	         	left: 673px;
+	         	width: 45px;
+	         	height:45px;
+	         	color: black;
+	         	font-size: 40px;
+	         	background-color: transparent;
+	         	border: none;
+	         }
+	         #album_reply{
+	             box-sizing: border-box;
+	             width: 256px;
+	             height: 340px;
+	             float: left;
+	         }
             table{
                 border-spacing: 15px 15px;
             }
@@ -37,23 +86,49 @@
             	width: 100%;
             	height: 100%;
             }
-            
-            
+            #layer{
+            	background-color: black;
+            	width: 640px;
+            	height: 600px;
+            	opacity: 0.5;
+            	z-index: 3;
+            	display: none;
+            	position: absolute;
+            }
+            #del{
+            	position: absolute;
+            	margin-top: 10px;
+            	left: 300px;
+            	top: 555px;
+            }
         </style>
     </head>
     <body>
         <div id="phli">
-            <table>
-                
-            </table>
-            <div id="button">
-                <a id="prev"><span>이전</span></a>
-                <span><b></b></span>
-                <a id="next"><span>다음</span></a>
-            </div>
+        	<div id="dark">
+				<button id="x_close">x</button>
+	            <div id="popup">
+	                <div id="album_photo"></div>
+	                <div id="album_text"></div>
+	                <div id="album_reply">
+		                (댓글 영역) </br>
+		                <!-- 게시 버튼 -->
+		                <input id="replyCont" name="replyCont" type="text"/>
+		                <input id="replyBtn" type="button" value="게시"/>
+	                	<div id="replyDiv"></div>
+	                </div>
+	                <input id="del" type="button" value="삭제" onclick="del()"/>
+	            </div>
+	        </div>
+	           <table id="">
+	               
+	           </table>
+	           <div id="button">
+	               <a id="prev"><span>이전</span></a>
+	               <span><b></b></span>
+	               <a id="next"><span>다음</span></a>
+	           </div>
         </div>
-
-
     </body>
     <script>
     var page = 1;
@@ -61,6 +136,7 @@
  	$(document).ready(function(){
  		albumlistCall();
  	});
+ 	var albumidx = 0;
  	
  	
     function albumlistCall(){
@@ -71,7 +147,6 @@
     		data:{"page":page},
     		dataType:"JSON",
     		success:function(data){
-    			console.log(data);
     			albumList(data.list);
     		},error:function(e){
     			console.log(e);
@@ -118,8 +193,7 @@
     	}else{
     		alert('첫번째 페이지입니다.');
     	}
-    	$('b').html(page);
-    	
+    	$('b').text('page');
     });
     
     
@@ -130,15 +204,51 @@
     		if(i==0 || i==3 || i ==6){
     			$('table').append("<tr></tr>");
     		}
-    		console.log(list[i].albumidx);
-    		console.log(list[i].albumNewFileName);
-    		$('tr').last().append(
-    			"<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"'></td>"		
-    		);
+    		$('tr').last().append("<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
     	}
     }
-        
-        
+    
+    function detail(e){
+    	$('#dark').show();
+    	$('#album_photo').empty();
+    	$('#album_text').empty();
+    	var albumidx = e.id;
+    	console.log(e.id);
+    	$.ajax({
+    		type:"post",
+    		url:"albumdetail",
+    		data:{"albumidx":albumidx},
+    		dataType:"JSON",
+    		success:function(data){
+    			console.log(data);
+    			albumdetail(data.list);
+    		},
+    		error:function(e){console.log(e);}
+    	});
+    	
+    }
+    
+    function albumdetail(list){
 
+    	albumidx = list[0].albumidx;
+    	$('#album_photo').append("<img src='/Photo/"+list[0].albumNewFileName+"'/>");
+		$('#album_text').append("<p>"+list[0].albumcontent+"</p>");
+		//$('#dark').append("<input id='del' type='button' value='삭제' onclick='location.href=albumdel?albumidx="+list[0].albumidx+"'/>");
+		//$('#del').attr('onclick','location.href=albumdel?albumidx='+list[0].albumidx+'');
+    }
+    
+    function del(){
+    	console.log(albumidx);
+    	location.href="albumdel?albumidx="+albumidx;
+    }
+    $("#x_close").click(function(){
+		$("#dark").css("display","none");
+	});
+    
+    var msg = "${msg}";
+    if(msg != ""){
+    	alert(msg);
+    }
+    
     </script>
 </html>
