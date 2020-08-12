@@ -20,4 +20,14 @@ public class MiniHomeService {
 		
 	}
 
+	public boolean minihomeNameEdit(String homephostId, String minihome_nameEdit) {
+		MiniHomeDAO dao = new MiniHomeDAO();
+		return dao.minihomeNameEdit(homephostId, minihome_nameEdit);
+	}
+
+	public boolean profileMessageEdit(String homephostId, String profile_messageEdit) {
+		MiniHomeDAO dao = new MiniHomeDAO();
+		return dao.profileMessageEdit(homephostId, profile_messageEdit);
+	}
+
 }

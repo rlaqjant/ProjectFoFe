@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.sns.dto.MiniHomeDTO;
 import com.sns.service.MiniHomeService;
 
-@WebServlet({"/loadMinihome", "/minihomeCheck" , "/followCheck"})
+@WebServlet({"/loadMinihome", "/minihomeCheck" , "/followCheck", "/minihomeNameEdit", "/profileMessageEdit"})
 public class MiniHomeController extends HttpServlet {
 	
 	@Override
@@ -75,7 +75,30 @@ public class MiniHomeController extends HttpServlet {
 			obj = gson.toJson(map);
 			resp.getWriter().println(obj);
 			break;
-		}
+			
+		case "/minihomeNameEdit":
+			homephostId = req.getParameter("homephostId");
+			String minihome_nameEdit = req.getParameter("minihome_nameEdit");
+			result = miniHomeService.minihomeNameEdit(homephostId,minihome_nameEdit);
+			map = new HashMap<String, Object>();
+			gson = new Gson();
+			map.put("result",result);
+			obj = gson.toJson(map);
+			resp.getWriter().println(obj);
+			break;
+		
+		case "/profileMessageEdit":
+			homephostId = req.getParameter("homephostId");
+			String profile_messageEdit = req.getParameter("profile_messageEdit");
+			result = miniHomeService.profileMessageEdit(homephostId,profile_messageEdit);
+			map = new HashMap<String, Object>();
+			gson = new Gson();
+			map.put("result",result);
+			obj = gson.toJson(map);
+			resp.getWriter().println(obj);
+			break;
+		};
+	
 	
 	}
 }

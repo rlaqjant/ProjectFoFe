@@ -58,10 +58,18 @@
             .updateDelete{
                 position: absolute;
                 left: 448px;
+                float: left;
             }
             input[type="button"]{
+            	position: absolute;
                 border: none;
                 background-color: white;
+            }
+            .guestbookDelete{
+           		position: absolute;
+            	border: none;
+                background-color: white;
+                left: 44px;
             }
             .GuestbookDetail{
                 margin: 20px 20px;
@@ -84,6 +92,7 @@
                 height: 80px;
                 top: 500px;
                 background-color: darkred;
+                text-align: center;
             }
             #wrightBox div{
                 position: absolute;
@@ -104,28 +113,38 @@
 		<div id="body"> <!-- 미니홈피 틀 크기 맞추기용 div영역 -->
             <div id="viewbox"> <!-- 방명록 글들 들어올 영영(다른 영역이랑 겹치지 않기용)-->
                 <div id="viewDetail"> <!--방명록 글들 들어올 영역(스크롤용)-->
-                    <div class="viewDetail2"><!--여기 영역 하나가 방명록 DB에서 불러올 부분-->
-                        <table>
-                            <tr>
-                                <td>
-                                    <div class="userName">USER NAME</div>
-                                    <div class="date">2020.07.29 17:55:01</div>
-                                    <div class="updateDelete"><input type="button" value="수정"/><input type="button" value="삭제"/></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                    <img src="https://d2ph5fj80uercy.cloudfront.net/04/cat2410.jpg" alt="userProfile" title="userName">
-                                    </div>
-                                    <div class="GuestbookDetail">
-                                        GuestbookDetail
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-            </div>
+                  <c:forEach items="${list}" var="guestBook">
+	                    <div class="viewDetail2"><!--여기 영역 하나가 방명록 DB에서 불러올 부분-->
+	                    <input type="hidden" name="guestBookIdx" value="${guestBook.guestBookIdx}"/>
+	                        <table>
+	                            <tr>
+	                                <td>
+	                                    <div class="userName"><a href='loadMinihome?id=${guestBook.guestBookUser_name}' target='_blank'>${guestBook.guestBookUser_name}</a></div>
+	                                    <div class="date">${guestBook.guestBookReg_date}</div>
+	                                    <div class="updateDelete">
+		                                    <input type="button" value="수정"/>
+		                                	<form action="guestbookDelete" method="post">
+		                                		<input type="hidden" name="guestBookIdx" value="${guestBook.guestBookIdx}"/>
+		                                		<input type="hidden" name="homephost" value="${guestBook.id}"/>
+		                                		<input type="submit" value="삭제" class="guestbookDelete"/>
+		                                	</form>
+										</div>
+	                                </td><!--  -->
+	                            </tr>
+	                            <tr>
+	                                <td>
+	                                    <div>
+	                                    <img src="https://d2ph5fj80uercy.cloudfront.net/04/cat2410.jpg" alt="userProfile" title="userName">
+	                                    </div>
+	                                    <div class="GuestbookDetail">
+	                                        ${guestBook.guestBookContent}
+	                                    </div>
+	                                </td>
+	                            </tr>
+	                        </table>
+	                    </div>
+                    </c:forEach>
+            	</div>
             <div id="pageing"><!--페이징 영역-->
                 <div class="pageArea">
                     <a href="./?page=${currPage-1}"><span><</span></a>
@@ -134,8 +153,9 @@
                 </div>
             </div>
             <div id="wrightBox"><!--방명록 작성 영역-->
-                <div>
-                    <form action="GuestbookWright" method="POST">
+                <div id="wrightBoxForm">
+                    <form action="guestbookWrite" method="POST">
+                    	<input type="hidden" name="homephost" value="${homephost}"/>
                         <input type="text" name="GuestbookWright" placeholder="메시지를 입력하세요"/>
                         <input type="submit" value="입력"/>
                     </form>
@@ -144,6 +164,31 @@
         </div>
 	</body>
 	<script>
+	var msg="${msg}";
+	if(msg!=""){
+		alert(msg);	
+	}
 	
+	var homephostId = $("input[name='homephost']").val();
+	followCheck();
+	function followCheck() {//팔로우중인지 확인
+			$.ajax({
+			type:"get",
+			url:"followCheck",
+			data:{"homephostId": homephostId},
+			dataType:"JSON",
+			success:function(data){ 		
+				if(data.result){
+					
+				}else{
+					$("#wrightBoxForm").css({"display":"none"});
+					$("#wrightBox").html("<p id='nofollowMsg'>팔로우하면 방명록을 작성할 수 있어요~<p>")
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
 	</script>
 </html>
