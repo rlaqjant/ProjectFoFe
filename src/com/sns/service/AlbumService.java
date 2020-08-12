@@ -1,18 +1,12 @@
 package com.sns.service;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
@@ -101,6 +95,21 @@ public class AlbumService {
 		resp.getWriter().println(obj);
 	}
 
+	public void detail() throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
+		System.out.println("받아온 idx : "+req.getParameter("albumidx"));
+		int albumidx = Integer.parseInt(req.getParameter("albumidx"));
+		System.out.println(albumidx);
+		AlbumDAO dao = new AlbumDAO();
+		list = dao.detail(albumidx);
+		map.put("list",list);
+		Gson gson = new Gson();
+		String obj = gson.toJson(map);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(obj);
+		
+	}
 	
 	
 	/* 댓글 작성 */
@@ -124,6 +133,35 @@ public class AlbumService {
 		
 		return dto;
 	}
+
+	public boolean del() {
+		AlbumDAO dao = new AlbumDAO();
+		int albumidx = Integer.parseInt(req.getParameter("albumidx"));
+		System.out.println("detail에서 받아온 idx 값 : "+ albumidx);
+		String newfilename = dao.getfilename(albumidx);
+		System.out.println(newfilename);
+		dao = new AlbumDAO();
+		int replycom = dao.albumreplydel(albumidx);
+		int albumfilecom = 0;
+		albumfilecom = dao.albumfiledel(albumidx);
+		if(!newfilename.equals("noneimage.png")) {
+			boolean filedel = false;
+			String path = "C:/MVC_STUDY/ProjectFoFe/upload/";
+			File file = new File(path+newfilename);
+			if(file.exists()) {
+				filedel = file.delete();
+				System.out.println(filedel);
+			}
+		}
+		int albumcom = dao.albumdel(albumidx);
+		boolean delsuccess = false;
+		
+		if(replycom >=0 && albumcom>0 && albumfilecom>0) {
+			delsuccess = true;
+		}
+		return delsuccess;
+	}
+
 	
 	
 	

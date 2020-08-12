@@ -73,9 +73,9 @@
                 </div>
               </form>  
                 <div id="page">
-                    <a href="./?page=${currPage-1}"><span>PREV</span></a>
+                    <a href="./diaryList?page=${currPage-1}&&homephost=${homephost}"><span>PREV</span></a>
                     <span><b>${currPage}</b></span>
-                    <a href="./?page=${currPage+1}"><span>NEXT</span></a>
+                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}"><span>NEXT</span></a>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
 	}
  	
 	var homephostId = $("input[name='homephost']").val();
-	minihomeCheck();//미니홈피 주인 확인
+	minihomeCheck();//미니홈피 주인 확인 메서드
 		function minihomeCheck() {
 			$.ajax({
 			type:"get",
