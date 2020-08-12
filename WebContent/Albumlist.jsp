@@ -6,14 +6,63 @@
     <head>
         <title>photo</title>
         <meta charset="UTF-8">
-        	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+       	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style>
             #phli{
                 position: relative;
                 width: 640px;
-                height: 610px;
-               left: 5%;
+                height: 600px;
+                left: 5%;
             }
+            #dark{
+                width: 640px;
+                height: 600px;
+                background: rgba(0,0,0,0.4);
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: none;
+            }
+            #popup{
+             box-sizing: border-box;
+             width: 90%;
+             height: 90%;
+             background-color: snow;
+             margin-left: auto;
+             margin-right: auto;
+             margin-top: 15px;
+            }
+            #album_photo{
+             box-sizing: border-box;
+             width: 320px;
+             height: 540px;
+             border-right: 1px solid gray;
+             float: left;
+             }
+            #album_text{
+             box-sizing: border-box;
+             width: 256px;
+             height: 200px;
+             border-bottom: 1px solid gray;
+             float: left;
+	         }
+	         #x_close{
+	         	position: fixed;
+	         	top: 2px;
+	         	left: 673px;
+	         	width: 45px;
+	         	height:45px;
+	         	color: black;
+	         	font-size: 40px;
+	         	background-color: transparent;
+	         	border: none;
+	         }
+	         #album_reply{
+	             box-sizing: border-box;
+	             width: 256px;
+	             height: 340px;
+	             float: left;
+	         }
             table{
                 border-spacing: 15px 15px;
             }
@@ -32,92 +81,174 @@
             }
             #ph11, #ph12, #ph13, #ph21, #ph22, #ph23, #ph31, #ph32, #ph33{
                 display: none;
-               
-
             }
-            
-            
+            img{
+            	width: 100%;
+            	height: 100%;
+            }
+            #layer{
+            	background-color: black;
+            	width: 640px;
+            	height: 600px;
+            	opacity: 0.5;
+            	z-index: 3;
+            	display: none;
+            	position: absolute;
+            }
+            #del{
+            	position: absolute;
+            	margin-top: 10px;
+            	left: 300px;
+            	top: 555px;
+            }
         </style>
     </head>
     <body>
         <div id="phli">
-            <h4>${msg}</h4>       
-            <table>
-                <tr>
-                    <td>
-                        <img id="ph1" width="100%" height="100%" src="" alt="">
-                        <div id="ph11" style="top: 2.6%; left: 2.3%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                    <td>
-                        <img id="ph2" width="100%" height="100%" src="" alt="">
-                        <div id="ph12" style="top: 2.6%; left: 31.6%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                    <td>
-                        <img id="ph3" width="100%" height="100%" src="" alt="">
-                        <div id="ph13" style="top: 2.6%; left: 61%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img id="ph4" width="100%" height="100%" src="" alt="">
-                        <div id="ph21" style="top: 33%; left: 2.3%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                    <td>
-                        <img id="ph5" width="100%" height="100%" src="" alt="">
-                        <div id="ph22" style="top: 33%; left: 31.6%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                    <td>
-                        <img id="ph6" width="100%" height="100%" src="" alt="">
-                        <div id="ph23" style="top: 33%; left: 61%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img id="ph7" width="100%" height="100%" src="" alt="">
-                        <div id="ph31" style="top: 63.5%; left: 2.3%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                    <td>
-                        <img id="ph8" width="100%" height="100%" src="" alt="">
-                        <div id="ph32" style="top: 63.5%; left: 31.6%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                    <td>
-                        <img id="ph9" width="100%" height="100%" src="" alt="">
-                        <div id="ph33" style="top: 63.5%; left: 61%; position: absolute; background-color: gray; opacity: 0.5;z-index: 10; width : 171px; height :170px;"></div>
-                    </td>
-                </tr>
-            </table>
-            <div id="button">
-                <a href="#"><span>이전</span></a>
-                <span><b>1</b></span>
-                <a href="#"><span>다음</span></a>
-            </div>
+        	<div id="dark">
+				<button id="x_close">x</button>
+	            <div id="popup">
+	                <div id="album_photo"></div>
+	                <div id="album_text"></div>
+	                <div id="album_reply">
+		                (댓글 영역) </br>
+		                <!-- 게시 버튼 -->
+		                <input id="replyCont" name="replyCont" type="text"/>
+		                <input id="replyBtn" type="button" value="게시"/>
+	                	<div id="replyDiv"></div>
+	                </div>
+	                <input id="del" type="button" value="삭제" onclick="del()"/>
+	            </div>
+	        </div>
+	           <table id="">
+	               
+	           </table>
+	           <div id="button">
+	               <a id="prev"><span>이전</span></a>
+	               <span><b></b></span>
+	               <a id="next"><span>다음</span></a>
+	           </div>
         </div>
-
-
     </body>
     <script>
-    albumlistCall();
+    var page = 1;
+ 	var allcnt = 0;
+ 	$(document).ready(function(){
+ 		albumlistCall();
+ 	});
+ 	var albumidx = 0;
+ 	
+ 	
     function albumlistCall(){
+    	$('b').html(page);
     	$.ajax({
     		type:"post",
     		url:"albumlist",
-    		data:{},
+    		data:{"page":page},
     		dataType:"JSON",
     		success:function(data){
     			albumList(data.list);
     		},error:function(e){
     			console.log(e);
     		}
+    		
     	});
     	
     }
     
+    $('#next').click(function(){
+    	if(allcnt > page){
+    		page = page+1;
+        	$.ajax({
+        		type:"post",
+        		url:"albumlist",
+        		data:{"page":page},
+        		dataType:"JSON",
+        		success:function(data){
+        			albumList(data.list);
+        		},error:function(e){
+        			console.log(e);
+        		}
+        	});
+    	}else{
+    		alert('마지막 페이지 입니다.');
+    	}
+    	$('b').html(page);
+    });
+    
+    $('#prev').click(function(){
+    	if(page > 1){
+    		page = page-1;
+        	$.ajax({
+        		type:"post",
+        		url:"albumlist",
+        		data:{"page":page},
+        		dataType:"JSON",
+        		success:function(data){
+        			albumList(data.list);
+        		},error:function(e){
+        			console.log(e);
+        		}
+        	});
+    	}else{
+    		alert('첫번째 페이지입니다.');
+    	}
+    	$('b').text('page');
+    });
+    
+    
+    
     function albumList(list){
-    	
+    	$('table').empty();
+    	for(i=0; i<list.length;i++){
+    		if(i==0 || i==3 || i ==6){
+    			$('table').append("<tr></tr>");
+    		}
+    		$('tr').last().append("<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
+    	}
+    }
+    
+    function detail(e){
+    	$('#dark').show();
+    	$('#album_photo').empty();
+    	$('#album_text').empty();
+    	var albumidx = e.id;
+    	console.log(e.id);
+    	$.ajax({
+    		type:"post",
+    		url:"albumdetail",
+    		data:{"albumidx":albumidx},
+    		dataType:"JSON",
+    		success:function(data){
+    			console.log(data);
+    			albumdetail(data.list);
+    		},
+    		error:function(e){console.log(e);}
+    	});
     	
     }
-        
-        
+    
+    function albumdetail(list){
 
+    	albumidx = list[0].albumidx;
+    	$('#album_photo').append("<img src='/Photo/"+list[0].albumNewFileName+"'/>");
+		$('#album_text').append("<p>"+list[0].albumcontent+"</p>");
+		//$('#dark').append("<input id='del' type='button' value='삭제' onclick='location.href=albumdel?albumidx="+list[0].albumidx+"'/>");
+		//$('#del').attr('onclick','location.href=albumdel?albumidx='+list[0].albumidx+'');
+    }
+    
+    function del(){
+    	console.log(albumidx);
+    	location.href="albumdel?albumidx="+albumidx;
+    }
+    $("#x_close").click(function(){
+		$("#dark").css("display","none");
+	});
+    
+    var msg = "${msg}";
+    if(msg != ""){
+    	alert(msg);
+    }
+    
     </script>
 </html>

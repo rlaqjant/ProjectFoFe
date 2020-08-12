@@ -20,10 +20,22 @@
 
             /*로고*/
             .logo{min-width:1230px; height:260px; text-align:center;}
-
+			
+			/*내 미니홈피 가기*/
+			#myhome{
+				width: 100px;
+				height: 100px;
+				background-color: lightgreen;
+				position: relative;
+				margin: 0 auto;
+			}
+			#myhome{
+				cursor: pointer;
+			}
+			
             /*검색창*/
             .search{min-width:1230px; text-align:center;}
-            #srch{width:400px; height:50px; padding:5px; border-radius:30px; color:#5aad01; font-size: 12pt; font-weight: bold; box-shadow:0px 3px 3px 2px #d3fdb8;
+            #srch{width:400px; padding:5px; border-radius:30px; color:#5aad01; font-size: 12pt; font-weight: bold; box-shadow:0px 3px 3px 2px #d3fdb8;
             border: 1px solid #d6ffab; background-image:url(); background-repeat: no-repeat; padding: 5px;}
             #srch:focus {outline:none;}
             #srch:hover {border: 4px solid #d3fdb8;}
@@ -31,11 +43,26 @@
 
             /*친구목록*/
             .friends_po{position: relative; top: 10px; width: 500px;  margin: 0 auto;}
-            .friends{position: absolute; border: 1px solid; width: 500px; }
+            .followingFriends{position: absolute; border: 1px solid; width: 500px; top: 40px; display: block;}
+            .followerFriends{position: absolute; border: 1px solid; width: 500px; top: 40px; display: none;}
             .ImgRadius{max-width: 300px; max-height: 300px; border-radius:30px;}
             td{max-width: 300px; max-height: 300px;}
             .photo{cursor: pointer;}
-
+			#following{
+			position: absolute;
+			height: 30px;
+			width: 200px;
+			background-color: green;
+			font-weight: 700;
+			}
+			#follower{
+			position: absolute;
+			height: 30px;
+			width: 200px;
+			background-color: green;
+			left: 300px;
+			font-weight: 400;
+			}
             /*웹폰트 : 적용은 안됨. 추후 시간나면 하려고 형식만 일단 가져옴.*/
             @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
             body { font: 17px 'Nanum Gothic', sans-serif; }
@@ -55,7 +82,7 @@
                 <!--로그인, 회원가입-->
                 <div class="login">
                     <div class="login_box">
-                    <span><a href="login.jsp">로그아웃</a></span>
+                    <span><a href="logout">로그아웃</a></span>
                     <span><a href=""><img id="MyProfile" src="images/pengsoo.jpg"></a></span>
                     </div>
                 </div>
@@ -65,8 +92,8 @@
                     <a href="#"><img src="images/logo_fofriends.png" width="300px"></a>
                 </div>
 
-                <!--내 프로필-->
-                <div></div>
+                <!--내 미니홈피 가기-->
+                <div id="myhome" onclick="goMyHome()"><a href='loadMinihome?id=${loginId}' target='_blank'>내 미니홈피</a></div>
 
                 <!--검색창-->
                 <div class="search">
@@ -78,7 +105,11 @@
 
                 <!--친구목록-->
                 <div class="friends_po">
-                    <table class="friends">
+                	<div id="following" onclick="followingView()">팔로잉</div><div id="follower" onclick="followerView()">팔로워</div>
+                    <table class="followingFriends">
+
+                    </table>
+                    <table class="followerFriends">
 
                     </table>
                 </div>
@@ -94,7 +125,8 @@
     </body>
     <script>
     	loadFollowList ();
-    	function loadFollowList () {
+    	loadFollowerList();
+    	function loadFollowList () { //팔로우 리스트 불러오기
     		var loginId = $("input[name='loginId']").val();
     		$.ajax({
     			type:"get",
@@ -103,13 +135,40 @@
     			dataType:"JSON",
     			success:function(data){
     				console.log(data);
+    				$(".followingFriends").empty();
     				for (var i = 0; i < data.arrList.length; i++) {
     					var id = data.arrList[i].id;
     					var name = data.arrList[i].name;
     					
-    					$(".friends").empty();
-    					$(".friends").append("<tr>"
-    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+name+"</a></td>"
+    					$(".followingFriends").append("<tr>"
+    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
+    				            +"<td>"+name+"</td>"
+    				            +"</tr>");
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
+    	function loadFollowerList () { //팔로워 리스트 불러오기
+    		var loginId = $("input[name='loginId']").val();
+    		$.ajax({
+    			type:"get",
+    			url:"loadFollowerList",
+    			data:{"loginId":loginId},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data);
+    				$(".followerFriends").empty();
+    				for (var i = 0; i < data.arrList.length; i++) {
+    					var id = data.arrList[i].id;
+    					var name = data.arrList[i].name;
+    					
+    					$(".followerFriends").append("<tr>"
+    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
+    				            +"<td>"+name+"</td>"
+    				            +"<td><input type='button' value='"+id+"' class='unfollowBtn'/></td>"
     				            +"</tr>");
     				}
     			},
@@ -119,8 +178,24 @@
     		});
 		}
     	
-    
-    	
+    	function followingView() {//팔로우 목록 보기
+    		$(".followingFriends").css({"display":"block"});
+    		$(".followerFriends").css({"display":"none"});
+    		$("#following").css({"font-weight":"700"});
+    		$("#follower").css({"font-weight":"400"});
+		}
+		function followerView() {//팔로워 목록 보기
+			$(".followingFriends").css({"display":"none"});
+    		$(".followerFriends").css({"display":"block"});
+    		$("#following").css({"font-weight":"400"});
+    		$("#follower").css({"font-weight":"700"});
+		}
+
+		$(".unfollowBtn").click(function () {
+			var a = $(this);
+			console.log(a);
+		})
+
       //친구 검색, 불러오기
     	$("#srchBtn").click(function () {
     		var srchName = $("input[name='srchName']").val();
@@ -137,11 +212,12 @@
     					alert("친구가 없어요");
     				}else{
     					$("#searchResult").empty();
+    					
     					for (var i = 0; i < data.arrList.length; i++) {
         					var id = data.arrList[i].id;
         					var name = data.arrList[i].name;
         					
-        					$("#searchResult").empty();
+        					
         					$("#searchResult").append("<tr>"
         				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
@@ -160,6 +236,10 @@
     		$("#searchResult").empty();
 		})
 		
+		var msg="${msg}";
+		if(msg!=""){
+			alert(msg);	
+		}
 		
     </script>
 </html>

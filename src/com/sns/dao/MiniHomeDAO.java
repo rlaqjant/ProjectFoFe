@@ -59,14 +59,14 @@ public class MiniHomeDAO {
 				dto.setId(rs.getString("id"));
 				dto.setEmail(rs.getString("email"));
 			}
-			sql="SELECT newFileName FROM upfile where id=? and dataType=1";//프로필 사진
+			sql="SELECT newFileName FROM profilephotoup where id=? ";//프로필 사진
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				dto.setProfilephoto(rs.getString("newFileName"));
 			}
-			sql="SELECT newFileName FROM upfile where id=? and dataType=2";//대문 사진
+			sql="SELECT newFileName FROM mainphotoup where id=?";//대문 사진
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
@@ -101,6 +101,44 @@ public class MiniHomeDAO {
 		}
 		return result;
 		
+	}
+
+	public boolean minihomeNameEdit(String homephostId, String minihome_nameEdit) {
+		String sql="UPDATE minihmain SET minihname = ? WHERE id=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, minihome_nameEdit);
+			ps.setString(2, homephostId);
+			if(0<ps.executeUpdate()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;
+	}
+
+	public boolean profileMessageEdit(String homephostId, String profile_messageEdit) {
+		String sql="UPDATE minihmain SET minihintro = ? WHERE id=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, profile_messageEdit);
+			ps.setString(2, homephostId);
+			if(0<ps.executeUpdate()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;
 	}
 
 }

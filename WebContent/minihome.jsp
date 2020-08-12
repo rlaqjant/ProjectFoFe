@@ -40,7 +40,7 @@
                 margin-top: 1%;
                 border-radius: 15px;
                 padding: 10px;
-                font-size: 30px;
+                font-size: 24px;
             }
             #top{
                 width: 1000px;
@@ -132,11 +132,20 @@
             	left: 193px;
             	top: 100px;
             }
-            #profile_messageEdit{
-           		position: absolute;
+            input[name="minihome_nameEdit"]{
+				width: 396px;
+                height: 40px;
+                font-size: 24px;
+                border: none;
+			}
+            input[name="profile_messageEdit"]{
+            	position: absolute;
             	left: 1px;
             	top: 2px;
-            }
+				width: 240px;
+                height: 100px;
+                border: none;
+			}
             #email{
                 width: 240px;
                 height: 50px;
@@ -176,7 +185,7 @@
 			#albumView{display: none;}
 			#guestBookView{display: none;}
 			#manageView{display: none;}
-            
+		
    </style>
    </head>
    <body style="background-color : ${minihome.backcolor}">
@@ -186,7 +195,7 @@
                     <div id="minihome">
                         <div id="top">
                             <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
-                                <div id="minihome_nameDetail">${minihome.minihname}</div>
+                                <div id="minihome_nameDetail">${minihome.minihname}<input type="hidden" name="minihome_nameDetail" value="${minihome.minihname}"></div>
                                 <div><input type="button" name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
                             </div>
                             <div id="top-menu">
@@ -203,7 +212,7 @@
                                 <div id="profile_image"></div>
                                 <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                                 <div id="profile_message">
-                                	<div id="profile_messageDetail">${minihome.minihintro}</div>
+                                	<div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}"></div>
                                 	<div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                                 </div>
                                 <audio autoplay controls loop>
@@ -212,12 +221,12 @@
                                 <div id="email">조회수</br>${minihome.email}</div>
                             </div>
                             <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
-                            	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="profileView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="diaryView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="albumView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="homeView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="manageView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="manageView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             </div>
                         </div>
                     </div>
@@ -281,7 +290,9 @@
     			success:function(data){
     				console.log(data.result);    		
     				if(data.result){
+    					alert("팔로우 완료.");
     					$("input[name='followbtn']").attr({"onclick":"unFollow()", "value":"팔로잉", "id":"unFollow"});
+    					location.reload();
     				}else{
     					alert("로그인이 필요합니다.");
     				}
@@ -301,7 +312,9 @@
     			success:function(data){
     				console.log(data.result);    		
     				if(data.result){
+    					alert("팔로우를 취소했습니다.");
     					$("input[name='followbtn']").attr({"onclick":"follow()", "value":"팔로우", "id":"follow"});
+    					location.reload();
     				}
     			},
     			error:function(e){
@@ -311,15 +324,113 @@
    		}
    		
    		function minihome_nameChange() {//미니홈피 이름 수정 버튼(주인만 나타남)
+   			var minihome_nameDetail = $("input[name='minihome_nameDetail']").val();
 			$("#minihome_nameDetail").empty();
-			$("#minihome_nameDetail").append("<input type='text' name='minihome_nameEdit' id='minihome_nameEditBox' value=''/>");
+			$("#minihome_nameDetail").append("<input type='text' name='minihome_nameEdit' id='minihome_nameEditBox' value='"+minihome_nameDetail+"'/>");
+			$("#minihome_nameEditBox").focus();
 			$("input[name='minihome_nameBtn']").attr({"onclick":"minihome_nameEdit()", "value":"수정"});
 		}
+   		function minihome_nameEdit() {
+   			var minihome_nameEdit = $("input[name='minihome_nameEdit']").val();
+   			console.log(minihome_nameEdit);
+   			$.ajax({
+    			type:"post",
+    			url:"minihomeNameEdit",
+    			data:{
+    				"homephostId": homephostId,
+    				"minihome_nameEdit":minihome_nameEdit,
+    			},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data.result);
+    				if(data.result){
+    					location.reload();
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
    		function profile_messageChange() {//미니홈피 소개글 수정 버튼(주인만 나타남)
+   			var profile_messageDetail = $("input[name='profile_messageDetail']").val();
 			$("#profile_messageDetail").empty();
-			$("#profile_messageDetail").append("<input type='text' name='profile_messageEdit' id='profile_messageEditBox' value=''/>");
+			$("#profile_messageDetail").append("<input type='text' name='profile_messageEdit' id='profile_messageEditBox' value='"+profile_messageDetail+"'/>");
+			$("#profile_messageEditBox").focus();
 			$("input[name='profile_messageBtn']").attr({"onclick":"profile_messageEdit()", "value":"수정"});
 		}
+   		function profile_messageEdit() {
+   			var profile_messageEdit = $("input[name='profile_messageEdit']").val();
+   			console.log(profile_messageEdit);
+   			$.ajax({
+    			type:"post",
+    			url:"profileMessageEdit",
+    			data:{
+    				"homephostId": homephostId,
+    				"profile_messageEdit":profile_messageEdit,
+    			},
+    			dataType:"JSON",
+    			success:function(data){
+    				console.log(data.result);
+    				if(data.result){
+    					location.reload();
+    				}
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}
+    		});
+		}
    		
+   		$("#homeBtn").click(function () {
+			$("#homeView").css({"display": "block"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#profileBtn").click(function () {
+   			$('#profileView').attr('src', "profileDetail?homephost="+homephostId);
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "block"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#diaryBtn").click(function () {
+   			$('#diaryView').attr('src', "diaryList?homephost="+homephostId);
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "block"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#albumBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "block"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#guestBookBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "block"});
+			$("#manageView").css({"display": "none"});
+		});
+   		$("#manageBtn").click(function () {
+			$("#homeView").css({"display": "none"});
+			$("#profileView").css({"display": "none"});
+			$("#diaryView").css({"display": "none"});
+			$("#albumView").css({"display": "none"});
+			$("#guestBookView").css({"display": "none"});
+			$("#manageView").css({"display": "block"});
+		});
    </script>
 </html>

@@ -40,9 +40,9 @@
             .friendName :active{color: #5aad01;}
             .photo{cursor: pointer;}
 
-            /*웹폰트 : 적용은 안됨. 추후 시간나면 하려고 형식만 일단 가져옴.*/
-            @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
-            body { font: 17px 'Nanum Gothic', sans-serif; }
+            /*웹폰트 적용*/
+            @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+	      	body{font-family: 'Black Han Sans', sans-serif; margin: 0px;}
 
             /*더보기 버튼*/
             #button{position: absolute; width:70px; height:30px; left: 48%; top: 96%; cursor: pointer;
@@ -59,7 +59,7 @@
                     <div class="login_box">
                     <span><a href="login.jsp">로그인</a></span>
                     <span><a href="joinForm.jsp">회원가입</a></span>
-                    <a href="Profile.jsp">프로필 테스트 중. 추후 지울 링크</a>   
+                    <a href="Profile.jsp">프로필 테스트 중. 추후 지울 링크</a> 
                     </div>
                 </div>
 				
