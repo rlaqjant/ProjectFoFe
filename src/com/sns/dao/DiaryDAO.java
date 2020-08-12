@@ -78,9 +78,7 @@ public class DiaryDAO {
 			 int start =(end-pagePerCnt)+1;
 			 int endpage;
 		
-			 if((limit(homephost,  page)%10)==0) {
-				 
-			 }
+			 
 			
 			
 			String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date\r\n" + 

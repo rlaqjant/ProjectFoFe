@@ -60,11 +60,12 @@
             #detail{width: 99%; height: 99%; border: 0; resize: none;}
             .list{
                 text-align: right;
+                margin:0px;
             }
 	</style>
 </head>
 <body>
-	${diary}
+	
 	<div class="diarydetail">
             <table>
             	<input type="hidden" value="${diary.id}" name="homephost"/>
