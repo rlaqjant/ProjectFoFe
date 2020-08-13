@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.sns.dto.DiaryDTO;
 import com.sns.dto.MiniHomeDTO;
 
 public class MiniHomeDAO {
@@ -139,6 +141,47 @@ public class MiniHomeDAO {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<DiaryDTO> getNewDiaryList(String homephostId) {
+		String sql = "SELECT rnum,diaryidx,diarysubject FROM (SELECT ROW_NUMBER() OVER(ORDER BY diaryreg_date DESC) AS rnum,diaryidx,diarysubject FROM diary where id=?) WHERE rnum BETWEEN 1 AND 4";
+		ArrayList<DiaryDTO> list = new ArrayList<DiaryDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, homephostId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				DiaryDTO dto = new DiaryDTO();
+				dto.setDiaryidx(rs.getString("diaryidx"));
+				dto.setDiarysubject(rs.getString("diarysubject"));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return list;
+	}
+
+	public String minihomeMain(String id) {
+		String sql = "SELECT newFileName FROM mainphotoup where id=?";//대문 사진
+		String mainphoto ="";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				mainphoto = rs.getString("newFileName");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return mainphoto;
 	}
 
 }

@@ -104,6 +104,7 @@
         </style>
     </head>
     <body>
+    <input type="hidden" name="homephost" value="${homephost}">
         <div id="phli">
         	<div id="dark">
 				<button id="x_close">x</button>
@@ -131,6 +132,7 @@
         </div>
     </body>
     <script>
+    var homephost = $("input[name='homephost']").val();
     var page = 1;
  	var allcnt = 0;
  	$(document).ready(function(){
@@ -144,7 +146,9 @@
     	$.ajax({
     		type:"post",
     		url:"albumlist",
-    		data:{"page":page},
+    		data:{"page":page,
+    			"homephost":homephost
+    			},
     		dataType:"JSON",
     		success:function(data){
     			albumList(data.list);

@@ -22,4 +22,14 @@ public class GuestBookService {
 		return dao.guestbookDelete(guestBookIdx, deleteId);
 	}
 
+	public String guestBookUpdateCheck(String guestBookIdx) {
+		GuestBookDAO dao = new GuestBookDAO();
+		return dao.guestBookUpdateCheck(guestBookIdx);
+	}
+
+	public boolean guestBookUpdate(String guestBookIdx, String guestbookUpdateText) {
+		GuestBookDAO dao = new GuestBookDAO();
+		return dao.guestBookUpdate(guestBookIdx, guestbookUpdateText);
+	}
+
 }

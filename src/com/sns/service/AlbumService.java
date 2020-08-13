@@ -29,12 +29,11 @@ public class AlbumService {
 		
 		int maxSize = 10*1024*1024;//사진 용량 제한
 		
-		String root = "../MVC_STUDY/ProjectFoFe/";
+		String root = "C:/albumupload";
 		String newFileName = "";
-		String uploadPath = root+"upload";
-		System.out.println(uploadPath);
+		System.out.println(root);
 		System.out.println(System.getProperty("user.dir"));
-		File dir = new File(uploadPath);
+		File dir = new File(root);
 		if(!dir.exists()) {
 			System.out.println("해당 폴더가 없음, 생성");
 			dir.mkdir();
@@ -45,7 +44,7 @@ public class AlbumService {
 
 			//파일 업로드할 때 form action
 			//MultipartRequest 는 예외처리가 필요해서 try=catch문을 사용함.
-			MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "utf-8");
+			MultipartRequest multi = new MultipartRequest(req, root, maxSize, "utf-8");
 			
 			//dto를 이용하여 게시물 정보 저장
 			dto.setId((String) req.getSession().getAttribute("loginId"));
@@ -63,8 +62,8 @@ public class AlbumService {
 				System.out.println(oriFileName +"- > " + newFileName);
 			}
 			
-			File oldName = new File(uploadPath+"/"+oriFileName);
-			File newName = new File(uploadPath+"/"+newFileName);
+			File oldName = new File(root+"/"+oriFileName);
+			File newName = new File(root+"/"+newFileName);
 			oldName.renameTo(newName);
 			dto.setAlbumOriFileName(oriFileName);
 			System.out.println(dto.getAlbumOriFileName());
@@ -81,12 +80,13 @@ public class AlbumService {
 	public void list() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int page = Integer.parseInt(req.getParameter("page"));
-		System.out.println();
+		String id = req.getParameter("homephost");
+		System.out.println("앨범 아이디:"+id);
 		Gson gson = new Gson();
 		ArrayList<AlbumDTO> list = null;
 		AlbumDAO dao = new AlbumDAO();
 		int allcnt = dao.listcnt();
-		list = dao.list(page);
+		list = dao.list(page, id);
 		map.put("list", list);
 		if(page == 1) {map.put("allcnt", allcnt);}
 		String obj = gson.toJson(map);
@@ -147,7 +147,7 @@ public class AlbumService {
 		albumfilecom = dao.albumfiledel(albumidx);
 		if(!newfilename.equals("noneimage.png")) {
 			boolean filedel = false;
-			String path = "C:/MVC_STUDY/ProjectFoFe/upload/";
+			String path = "C:/albumupload";
 			File file = new File(path+newfilename);
 			if(file.exists()) {
 				filedel = file.delete();

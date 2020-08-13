@@ -95,8 +95,7 @@
                 width: 240px;
                 height: 240px;
                 margin: 30px 30px 10px 30px;
-                border: 1px solid gray;
-                background-image: url("http://blogfiles.naver.net/MjAyMDAyMTBfMTA3/MDAxNTgxMjY5MDAxNDIw.VoXLiKsE_xVCpNzMacA6G3WtyYWSxbE015qUUcb8Tt8g.D-CiU-TmNEylK818HUowj9WniDj0OUXSngh8-il7r_Ug.GIF.o2oo_o/1581265188597.gif");
+                border: 1px solid white;
                 background-size: cover;
                 background-position: 50%;
             }
@@ -179,13 +178,13 @@
 				width: 620px;
                 height: 580px;
 			}
-			#homeView{display: block;}
-			#profileView{display: none;}
-			#diaryView{display: none;}
-			#albumView{display: none;}
-			#guestBookView{display: none;}
-			#manageView{display: none;}
-		
+			#homeView{display: block; margin: 10px 0px 0px 10px;}
+			#profileView{display: none; margin: 10px 0px 0px 10px;}
+			#diaryView{display: none; margin: 10px 0px 0px 10px;}
+			#albumView{display: none; margin: 10px 0px 0px 10px;}
+			#guestBookView{display: none; margin: 10px 0px 0px 10px;}
+			#manageView{display: none; margin: 10px 0px 0px 10px;}
+
    </style>
    </head>
    <body style="background-color : ${minihome.backcolor}">
@@ -209,24 +208,24 @@
                         </div>
                         <div id="center">
                             <div id="side_menu">
-                                <div id="profile_image"></div>
+                                <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" style="border-radius:50%" height="240px"></div>
                                 <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                                 <div id="profile_message">
                                 	<div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}"></div>
                                 	<div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                                 </div>
                                 <audio autoplay controls loop>
-						               <source src="C:\Users\gd\Desktop\project UI\싹쓰리.mp3" type="audio/mp3">
+						               <source src="#" type="audio/mp3">
 						        </audio>
                                 <div id="email">조회수</br>${minihome.email}</div>
                             </div>
                             <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
-                            	<iframe id="homeView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="albumView" src="giveAlbumlist?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="manageView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<iframe id="manageView" src="manage.jsp?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             </div>
                         </div>
                     </div>
@@ -381,8 +380,9 @@
     			}
     		});
 		}
-   		
+
    		$("#homeBtn").click(function () {
+   			location.reload();
 			$("#homeView").css({"display": "block"});
 			$("#profileView").css({"display": "none"});
 			$("#diaryView").css({"display": "none"});
