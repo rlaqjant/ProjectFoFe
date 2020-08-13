@@ -212,7 +212,10 @@ public class AlbumDAO {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			close();
 		}
+		System.out.println("총 페이지 갯수  : " + allcnt);
 		return allcnt;
 	}
 

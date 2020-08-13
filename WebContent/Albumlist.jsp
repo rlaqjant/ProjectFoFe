@@ -101,6 +101,91 @@
             	left: 300px;
             	top: 555px;
             }
+            
+            #gray{
+                position: absolute;
+			    width: 640px;
+			    height: 600px;
+			    background-color: black;
+			    opacity: 0.3;
+			    z-index: 10;
+			    display: none;
+			    top: 0;
+			    left: -30px;
+			   
+            }
+            #upload{
+                border-radius: 30px;
+                position: absolute;
+                background-color: white;
+                width: 300px;
+                height: 300px;
+                top: 18%;
+                left: 15%;
+                z-index: 10;
+                display: none;
+            }
+            #upload2{
+                font-size: 17px;
+                position: relative;
+                height: 10%;
+                padding-top: 10px;
+                padding-left: 10px;
+
+                
+            }
+            #submit{
+                width: 200px;
+                height: 50px;
+            }
+            .filebox{
+                margin: 10px;
+                text-align: center;
+            }
+            .filebox input{
+                text-align: center;
+                display: inline-block; 
+                padding: .5em .75em; 
+                color: #999; 
+                font-size: inherit; 
+                line-height: normal; 
+                vertical-align: middle;
+                background-color: #fdfdfd; 
+                cursor: pointer; 
+                border: 1px solid #ebebeb;
+                border-bottom-color: #e2e2e2; 
+                border-radius: .25em;
+                width: 80%;
+            }
+            .filebox label{ 
+                text-align: center;
+                display: inline-block; 
+                padding: .5em .75em; 
+                color: #999; 
+                font-size: inherit; 
+                line-height: normal; 
+                vertical-align: middle;
+                background-color: #fdfdfd; 
+                cursor: pointer; 
+                border: 1px solid #ebebeb;
+                border-bottom-color: #e2e2e2; 
+                border-radius: .25em;
+                width: 80%;
+                } 
+
+            .filebox input[type="file"]{
+                position: absolute; 
+                width: 1px; 
+                height: 1px;
+                padding: 0; 
+                margin: -1px; 
+                overflow: hidden; 
+                clip:rect(0,0,0,0);
+                border: 0; 
+                }
+         	 input{
+         	 	outline: none;
+         	 }
         </style>
     </head>
     <body>
@@ -124,25 +209,48 @@
 	           <table id="">
 	               
 	           </table>
+	           <input type="button" value="게시글 작성" id="writeclick"/>
 	           <div id="button">
 	               <a id="prev"><span>이전</span></a>
-	               <span><b></b></span>
+	               <span id=page></span>
 	               <a id="next"><span>다음</span></a>
 	           </div>
+	            <div id="gray"></div><!-- 팝업뒷창 -->
+		        <div id="upload">
+		            <div>
+		                <div style="padding-top:5px; border-bottom: 1px solid black; font-size: 25px; text-align: center; padding: 10px 0px; width: 100%; height: 10%;" >게시물만들기</div> 
+		                <div id="upload2">
+		                    <img src=""/><!--주인프로필사진업로드-->
+		                    <td>ㅇㅇ</td><br/><!--주인이름-->
+		                </div>
+		
+		        		<form action="albumupload" method="post" enctype="multipart/form-data">
+		
+		        			<textarea style="width: 100%; height: 95px; border: none; resize: none; outline: none;" name="content" placeholder="ㅇㅇ님 무슨 생각을 하고계신가요?"></textarea>
+		                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile" name="uploadFile"></div>
+		                    <div class="filebox"><input style="width: 88%; height: 13%;" type="submit" name="업로드" value="게시" /></div>
+		                </form>
+		            </div>
+        		</div>
         </div>
     </body>
     <script>
     var homephost = $("input[name='homephost']").val();
-    var page = 1;
- 	var allcnt = 0;
+    var page = 1;//현재 페이지
+ 	var allcnt = 0;//총페이지
+ 	var startpage = 0;//시작페이지
+ 	var endpage = 0 ;//마지막 페이지
+ 	var pagecnt = 5;//페이징 갯수
+ 	var change =0;
+
  	$(document).ready(function(){
- 		albumlistCall();
+ 		albumlistCall(page);
  	});
  	var albumidx = 0;
  	
- 	
-    function albumlistCall(){
-    	$('b').html(page);
+    function albumlistCall(currpage){
+
+    	page = currpage;
     	$.ajax({
     		type:"post",
     		url:"albumlist",
@@ -152,50 +260,72 @@
     		dataType:"JSON",
     		success:function(data){
     			albumList(data.list);
+    			allcnt = data.allcnt;
+    			paging(page, allcnt);
     		},error:function(e){
     			console.log(e);
-    		}
+    		},
     	});
+    	
+    	return allcnt, page;
+    }
+	
+    function paging(currpage,allcnt){
+    	if(currpage == 1){
+			$('#prev').css("display","none");
+			$('#next').css("dixplay","");
+		}else if(currpage == allcnt){
+			$('#prev').css("display","");
+			$('#next').css("dixplay","none");
+		}
+    	
+    	if(currpage%pagecnt == 0){
+    		$('#page').empty();
+    		if(change != 1){change=change-1;}
+    		endpage = change * pagecnt;
+    		startpage = (endpage - pagecnt)+1;
+    		console.log(allcnt);
+    		if(allcnt < endpage){endpage=allcnt;}
+    		console.log(endpage);
+    		console.log(startpage);
+    		for(i=startpage;i<=endpage;i++){
+    			$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+    		}
+    	}else if(currpage%pagecnt == 1){
+    		$('#page').empty();
+    		change=change+1;
+    		endpage = change * pagecnt;
+    		startpage = (endpage - pagecnt)+1;
+    		console.log(allcnt);
+    		console.log(startpage);
+    		if(allcnt < endpage){endpage=allcnt;}
+    		console.log(endpage);
+    		for(i=startpage; i<=endpage; i++){
+    			$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+    		}
+    	}
+    	return change;
+   		
     }
     
     $('#next').click(function(){
     	if(allcnt > page){
     		page = page+1;
-        	$.ajax({
-        		type:"post",
-        		url:"albumlist",
-        		data:{"page":page},
-        		dataType:"JSON",
-        		success:function(data){
-        			albumList(data.list);
-        		},error:function(e){
-        			console.log(e);
-        		}
-        	});
+    		albumlistCall(page);
     	}else{
     		alert('마지막 페이지 입니다.');
     	}
-    	$('b').html(page);
+    	return page;
     });
     
     $('#prev').click(function(){
     	if(page > 1){
     		page = page-1;
-        	$.ajax({
-        		type:"post",
-        		url:"albumlist",
-        		data:{"page":page},
-        		dataType:"JSON",
-        		success:function(data){
-        			albumList(data.list);
-        		},error:function(e){
-        			console.log(e);
-        		}
-        	});
+    		albumlistCall(page);
     	}else{
     		alert('첫번째 페이지입니다.');
     	}
-    	$('b').text('page');
+    	return page;
     });
     
     
@@ -229,6 +359,13 @@
     		error:function(e){console.log(e);}
     	});
     }
+    
+    $("#writeclick").click(function(){
+    	$('#gray').show();
+    	$('#upload').show();
+    });
+    	
+
     
     $("#replyBtn").click(function(){
     		var replyCont = $('#replyCont').val();
