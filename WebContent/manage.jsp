@@ -119,7 +119,7 @@
                      <span>${msg}</span>
                      <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
                          <input type="text" name="title"/>
-                         <input type="file" name="profile1"/>
+                         <input type="file" name="mainPhoto"/>
                          <input type="submit" value="업로드"/>
                      </form>
                  </div>
@@ -131,7 +131,7 @@
              <span>${msg}</span>
              <form action="BgmUpload" method="POST" enctype="multipart/form-data">
                  <input type="text" name="title"/>
-                 <input type="file" name="profile2"/>
+                 <input type="file" name="BGM"/>
                  <input type="submit" value="업로드"/>
              </form>
         </div>
