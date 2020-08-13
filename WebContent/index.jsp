@@ -27,7 +27,10 @@
             #srch:focus {outline:none;}
             #srch:hover {border: 4px solid #d3fdb8;}
             #srch::placeholder {color: #9bdf53; text-align:center;}
-
+			#searchResult{
+			width:400px; padding:5px; border-radius:30px; color:#5aad01; font-size: 12pt; font-weight: bold; box-shadow:0px 3px 3px 2px #d3fdb8;
+            border: 1px solid #d6ffab; background-image:url(); background-repeat: no-repeat; padding: 5px; display: none; margin:0 auto;
+			}
             /*친구목록*/
             .friends_po{width: 100%; min-width:1230px; text-align: center;}
             .friends{width: 100%; height:300px; text-align: center; border-collapse: collapse;}
@@ -48,6 +51,11 @@
             #button{position: absolute; width:70px; height:30px; left: 48%; top: 96%; cursor: pointer;
             border: 1px solid #86d356; border-radius:30px; background-color: #86d356; font-size: 12pt; color: white;}
             
+            .profileImg{
+            	width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
         </style>
     </head>
     <body >
@@ -59,7 +67,6 @@
                     <div class="login_box">
                     <span><a href="login.jsp">로그인</a></span>
                     <span><a href="joinForm.jsp">회원가입</a></span>
-                    <a href="Profile.jsp">프로필 테스트 중. 추후 지울 링크</a> 
                     </div>
                 </div>
 				
@@ -72,15 +79,12 @@
                 <div></div>
 
                 <!--검색창-->
-
                 <div class="search">
                 		<input id="srch" type="text" name="srchText" placeholder="포플 친구를 검색하세요!">
                 		<input type="button" id="srchBtn" value="검색">
+                		<table id="searchResult">
+                		</table>
                 </div>
-                <div>
-                	<table id="searchResult">
-                	</table>
-                </div> 
                             
             </div>
         </div>
@@ -109,8 +113,9 @@
     					for (var i = 0; i < data.arrList.length; i++) {
         					var id = data.arrList[i].id;
         					var name = data.arrList[i].name;
-        					
+        					$("#searchResult").css({"display":"block"});
         					$("#searchResult").append("<tr>"
+        							+"<td><img src='/profilePhoto/"+id+"profilephoto.jpg' class='profileImg'/></td>"
         				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
         				            +"</tr>");
@@ -123,10 +128,6 @@
     			}
     		});
     	})
-    	//로고 클릭시 검색창 없어짐
-    	$(".logo").click(function () {
-    		$("#searchResult").empty();
-		})
 		
     </script>
 </html>
