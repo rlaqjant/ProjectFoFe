@@ -12,13 +12,11 @@
                 position: static;
                 width: 620px;
                 height: 580px;
-                background-color: coral;
             }
             #viewbox{
                 position: relative;
                 width: 620px;
                 height: 440px;
-                background-color: purple;
             }
             #viewDetail{
                 position: absolute;
@@ -27,7 +25,6 @@
                 top: 10px;
                 left: 20px;
                 text-align: center;
-                background-color: teal;
                 overflow:auto;
             }
             .viewDetail2 {
@@ -60,16 +57,27 @@
                 left: 448px;
                 float: left;
             }
-            input[type="button"]{
-            	position: absolute;
-                border: none;
-                background-color: white;
-            }
             .guestbookDelete{
            		position: absolute;
             	border: none;
-                background-color: white;
-                left: 44px;
+            	left: 64px;
+           		background: url( "images/deleteIcon.png" ) no-repeat;
+             	background-size: 20px 20px;
+             	width: 20px;
+             	height: 20px;
+             	text-indent: -9000px;
+             	border: none;
+             	 
+            }
+            .guestBookUpdateBtn{
+            	position: absolute;
+              	background: url( "images/updateIcon.png" ) no-repeat;
+             	background-size: 20px 20px;
+             	width: 20px;
+             	height: 20px;
+             	text-indent: -9000px;
+             	border: none;
+             	left: 40px;
             }
             .GuestbookDetail{
                 margin: 20px 20px;
@@ -79,7 +87,6 @@
                 top: 460px;
                 width: 620px;
                 height: 40px;
-                background-color: darkkhaki;
             }
             .pageArea{
                 position: absolute;
@@ -91,7 +98,6 @@
                 width: 620px;
                 height: 80px;
                 top: 500px;
-                background-color: darkred;
                 text-align: center;
             }
             #wrightBox div{
@@ -122,21 +128,21 @@
 	                                    <div class="userName"><a href='loadMinihome?id=${guestBook.guestBookUser_name}' target='_blank'>${guestBook.guestBookUser_name}</a></div>
 	                                    <div class="date">${guestBook.guestBookReg_date}</div>
 	                                    <div class="updateDelete">
-		                                    <input type="button" value="수정"/>
+		                                    	<input type="button" value="${guestBook.guestBookUser_name}" name="${guestBook.guestBookIdx}" class="guestBookUpdateBtn"/>
 		                                	<form action="guestbookDelete" method="post">
 		                                		<input type="hidden" name="guestBookIdx" value="${guestBook.guestBookIdx}"/>
 		                                		<input type="hidden" name="homephost" value="${guestBook.id}"/>
-		                                		<input type="submit" value="삭제" class="guestbookDelete"/>
+		                                		<input type="submit" value="삭제" class="guestbookDelete" width="20px"/>
 		                                	</form>
 										</div>
-	                                </td><!--  -->
+	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td>
 	                                    <div>
-	                                    <img src="https://d2ph5fj80uercy.cloudfront.net/04/cat2410.jpg" alt="userProfile" title="userName">
+	                                    <img src="/profilePhoto/${guestBook.guestBookUser_name}profilephoto.jpg" alt="userProfile" title="userName">
 	                                    </div>
-	                                    <div class="GuestbookDetail">
+	                                    <div class="GuestbookDetail" id="GuestbookDetail${guestBook.guestBookUser_name}">
 	                                        ${guestBook.guestBookContent}
 	                                    </div>
 	                                </td>
@@ -183,6 +189,64 @@
 				}else{
 					$("#wrightBoxForm").css({"display":"none"});
 					$("#wrightBox").html("<p id='nofollowMsg'>팔로우하면 방명록을 작성할 수 있어요~<p>")
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
+
+	var guestbookUpdateText ="";
+	var guestBookIdx ="";
+	$(".guestBookUpdateBtn").click(function () {
+		var id = $(this).val();
+		var idx = $(this).attr("name");
+		console.log(id,idx);
+		$.ajax({
+			type:"post",
+			url:"guestBookUpdateCheck",
+			data:{
+				"guestBookUpId": id,
+				"guestBookIdx" : idx
+				},
+			dataType:"JSON",
+			success:function(data){ 		 
+				if(data.result){
+					var guestbookcontent = data.guestbookcontent;
+					$("#GuestbookDetail"+id).empty();
+					$("#GuestbookDetail"+id).append("<textarea id='guestbookUpdateText' style='resize:none; width:280px; height:100px'>"+guestbookcontent+"</textarea>");
+					$("#GuestbookDetail"+id).append(" <input type='button' value='수정' id='guestbookUpdate'/>");
+					$("#guestbookUpdate").click(function () {
+						guestbookUpdateText = $("#guestbookUpdateText").val();
+						guestBookIdx = idx;
+						guestBookUpdate();
+					})
+				}else{
+					alert("작성자만 수정할 수 있습니다.");
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+   		});
+	});
+
+	function guestBookUpdate() {
+		$.ajax({
+			type:"post",
+			url:"guestBookUpdate",
+			data:{
+				"guestbookUpdateText": guestbookUpdateText,
+				"guestBookIdx" : guestBookIdx
+				},
+			dataType:"JSON",
+			success:function(data){ 		
+				if(data.result){
+					parent.document.location.reload()
+					alert("방명록 수정 완료.");
+				}else{
+					alert("다시 시도해주세요.");
 				}
 			},
 			error:function(e){
