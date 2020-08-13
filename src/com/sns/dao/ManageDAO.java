@@ -122,24 +122,25 @@ public boolean profileWrite2(ManageDTO dto) {
 	return com;
 }
 
-	public HashMap<String, Object> select(HttpServletRequest req) {
+	public HashMap<String, Object> profileselect(HttpServletRequest req) {
 		ManageService service = new ManageService();
-		String sql = "Select datatype, newfilename from upfile where datatype=1";
+		String sql = "Select id, newfilename from PROFILEPHOTOUP where id =?";
 		
 		boolean com = false;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps=conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
 			rs = ps.executeQuery();
 			
+			
 			while (rs.next()) {
-				System.out.println(rs.getString("newfilename"));
 				map.put("filename", rs.getString("newfilename"));
 				com=true;
 				
 			}
 			map.put("success", com);
-			delete();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -149,51 +150,21 @@ public boolean profileWrite2(ManageDTO dto) {
 		return map;
 	}
 	
-	public HashMap<String, Object> select1(HttpServletRequest req) {
+	public HashMap<String, Object> mainPhotoselect(HttpServletRequest req) {
 		ManageService service = new ManageService();
-		String sql = "Select datatype, newfilename from upfile where datatype=2";
+		String sql = "Select id, newfilename from MAINPHOTOUP where id =?";
 		
 		boolean com = false;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps=conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
 			rs = ps.executeQuery();
-			
 			while (rs.next()) {
-				System.out.println(rs.getString("newfilename"));
 				map.put("filename", rs.getString("newfilename"));
 				com=true;
-				
 			}
 			map.put("success", com);
-			delete1();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			Close();
-		}
-		return map;
-	}
-	public HashMap<String, Object> select2(HttpServletRequest req) {
-		ManageService service = new ManageService();
-		String sql = "Select datatype, newfilename from upfile where datatype=3";
-		
-		boolean com = false;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		try {
-			ps=conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while (rs.next()) {
-				System.out.println(rs.getString("newfilename"));
-				map.put("filename", rs.getString("newfilename"));
-				com=true;
-				
-			}
-			map.put("success", com);
-			delete2();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -202,33 +173,40 @@ public boolean profileWrite2(ManageDTO dto) {
 		return map;
 	}
 	
+	public HashMap<String, Object> bgmselect(HttpServletRequest req) {
+		ManageService service = new ManageService();
+		String sql = "Select id, newfilename from MP3UP where id =?";
+		
+		boolean com = false;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				map.put("filename", rs.getString("newfilename"));
+				com=true;
+			}
+			map.put("success", com);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return map;
+	}
 
 	
-
-	public void delete() {
-		String sql = "DELETE FROM upfile WHERE datatype = 1";
-		boolean com = false;
-		try {
-			ps = conn.prepareStatement(sql);
-			if(ps.executeUpdate()>0) {
-				System.out.println("삭제 성공");
-				com = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			Close();
-		}
+	//삭제
+	public void profiledelete(HttpServletRequest req) {
+		String sql = "DELETE FROM PROFILEPHOTOUP WHERE id = ?";
 		
-	}
-	public void delete1() {
-		String sql = "DELETE FROM upfile WHERE datatype = 2";
-		boolean com = false;
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
 			if(ps.executeUpdate()>0) {
 				System.out.println("삭제 성공");
-				com = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -237,22 +215,38 @@ public boolean profileWrite2(ManageDTO dto) {
 		}
 	}
 	
-	private void delete2() {
-		String sql = "DELETE FROM upfile WHERE datatype = 3";
-		boolean com = false;
+	public void mainPhotodelete(HttpServletRequest req) {
+		String sql = "DELETE FROM MAINPHOTOUP WHERE id = ?";
+		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
 			if(ps.executeUpdate()>0) {
 				System.out.println("삭제 성공");
-				com = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			Close();
 		}
-		
 	}
+	
+	public void bgmdelete(HttpServletRequest req) {
+		String sql = "DELETE FROM MP3UP WHERE id = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
+			if(ps.executeUpdate()>0) {
+				System.out.println("삭제 성공");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+	}
+	
 
 	public boolean profileUpload(HttpServletRequest req, ManageDTO dto) {//프로필 업로드
 		String sql = "INSERT INTO PROFILEPHOTOUP(id, orifilename, newfilename) VALUES(?, ? ,?)";
@@ -272,10 +266,128 @@ public boolean profileWrite2(ManageDTO dto) {
 			Close();
 		}
 		return success;
+	}	
+	
+	public boolean mainPhotoUpload(HttpServletRequest req, ManageDTO dto) {//프로필 업로드
+		String sql = "INSERT INTO MAINPHOTOUP(id, orifilename, newfilename) VALUES(?, ? ,?)";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getOriFileName());
+			ps.setString(3, dto.getNewFileName());
+			
+			if(ps.executeUpdate()>0) {
+				success  = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return success;
+	}
+	
+	public boolean bgmUpload(HttpServletRequest req, ManageDTO dto) {//프로필 업로드
+		String sql = "INSERT INTO MP3UP(id, orifilename, newfilename) VALUES(?, ? ,?)";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getOriFileName());
+			ps.setString(3, dto.getNewFileName());
+			
+			if(ps.executeUpdate()>0) {
+				success  = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		return success;
+	}
+
+	public boolean profilecheck(HttpServletRequest req) {
+		String sql = "SELECT ? FROM PROFILEPHOTOUP ";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}return result;
+		
+		
+	}
+
+	public boolean bgmcheck(HttpServletRequest req) {
+		String sql = "SELECT ? FROM MP3UP";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				result = true;
+			}
+			System.out.println("파일이 없음");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}return result;
+	}
+	
+	public boolean mainPhotocheck(HttpServletRequest req) {
+		String sql = "SELECT ? FROM MAINPHOTOUP ";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, (String) req.getSession().getAttribute("id"));
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				result = true;
+				System.out.println("파일이 없음");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}return result;
+	}
+
+	public void bgUpload(HttpServletRequest req) {
+		ManageDTO dto = new ManageDTO();
+		String sql = "UPDATE MINIHMAIN SET BACKCOLOR = ? WHERE id = ? ";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, req.getParameter("background"));
+			ps.setString(2, (String) req.getSession().getAttribute("id"));
+			if (ps.executeUpdate()>0) {
+				System.out.println("색이 변경되었습니다.");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			Close();
+		}
+		
 		
 		
 		
 	}
+
+
+	
 	
 	
 	

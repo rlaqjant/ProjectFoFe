@@ -6,6 +6,9 @@ public class ManageDTO {
 	private String oriFileName;
 	private String newFileName;
 	private String id;
+	private String color;
+	
+	
 	
 	public int getDataType() {
 		return dataType;
@@ -30,6 +33,12 @@ public class ManageDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 }

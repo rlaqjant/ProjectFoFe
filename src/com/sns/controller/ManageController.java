@@ -15,7 +15,7 @@ import com.sns.dao.ManageDAO;
 import com.sns.dto.ManageDTO;
 import com.sns.service.ManageService;
 
-@WebServlet({"/profileUpload","/mainPhotoUpload","/BgmUpload"})
+@WebServlet({"/profileUpload","/mainPhotoUpload","/BgmUpload","/backgrounduplolad"})
 
 public class ManageController extends HttpServlet {
 
@@ -37,13 +37,27 @@ public class ManageController extends HttpServlet {
 		case "/profileUpload":
 			System.out.println("프로필 사진 업로드 요청");
 			
+			boolean result = service.profilecheck(req);//사진이 있는지 없는 확인
+			if(result) {//사진이 있다면 파일밑 데이터 베이스에서 삭제
+				HashMap<String, Object> map = service.profileselect(req);
+				String filename = (String) map.get("filename");
+				File file = new File("C:/upload/"+filename);
+				
+				if(file.exists()) {
+					if(file.delete()){System.out.println("파일삭제 성공");
+					}else{System.out.println("파일삭제 실패");}
+					
+				}else{System.out.println("파일이 존재하지 않습니다.");}
+				service.profiledelete(req);
+			}
+			
 			ManageDTO dto = service.profilePhoto(req);//프로필 사진 파일 업로드
 			boolean success = service.profileUpload(req,dto);//프로필 내용 db에 저장
 			
 			if(success) {
 				msg = "저장 성공";
-				System.out.println(msg);
 			}
+			System.out.println(msg);
 			req.setAttribute("newfilename", dto.getNewFileName());
 			req.setAttribute("msg", msg);
 			dis=req.getRequestDispatcher(page);
@@ -51,167 +65,75 @@ public class ManageController extends HttpServlet {
 			
 			break;
 			
-//			HashMap<String, Object> map = service.select(req);
-//			for(String key : map.keySet()) {
-//				System.out.println("키 :  값 : "+ key  +"/ " +  map.get(key));
-//			}
-//			String filename = (String) map.get("filename");
-//			boolean success = (boolean) map.get("success");
-//			System.out.println(filename);
-//			
-//			if(!success) {
-//				System.out.println("파일이 하나도 없다");
-//				ManageDTO dto = service.upload(req);
-//				ManageDAO dao = new ManageDAO();
-//				System.out.println("컨트롤러로 이동");
-//				if(dao.profileWrite(dto)) {
-//					msg = "저장 성공";
-//					System.out.println(msg);
-//				}
-//				req.setAttribute("newfilename", dto.getNewFileName());
-//				req.setAttribute("msg", msg);
-//				dis=req.getRequestDispatcher(page);
-//				dis.forward(req, resp);
-//				
-//			}else{
-//				System.out.println("파일이 있다");
-//				//원래 파일 삭제
-//				File file = new File("C:/upload/" +filename);
-//				if(file.exists()) {
-//					if(file.delete()){
-//						System.out.println("파일삭제 성공");
-//					}else{ System.out.println("파일삭제 실패");
-//					}
-//				}else{
-//					System.out.println("파일이 존재하지 않습니다.");
-//				}
-//				
-//				//새로만들 파일 업로드
-//				ManageDTO dto = service.upload(req);
-//				ManageDAO dao = new ManageDAO();
-//				System.out.println("컨트롤러로 이동");
-//				if(dao.profileWrite(dto)) {
-//					msg = "저장 성공";
-//					System.out.println(msg);
-//				}
-//				req.setAttribute("newfilename", dto.getNewFileName());
-//				req.setAttribute("msg", msg);
-//				dis=req.getRequestDispatcher(page);
-//				dis.forward(req, resp);
-//			}
-//			
-//			break;
-//			
-//			
-//		case "/mainPhotoUpload":
-//			System.out.println("대문 사진 업로드 요청");
-//			msg = "저장 실패";
-//			page = "manage.jsp";
-//			map= service.select1(req);
-//			for(String key : map.keySet()) {
-//				System.out.println("키 :  값 : "+ key  +"/ " +  map.get(key));
-//			}
-//			filename = (String) map.get("filename");
-//			success = (boolean) map.get("success");
-//			System.out.println("원래 파일 이름 : "+  filename);
-//			
-//			if(!success) {
-//				System.out.println("파일이 하나도 없다");
-//				ManageDTO dto = service.upload1(req);
-//				ManageDAO dao = new ManageDAO();
-//				System.out.println("컨트롤러로 이동");
-//				if(dao.profileWrite1(dto)) {
-//					msg = "저장 성공";
-//					System.out.println(msg);
-//				}
-//				req.setAttribute("newfilename", dto.getNewFileName());
-//				req.setAttribute("msg", msg);
-//				dis=req.getRequestDispatcher(page);
-//				dis.forward(req, resp);
-//				
-//			}else{
-//				System.out.println("파일이 있다");
-//				//원래 파일 삭제
-//				File file = new File("C:/upload/" +filename);
-//				if(file.exists()) {
-//					if(file.delete()){
-//						System.out.println("파일삭제 성공");
-//					}else{ System.out.println("파일삭제 실패");
-//					}
-//				}else{
-//					System.out.println("파일이 존재하지 않습니다.");
-//				}
-//				
-//				//새로만들 파일 업로드
-//				ManageDTO dto = service.upload1(req);
-//				ManageDAO dao = new ManageDAO();
-//				System.out.println("컨트롤러로 이동");
-//				if(dao.profileWrite1(dto)) {
-//					msg = "저장 성공";
-//					System.out.println(msg);
-//				}
-//				req.setAttribute("newfilename", dto.getNewFileName());
-//				req.setAttribute("msg", msg);
-//				dis=req.getRequestDispatcher(page);
-//				dis.forward(req, resp);
-//			}
-//			
-//			break;
-//			
-//		case "/BgmUpload":
-//			System.out.println("bgm 업로드 요청");
-//			msg = "저장 실패";
-//			page = "manage.jsp";
-//			map= service.select2(req);
-//			for(String key : map.keySet()) {
-//				System.out.println("키 :  값 : "+ key  +"/ " +  map.get(key));
-//			}
-//			filename = (String) map.get("filename");
-//			success = (boolean) map.get("success");
-//			System.out.println("원래 파일 이름 : "+  filename);
-//			
-//			if(!success) {
-//				System.out.println("파일이 하나도 없다");
-//				ManageDTO dto = service.upload2(req);
-//				ManageDAO dao = new ManageDAO();
-//				System.out.println("컨트롤러로 이동");
-//				if(dao.profileWrite2(dto)) {
-//					msg = "저장 성공";
-//					System.out.println(msg);
-//				}
-//				req.setAttribute("newfilename", dto.getNewFileName());
-//				req.setAttribute("msg", msg);
-//				dis=req.getRequestDispatcher(page);
-//				dis.forward(req, resp);
-//				
-//			}else{
-//				System.out.println("파일이 있다");
-//				//원래 파일 삭제
-//				File file = new File("C:/upload/" +filename);
-//				if(file.exists()) {
-//					if(file.delete()){
-//						System.out.println("파일삭제 성공");
-//					}else{ System.out.println("파일삭제 실패");
-//					}
-//				}else{
-//					System.out.println("파일이 존재하지 않습니다.");
-//				}
-//				
-//				//새로만들 파일 업로드
-//				ManageDTO dto = service.upload2(req);
-//				ManageDAO dao = new ManageDAO();
-//				System.out.println("컨트롤러로 이동");
-//				if(dao.profileWrite2(dto)) {
-//					msg = "저장 성공";
-//					System.out.println(msg);
-//				}
-//				req.setAttribute("newfilename", dto.getNewFileName());
-//				req.setAttribute("msg", msg);
-//				dis=req.getRequestDispatcher(page);
-//				dis.forward(req, resp);
-//			}
-//			
-//			break;
+		case "/mainPhotoUpload":
+			System.out.println("메인 사진 업로드 요청");
+			
+			result = service.mainPhotocheck(req);//사진이 있는지 없는 확인
+			if(result) {//사진이 있다면 파일밑 데이터 베이스에서 삭제
+				HashMap<String, Object> map = service.mainPhotoselect(req);
+				String filename = (String) map.get("filename");
+				File file = new File("C:/upload/"+filename);
+				
+				if(file.exists()) {
+					if(file.delete()){System.out.println("파일삭제 성공");
+					}else{System.out.println("파일삭제 실패");}
+					
+				}else{System.out.println("파일이 존재하지 않습니다.");}
+				service.mainPhotodelete(req);
+			}
+			
+			dto = service.MainPhoto(req);//프로필 사진 파일 업로드
+			success = service.mainPhotoUpload(req,dto);//프로필 내용 db에 저장
+			
+			if(success) {
+				msg = "저장 성공";
+			}
+			System.out.println(msg);
+			req.setAttribute("newfilename", dto.getNewFileName());
+			req.setAttribute("msg", msg);
+			dis=req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			
+			break;
+			
+		case "/BgmUpload":
+			System.out.println("BGM 업로드 요청");
+			
+			result = service.bgmcheck(req);//사진이 있는지 없는 확인
+			if(result) {//사진이 있다면 파일밑 데이터 베이스에서 삭제
+				HashMap<String, Object> map = service.bgmselect(req);
+				String filename = (String) map.get("filename");
+				File file = new File("C:/upload/"+filename);
+				
+				if(file.exists()) {
+					if(file.delete()){System.out.println("파일삭제 성공");
+					}else{System.out.println("파일삭제 실패");}
+					
+				}else{System.out.println("파일이 존재하지 않습니다.");}
+				service.bgmdelete(req);
+			}
+			
+			dto = service.bgm(req);//프로필 사진 파일 업로드
+			success = service.bgmUpload(req,dto);//프로필 내용 db에 저장
+			
+			if(success) {
+				msg = "저장 성공";
+			}
+			System.out.println(msg);
+			req.setAttribute("newfilename", dto.getNewFileName());
+			req.setAttribute("msg", msg);
+			dis=req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			
+			break;
+			
+		case "/backgrounduplolad":
+			System.out.println("배경색 바꾸기 요청");
+			System.out.println(req.getParameter("background"));
+			service.bgUpload(req);
+			dis=req.getRequestDispatcher(page);
+			dis.forward(req, resp);			
+			break;
 		
 		}
 		

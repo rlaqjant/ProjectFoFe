@@ -124,7 +124,7 @@ public class AlbumController extends HttpServlet {
 			case "/replyDel":
 				System.out.println("replyDel 요청");
 				msg = "삭제 실패";
-				page = "AlbumReply.jsp";
+				page = "albumReply.jsp";
 				dto1 = new ReplyDTO();
 				dto1.setReplyIdx(Integer.parseInt(req.getParameter("replyIdx")));
 				if (dao.replyDelete(dto1)) {

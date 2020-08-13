@@ -111,11 +111,11 @@
 	                <div id="album_photo"></div>
 	                <div id="album_text"></div>
 	                <div id="album_reply">
-		                (댓글 영역) </br>
+		                 </br>
 		                <!-- 게시 버튼 -->
-		                <input id="replyCont" name="replyCont" type="text"/>
-		                <input id="replyBtn" type="button" value="게시"/>
-	                	<div id="replyDiv"></div>
+			                <input id="replyCont" name="replyCont" type="text" placeholder="댓글 달기.."/>
+			                <input id="replyBtn" type="button" value="게시"/>
+		                	<div id="replyDiv"></div>
 	                </div>
 	                <input id="del" type="button" value="삭제" onclick="del()"/>
 	            </div>
@@ -151,9 +151,7 @@
     		},error:function(e){
     			console.log(e);
     		}
-    		
     	});
-    	
     }
     
     $('#next').click(function(){
@@ -222,14 +220,64 @@
     		success:function(data){
     			console.log(data);
     			albumdetail(data.list);
+    			ReplyList();
     		},
     		error:function(e){console.log(e);}
     	});
-    	
     }
     
+    $("#replyBtn").click(function(){
+    		var replyCont = $('#replyCont').val();
+    		$.ajax({
+    			type:'get',
+    			url:'albumReply',
+    			data: {"replyCont":replyCont, "albumIdx":albumidx},
+    			dataType:'HTML',
+    			success:function(result){
+    				console.log(result);
+    				ReplyList();
+    			},error:function(error){
+    				console.log(error);
+    			}
+    		});
+    	});
+    
+    function ReplyList(){
+    	$.ajax({
+    		type:'get',
+    		url:'replyList',
+    		data:{"albumIdx":albumidx},
+    		dataType:'HTML',
+  			success:function(result){
+  				console.log("댓글 리스트 조회 성공");
+  				$("#replyDiv").html(result);
+  			},error:function(error){
+  				console.log("댓글 리스트 조회 에러");
+  				console.log(error);
+  			}
+    	});
+    }
+    
+    function replyDelete(replyIdx){
+    	console.log(replyIdx);
+		$.ajax({
+			type:'get',
+			url:'replyDel',
+			data: {
+				"replyIdx": replyIdx
+			},
+			dataType:'HTML',
+			success:function(result){
+				// 댓글 리스트 갱신
+				ReplyList();
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
+    
     function albumdetail(list){
-
     	albumidx = list[0].albumidx;
     	$('#album_photo').append("<img src='/Photo/"+list[0].albumNewFileName+"'/>");
 		$('#album_text').append("<p>"+list[0].albumcontent+"</p>");
