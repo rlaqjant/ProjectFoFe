@@ -215,7 +215,7 @@
                                 	<div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                                 </div>
                                 <audio autoplay controls loop>
-						               <source src="#" type="audio/mp3">
+						               <source src="C:/upload/${newfilename}" type="audio/mp3">
 						        </audio>
                                 <div id="email">조회수</br>${minihome.email}</div>
                             </div>
@@ -223,7 +223,7 @@
                             	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="albumView" src="giveAlbumlist?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                            	<%-- <iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe> --%>
                             	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="manageView" src="manage.jsp?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             </div>
