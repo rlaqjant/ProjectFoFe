@@ -243,7 +243,7 @@
 			dataType:"JSON",
 			success:function(data){ 		
 				if(data.result){
-					parent.document.location.reload()
+					location.reload();
 					alert("방명록 수정 완료.");
 				}else{
 					alert("다시 시도해주세요.");

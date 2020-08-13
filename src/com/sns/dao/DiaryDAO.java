@@ -19,118 +19,119 @@ import com.sns.dto.DiaryDTO;
 
 public class DiaryDAO {
 
-   //생성자로 무조건적으로 먼저 실행해야하는 부분을 만들어준다.
-   //connection , preparestatement, resultset는 전역변수로 설정해준다.
-   //자원 전부반납해주는 메서드도 만들어주면 편하다.
-   Connection conn = null;
-   PreparedStatement ps = null;
-   ResultSet rs = null;
-   public DiaryDAO() {
-      try {
-         Context ctx = new InitialContext();
-         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle");
-         conn =  ds.getConnection();
-         
-      } catch (Exception e) {
-         e.printStackTrace();
-         }
-   }
-   
-   
-   
-   public boolean write(String id, String subject, String content) {//db에 들어갔는지 확인하기... 디테일로 가야겠지? 일단 확인해보려면 근데 그냥 목록으로가도...되굿...
-      //sql문 준비하기 -> INSERT INTO diary (diaryidx,id,diarysubject,diarycontent,diarybhit,diaryreg_date)VALUES();
-      //preparestatement로 ..해주고
-      //실행 -> 보내고.. 
-      //자원반납
-      
-      String sql="INSERT INTO diary(DIARYIDX, id, DIARYSUBJECT,DIARYCONTENT,DIARYBHIT,DIARYREG_DATE)VALUES(diary_seq.NEXTVAL,?,?,?,0,sysdate)";
-      //조회수는 처음엔 0으로 설정해주고 나중에 update문으로 따로 수를 올려준다.
-      boolean success = false;//초기값을 false로 주고
-      try {
-         ps = conn.prepareStatement(sql);
-         ps.setString(1, id);
-         ps.setString(2, subject);
-         ps.setString(3, content);
-         int a= ps.executeUpdate();
-         if(a>0) {//넣어진게 성공이면 
-            success=true;//true로 바꿔주고
-         } /*
-             * else if(a==0) { String msg="게시글을 전부 입력해주세요.";
-             * 위에 ?를 널로주고 널값이면 else if로 간다고해야하나...이건나중에하자
-             * }
-             */
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }finally {
-      resClose();
-      }return success;//성공했으면 success가 true로 바뀌어서 서비스로 갈거다.
-      
-   }
-      //리스트 보여주기
-      public ArrayList<DiaryDTO> list(String homephost, int page) {//반환하는 값이 arraylist인 list이고 list안에 넣은값이 dto라  반환타입이 ArrayList<DiaryDTO>이다.
-         //리스트를 보여주기위해선... list가 있어야한다. 그다음에 view에서 list를 가져와서 보여준다. 
-         //list를 만들기 위해선 dto를 이용해 많은 변수들을 한번에 묶고 그다음 arrayList를 객체화해서 리스트 전체를 가져온다.
-         //순서,db를 연결하고서..... dto를 쓰고서 
-      /*
-       * System.out.println("limit실행"); limit(homephost, page);
-       */
-      
-          int pagePerCnt = 10;//페이지당 보여줄 게시물의 수
-          int end = page*pagePerCnt; 
-          int start =(end-pagePerCnt)+1;
-          int endpage;
-      
-          
-         
-         
-         String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date FROM"
-               + " (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum, id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diaryWHERE id = ? )"
-               + "WHERE RNUM BETWEEN ? AND ?";//diaryidx기준으로 내림차순
-         
-         //SELECT diaryidx,id,diarysubject,diarybhit,diaryreg_date FROM diary WHERE id=? ORDER BY diaryidx DESC;
-         
-         ArrayList<DiaryDTO> list = null;
-         try {
-            
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, homephost);
-            ps.setInt(2, start);
-              ps.setInt(3, end);
-            
-            rs = ps.executeQuery();
-            list = new ArrayList<DiaryDTO>();//얠 여기서 만들어줘야 list가 제대로 생성될것같다.
-            while(rs.next()) {//sql이 실행되서 성공했으면 
-               //dto를 객체화해서 그 dto안에 내가 db에서 불러온 값들을 직접 넣어준다. 그리고 그 가져온 값들을 list에 싹다넣는다.
-               
-               DiaryDTO dto = new DiaryDTO();
-               dto.setDiaryidx(rs.getString("diaryidx"));
-               dto.setId(rs.getString("id"));
-               dto.setDiarysubject(rs.getString("diarysubject"));
-               dto.setDiarybhit(rs.getInt("diarybhit"));
-               dto.setDiaryreg_date(rs.getString("diaryreg_date"));
-               list.add(dto);//객체화한 arrayList에 dto에 넣은값(db에서 가져온 컬럼값들)을 더해준다.
-            }
-            
-         } catch (SQLException e) {
-            e.printStackTrace();
-         }finally {
-            resClose();//자원반납
-         }
-         return list;
-      }
-      
-   /*
-    * private boolean limit(String homephost, int page) { String
-    * sql="SELECT count (*) FROM diary WHERE id=?"; HashMap<String ,Object> map =
-    * new HashMap<String, Object>(); try { ps = conn.prepareStatement(sql);
-    * ps.setString(1, homephost); rs = ps.executeQuery();
-    * System.out.println(rs.getInt("count(*)")); while(rs.next()) {
-    * map.put("count", rs.getInt("count(*)"));
-    * 
-    * } } catch (SQLException e) { e.printStackTrace(); }finally { resClose(); }
-    * return false; }
-    */
+
+	//생성자로 무조건적으로 먼저 실행해야하는 부분을 만들어준다.
+	//connection , preparestatement, resultset는 전역변수로 설정해준다.
+	//자원 전부반납해주는 메서드도 만들어주면 편하다.
+	Connection conn = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	public DiaryDAO() {
+		try {
+			Context ctx = new InitialContext();
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle");
+			conn =  ds.getConnection();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		   }
+	}
+	
+	
+	
+	public boolean write(String id, String subject, String content) {//db에 들어갔는지 확인하기... 디테일로 가야겠지? 일단 확인해보려면 근데 그냥 목록으로가도...되굿...
+		//sql문 준비하기 -> INSERT INTO diary (diaryidx,id,diarysubject,diarycontent,diarybhit,diaryreg_date)VALUES();
+		//preparestatement로 ..해주고
+		//실행 -> 보내고.. 
+		//자원반납
+		
+		String sql="INSERT INTO diary(DIARYIDX, id, DIARYSUBJECT,DIARYCONTENT,DIARYBHIT,DIARYREG_DATE)VALUES(diary_seq.NEXTVAL,?,?,?,0,sysdate)";
+		//조회수는 처음엔 0으로 설정해주고 나중에 update문으로 따로 수를 올려준다.
+		boolean success = false;//초기값을 false로 주고
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, subject);
+			ps.setString(3, content);
+			int a= ps.executeUpdate();
+			if(a>0) {//넣어진게 성공이면 
+				success=true;//true로 바꿔주고
+			} /*
+				 * else if(a==0) { String msg="게시글을 전부 입력해주세요.";
+				 * 위에 ?를 널로주고 널값이면 else if로 간다고해야하나...이건나중에하자
+				 * }
+				 */
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+		resClose();
+		}return success;//성공했으면 success가 true로 바뀌어서 서비스로 갈거다.
+		
+	}
+		//리스트 보여주기
+		public ArrayList<DiaryDTO> list(String homephost, int page) {//반환하는 값이 arraylist인 list이고 list안에 넣은값이 dto라  반환타입이 ArrayList<DiaryDTO>이다.
+			//리스트를 보여주기위해선... list가 있어야한다. 그다음에 view에서 list를 가져와서 보여준다. 
+			//list를 만들기 위해선 dto를 이용해 많은 변수들을 한번에 묶고 그다음 arrayList를 객체화해서 리스트 전체를 가져온다.
+			//순서,db를 연결하고서..... dto를 쓰고서 
+		/*
+		 * System.out.println("limit실행"); limit(homephost, page);
+		 */
+		
+			 int pagePerCnt = 10;//페이지당 보여줄 게시물의 수
+			 int end = page*pagePerCnt; 
+			 int start =(end-pagePerCnt)+1;
+			 int endpage;
+		
+			 
+			
+			
+			String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date FROM"
+					+ " (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum, id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diaryWHERE id = ? )"
+					+ "WHERE RNUM BETWEEN ? AND ?";//diaryidx기준으로 내림차순
+			
+			//SELECT diaryidx,id,diarysubject,diarybhit,diaryreg_date FROM diary WHERE id=? ORDER BY diaryidx DESC;
+			
+			ArrayList<DiaryDTO> list = null;
+			try {
+				
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, homephost);
+				ps.setInt(2, start);
+		        ps.setInt(3, end);
+				
+				rs = ps.executeQuery();
+				list = new ArrayList<DiaryDTO>();//얠 여기서 만들어줘야 list가 제대로 생성될것같다.
+				while(rs.next()) {//sql이 실행되서 성공했으면 
+					//dto를 객체화해서 그 dto안에 내가 db에서 불러온 값들을 직접 넣어준다. 그리고 그 가져온 값들을 list에 싹다넣는다.
+					
+					DiaryDTO dto = new DiaryDTO();
+					dto.setDiaryidx(rs.getString("diaryidx"));
+					dto.setId(rs.getString("id"));
+					dto.setDiarysubject(rs.getString("diarysubject"));
+					dto.setDiarybhit(rs.getInt("diarybhit"));
+					dto.setDiaryreg_date(rs.getString("diaryreg_date"));
+					list.add(dto);//객체화한 arrayList에 dto에 넣은값(db에서 가져온 컬럼값들)을 더해준다.
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				resClose();//자원반납
+			}
+			return list;
+		}
+		
+	/*
+	 * private boolean limit(String homephost, int page) { String
+	 * sql="SELECT count (*) FROM diary WHERE id=?"; HashMap<String ,Object> map =
+	 * new HashMap<String, Object>(); try { ps = conn.prepareStatement(sql);
+	 * ps.setString(1, homephost); rs = ps.executeQuery();
+	 * System.out.println(rs.getInt("count(*)")); while(rs.next()) {
+	 * map.put("count", rs.getInt("count(*)"));
+	 * 
+	 * } } catch (SQLException e) { e.printStackTrace(); }finally { resClose(); }
+	 * return false; }
+	 */
 
 
 
