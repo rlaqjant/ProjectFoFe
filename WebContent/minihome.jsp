@@ -174,18 +174,13 @@
    }
    iframe {
       width: 1095px;
-       height: 755px;
+      height: 755px;
       left: 50%;
       top: 50%;
       margin-left: 547.5px;
       margin-top: 377.5px;
    }
-   #homeView{display: block; margin: 10px 0px 0px 10px;}
-   #profileView{display: none; margin: 10px 0px 0px 10px;}
-   #diaryView{display: none; margin: 10px 0px 0px 10px;}
-   #albumView{display: none; margin: 10px 0px 0px 10px;}
-   #guestBookView{display: none; margin: 10px 0px 0px 10px;}
-   #manageView{display: none; margin: 10px 0px 0px 10px;}
+   #viewDetail{margin: 10px 0px 0px 10px;}
    </style>
    </head>
    <body style="background-color : ${minihome.backcolor}">
@@ -198,12 +193,12 @@
                   <div><input type="button" name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
                </div>
                <div id="top-menu">
-                  <button class="top_menu" id="manageBtn">관리</button>
-                  <button class="top_menu" id="profileBtn">프로필</button>
-                  <button class="top_menu" id="diaryBtn">다이어리</button>
-                  <button class="top_menu" id="albumBtn">사진첩</button>
-                  <button class="top_menu" id="guestBookBtn">방명록</button>
-                  <button class="top_menu" id="homeBtn">홈</button>
+                  <button class="top_menu" id="manageBtn" onclick='viewFrame("manage.jsp?homephost=${minihome.id}")'>관리</button>
+                  <button class="top_menu" id="profileBtn" onclick='viewFrame("profileDetail?homephost=${minihome.id}")'>프로필</button>
+                  <button class="top_menu" id="diaryBtn" onclick='viewFrame("diaryList?homephost=${minihome.id}")'>다이어리</button>
+                  <button class="top_menu" id="albumBtn" onclick='viewFrame("giveAlbumlist?homephost=${minihome.id}")'>사진첩</button>
+                  <button class="top_menu" id="guestBookBtn" onclick='viewFrame("guestBookList?homephost=${minihome.id}")'>방명록</button>
+                  <button class="top_menu" id="homeBtn" onclick='viewFrame("minihomeMain?homephost=${minihome.id}")'>홈</button>
                </div>
             </div>
             <div id="center">
@@ -220,12 +215,7 @@
                   <div id="email">조회수</br>${minihome.email}</div>
                </div>
                <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
-                  <iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="albumView" src="giveAlbumlist?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="manageView" src="manage.jsp?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                  <iframe id="viewDetail"  src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                </div>
             </div>
          </div>
@@ -382,56 +372,8 @@
           });
       }
 
-         $("#homeBtn").click(function () {
-            location.reload();
-         $("#homeView").css({"display": "block"});
-         $("#profileView").css({"display": "none"});
-         $("#diaryView").css({"display": "none"});
-         $("#albumView").css({"display": "none"});
-         $("#guestBookView").css({"display": "none"});
-         $("#manageView").css({"display": "none"});
-      });
-         $("#profileBtn").click(function () {
-            $('#profileView').attr('src', "profileDetail?homephost="+homephostId);
-         $("#homeView").css({"display": "none"});
-         $("#profileView").css({"display": "block"});
-         $("#diaryView").css({"display": "none"});
-         $("#albumView").css({"display": "none"});
-         $("#guestBookView").css({"display": "none"});
-         $("#manageView").css({"display": "none"});
-      });
-         $("#diaryBtn").click(function () {
-            $('#diaryView').attr('src', "diaryList?homephost="+homephostId);
-         $("#homeView").css({"display": "none"});
-         $("#profileView").css({"display": "none"});
-         $("#diaryView").css({"display": "block"});
-         $("#albumView").css({"display": "none"});
-         $("#guestBookView").css({"display": "none"});
-         $("#manageView").css({"display": "none"});
-      });
-         $("#albumBtn").click(function () {
-         $("#homeView").css({"display": "none"});
-         $("#profileView").css({"display": "none"});
-         $("#diaryView").css({"display": "none"});
-         $("#albumView").css({"display": "block"});
-         $("#guestBookView").css({"display": "none"});
-         $("#manageView").css({"display": "none"});
-      });
-         $("#guestBookBtn").click(function () {
-         $("#homeView").css({"display": "none"});
-         $("#profileView").css({"display": "none"});
-         $("#diaryView").css({"display": "none"});
-         $("#albumView").css({"display": "none"});
-         $("#guestBookView").css({"display": "block"});
-         $("#manageView").css({"display": "none"});
-      });
-         $("#manageBtn").click(function () {
-         $("#homeView").css({"display": "none"});
-         $("#profileView").css({"display": "none"});
-         $("#diaryView").css({"display": "none"});
-         $("#albumView").css({"display": "none"});
-         $("#guestBookView").css({"display": "none"});
-         $("#manageView").css({"display": "block"});
-      });
+         function viewFrame(url) {
+        	 $('#viewDetail').attr('src', url);
+		}
    </script>
 </html>

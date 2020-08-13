@@ -212,6 +212,8 @@ public class AlbumDAO {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		return allcnt;
 	}
