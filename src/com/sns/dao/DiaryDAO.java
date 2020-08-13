@@ -86,7 +86,7 @@ public class DiaryDAO {
 			
 			
 			String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date FROM"
-					+ " (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum, id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diaryWHERE id = ? )"
+					+ " (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum, id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diary WHERE id = ? )"
 					+ "WHERE RNUM BETWEEN ? AND ?";//diaryidx기준으로 내림차순
 			
 			//SELECT diaryidx,id,diarysubject,diarybhit,diaryreg_date FROM diary WHERE id=? ORDER BY diaryidx DESC;
