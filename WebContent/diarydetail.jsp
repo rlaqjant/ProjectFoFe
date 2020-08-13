@@ -57,10 +57,22 @@
             
             .a3{height: 85%;}
             textarea:focus{outline: none;}
-            #detail{width: 99%; height: 99%; border: 0; resize: none;}
+            #detail{
+            width: 99%; 
+            height: 99%; 
+            border: 0; 
+            resize: none;
+            background-image: url(images/simple.jpg);
+            background-size: 600px 600px;
+            
+            }
             .list{
                 text-align: right;
                 
+            }
+            body{
+            width:600px;
+            height:600px;
             }
 	</style>
 </head>
@@ -70,24 +82,25 @@
             <table>
             	<input type="hidden" value="${diary.id}" name="homephost"/>
                 <tr class="a1">
-                    <td id="index">${diary.diaryidx}</td>
+                    <td id="index" hidden>${diary.diaryidx}</td>
                     <td id="date">${diary.diaryreg_date}</td>
                     <td id="hit">${diary.diarybhit}</td>
-                    <td id="update" ><a id="detailUpdate" href="./diaryUpdate?idx=${diary.diaryidx}">수정</a></td><!--컨트롤러탈때 idx값 넣어보내기  -->
-                    <td id="delete"><a id="detailDelete" href="./diaryDetailDelete?idx=${diary.diaryidx}">삭제</a></td>
+                    <td id="update" ><a id="detailUpdate" href="./diaryUpdate?idx=${diary.diaryidx}" style="text-decoration: none;color: black;">수정</a></td><!--컨트롤러탈때 idx값 넣어보내기  -->
+                    <td id="delete"><a id="detailDelete" href="./diaryDetailDelete?idx=${diary.diaryidx}" style="text-decoration: none;color: black;">삭제</a></td>
                 </tr>
+                
                 <tr class="a2">
-                    <td id="subject" colspan="5"><h3>${diary.diarysubject}</h3></td>
+                    <td id="subject" colspan="5"><h3 style="font-size: 20px;">TITLE:${diary.diarysubject}</h3></td>
                 </tr>
                 <tr class="a3">
                     <td class="detail" colspan="5">
-                        <textarea id="detail" readonly>${diary.diarycontent}</textarea>
+                        <textarea id="detail" style="font-size: 20px;" readonly >${diary.diarycontent}</textarea>
                     </td>
                 </tr>
             </table>
             <div class="list">
                 <!-- <input type="button" name="list" value="목록보기" onclick="location.href='./diaryList.jsp'"> -->
-                <button><a href="diaryList?homephost=${diary.id}">목록보기</a></button>
+                <button><a href="diaryList?homephost=${diary.id}" style="text-decoration: none;color: black;">목록보기</a></button>
             </div>
         </div>
 </body>

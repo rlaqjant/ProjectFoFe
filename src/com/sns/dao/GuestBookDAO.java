@@ -129,4 +129,40 @@ public class GuestBookDAO {
 		return result;
 	}
 
+	public String guestBookUpdateCheck(String guestBookIdx) {
+		String sql = "SELECT guestbookcontent FROM guestbook WHERE guestbookidx = ?";
+		String guestbookcontent ="";
+		try {
+			ps =conn.prepareStatement(sql);
+			ps.setString(1, guestBookIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				guestbookcontent = rs.getString("guestbookcontent");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return guestbookcontent;
+	}
+
+	public boolean guestBookUpdate(String guestBookIdx, String guestbookUpdateText) {
+		boolean result = false;
+		String sql = "update guestbook set guestbookcontent=? WHERE guestbookidx = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, guestbookUpdateText);
+			ps.setString(2, guestBookIdx);
+			if(0<ps.executeUpdate()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;
+	}
+
 }
