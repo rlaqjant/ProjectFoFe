@@ -72,7 +72,7 @@
 					var diarysubject = data.list[i].diarysubject;
 					var diaryidx = data.list[i].diaryidx;
 					$("#newDiaryListTable").append("<tr>"
-				            +"<td><p><a href='diaryDetail?idx="+diaryidx+"' target='_self'>"+diarysubject+"</a></p></td>"
+				            +"<td><a href='diaryDetail?idx="+diaryidx+"' target='_self'>"+diarysubject+"</a></td>"
 				            +"</tr>");
 				}
 			},

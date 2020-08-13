@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -71,7 +72,8 @@ public class DiaryDAO {
 			//리스트를 보여주기위해선... list가 있어야한다. 그다음에 view에서 list를 가져와서 보여준다. 
 			//list를 만들기 위해선 dto를 이용해 많은 변수들을 한번에 묶고 그다음 arrayList를 객체화해서 리스트 전체를 가져온다.
 			//순서,db를 연결하고서..... dto를 쓰고서 
-			
+			System.out.println("limit실행");
+			limit(homephost, page);
 		
 			 int pagePerCnt = 10;//페이지당 보여줄 게시물의 수
 			 int end = page*pagePerCnt; 
@@ -96,7 +98,6 @@ public class DiaryDAO {
 				ps.setString(3, homephost);
 				
 				rs = ps.executeQuery();
-				
 				list = new ArrayList<DiaryDTO>();//얠 여기서 만들어줘야 list가 제대로 생성될것같다.
 				while(rs.next()) {//sql이 실행되서 성공했으면 
 					//dto를 객체화해서 그 dto안에 내가 db에서 불러온 값들을 직접 넣어준다. 그리고 그 가져온 값들을 list에 싹다넣는다.
@@ -120,11 +121,14 @@ public class DiaryDAO {
 		
 		private boolean limit(String homephost, int page) {
 			String sql="SELECT count (*) FROM diary WHERE id=?";
+			HashMap<String ,Object> map = new HashMap<String, Object>();
 			try {
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, homephost);
 				rs = ps.executeQuery();
-				if(rs.next()) {
+				System.out.println(rs.getInt("count(*)"));
+				while(rs.next()) {
+					map.put("count", rs.getInt("count(*)"));
 					
 				}
 			} catch (SQLException e) {

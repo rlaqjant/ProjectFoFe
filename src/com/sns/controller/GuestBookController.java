@@ -71,7 +71,7 @@ public class GuestBookController extends HttpServlet {
 					dis=req.getRequestDispatcher("guestBookList?homephost="+homephost);
 					dis.forward(req, resp);
 				}else {
-					req.setAttribute("msg", "방명록 작성자혹은 미니홈피 주인만 삭제할 수 있습니다.");
+					req.setAttribute("msg", "방명록 작성자 혹은 미니홈피 주인만 삭제할 수 있습니다.");
 					dis=req.getRequestDispatcher("guestBookList?homephost="+homephost);
 					dis.forward(req, resp);
 				}

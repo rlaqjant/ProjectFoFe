@@ -44,84 +44,6 @@ public class ManageDAO {
 	}
 
 
-
-	public boolean profileWrite(ManageDTO dto) {
-		
-		String sql = "insert into upfile(id, datatype ,orifilename, newfilename) "
-				+ "values(?, 1 , ? , ?)";
-		boolean com = false;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getId());
-			ps.setString(2, dto.getOriFileName());
-			ps.setString(3, dto.getNewFileName());
-			
-			int success = ps.executeUpdate();
-			System.out.println("album insert 성공? 실패? : " + success);
-			if (success>0) {
-				System.out.println("db 저장 완료");
-				com = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			Close();
-		}
-		
-		return com;
-	}
-
-public boolean profileWrite1(ManageDTO dto) {
-		
-		String sql = "insert into upfile(id, datatype ,orifilename, newfilename) "
-				+ "values(?, 2 , ? , ?)";
-		boolean com = false;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getId());
-			ps.setString(2, dto.getOriFileName());
-			ps.setString(3, dto.getNewFileName());
-			
-			int success = ps.executeUpdate();
-			System.out.println("album insert 성공? 실패? : " + success);
-			if (success>0) {
-				System.out.println("db 저장 완료");
-				com = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			Close();
-		}
-		
-		return com;
-	}
-public boolean profileWrite2(ManageDTO dto) {
-	
-	String sql = "insert into upfile(id, datatype ,orifilename, newfilename) "
-			+ "values(?, 3 , ? , ?)";
-	boolean com = false;
-	try {
-		ps = conn.prepareStatement(sql);
-		ps.setString(1, dto.getId());
-		ps.setString(2, dto.getOriFileName());
-		ps.setString(3, dto.getNewFileName());
-		
-		int success = ps.executeUpdate();
-		System.out.println("album insert 성공? 실패? : " + success);
-		if (success>0) {
-			System.out.println("db 저장 완료");
-			com = true;
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}finally {
-		Close();
-	}
-	
-	return com;
-}
-
 	public HashMap<String, Object> profileselect(HttpServletRequest req) {
 		ManageService service = new ManageService();
 		String sql = "Select id, newfilename from PROFILEPHOTOUP where id =?";
@@ -382,18 +304,8 @@ public boolean profileWrite2(ManageDTO dto) {
 		}
 		
 		
-		
-		
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
