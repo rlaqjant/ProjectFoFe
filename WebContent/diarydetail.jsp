@@ -21,7 +21,7 @@
                 border-radius: 5px;
                 margin-left: auto;
                 margin-right: auto;
-                margin-bottom: 4%;
+                margin-bottom: 2%; 
                 padding: 0px;
                 border-spacing: 0px;
             }
@@ -60,11 +60,12 @@
             #detail{width: 99%; height: 99%; border: 0; resize: none;}
             .list{
                 text-align: right;
+                
             }
 	</style>
 </head>
 <body>
-	${diary}
+	
 	<div class="diarydetail">
             <table>
             	<input type="hidden" value="${diary.id}" name="homephost"/>

@@ -40,6 +40,14 @@
             tr{height: 70px; margin: 0px;}
             #btn{margin-top: 7px;}
             #wr{text-align: right;}
+            
+            body{
+            width:600px;
+            height:640px;
+            }
+            #wr{
+            margin:3px;
+            }
         </style>
 </head>
 <body>
@@ -68,7 +76,7 @@
           
                 <div id="wr">
                     <span><input id="deletBtn" type="submit" value="삭제"></span>
-                    <span><a id="writeBtn" href="diaryWriteForm?homephost=${homephost}">글쓰기</a></span>
+                    <button id="writeBtn" ><a href="diaryWriteForm?homephost=${homephost}">글쓰기</a></button>
                     <input type="hidden" value="${homephost}" name="homephost"/>
                 </div>
               </form>  
