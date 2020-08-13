@@ -1,5 +1,10 @@
 package com.sns.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +44,7 @@ public class MemberDAO {
 			int success=ps.executeUpdate();
 			if(success>0) {
 				result=true;
+
 				sql="insert into minihmain(id, backcolor, minihname, minihintro) values(?,?,?,?)";
 				ps=conn.prepareStatement(sql);
 				ps.setString(1, id);
@@ -50,6 +56,31 @@ public class MemberDAO {
 				ps=conn.prepareStatement(sql);
 				ps.setString(1, id);
 				ps.executeUpdate();
+				
+				//회원가입시 기본사진 부여
+				sql="INSERT INTO PROFILEPHOTOUP(id, newfilename) VALUES(?,?)";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				ps.setString(2, id+"profilephoto.jpg");
+				ps.executeUpdate();
+				String oriFilePath = "C:/upload/admindefaultProfile.jpg";
+		        String copyFilePath = "C:/upload/"+id+"profilephoto.jpg";
+		        File oriFile = new File(oriFilePath);
+		        File copyFile = new File(copyFilePath);
+				try {
+					FileInputStream fis = new FileInputStream(oriFile);
+					FileOutputStream fos = new FileOutputStream(copyFile);
+		            int fileByte = 0; 
+		            while((fileByte = fis.read()) != -1) {
+		                fos.write(fileByte);
+		            }
+		            fis.close();
+		            fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	            
+	            
 			}else {
 				result=false;
 			}			

@@ -216,9 +216,8 @@
     					for (var i = 0; i < data.arrList.length; i++) {
         					var id = data.arrList[i].id;
         					var name = data.arrList[i].name;
-        					
-        					
         					$("#searchResult").append("<tr>"
+        							+"<td><img src='/profilePhoto/"+id+"profilephoto.jpg' class='profileImg'/></td>"
         				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
         				            +"</tr>");
