@@ -54,9 +54,7 @@ public class DiaryService {
 		int page = 1;//페이지초기화
 		if(pageParam !=null) {//현재페이지가있다면
 			page = Integer.parseInt(pageParam);//페이지에 현재 페이지를 넣어라
-			if (page==0) {
-				page=1;
-			}
+			
 		}
 		String homephost = req.getParameter("homephost");//homephost는 어디서온애였더라?★
 		System.out.println("homehost : " + homephost);
