@@ -86,10 +86,13 @@
         <p>배경색 변경</p>
 		<div id="color">			
 			<div id="choice">
-				<div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
-				<div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
-				<div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
-				<div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
+				<form action="backgrounduplolad" method="POST">
+                        <div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
+                        <div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
+                        <div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
+                        <div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
+                        <input type="submit" value="업로드"/>
+                    </form>
 			</div>
 			<div id="preveal">
 				<img src="https://lh3.googleusercontent.com/proxy/AreEmtjsqgvbsF3A4FOPTzCjetmRv6p9WioPPfijSJ0i-VpNiVwceseNEgUrPIQP9LaKbNGBaBveM8fDU89xeV94DjdbIeG93pNHJKzNy3kEIWFiEaxa2JKJLw" width="250px" height="160px">
