@@ -147,18 +147,18 @@
             <header>프로필 & 대문사진 변경</header>
             <div class="inputbox">
                 <div class="input">
-                        <div class="preveal">
-                            <img src="" width="100%" height="100%">
-                        </div>
-                        <div class="information">
-                            <span>${msg}</span>
-                            <span>${newfilename}</span>
-                            <form action="profileUpload" method="POST" enctype="multipart/form-data">
-                                <input type="text" name="title"/>
-                                <input type="file" name="profile"/>
-                                <input type="submit" value="업로드"/>
-                            </form>
-                        </div>
+                    <div class="preveal">
+                        <img src="" width="100%" height="100%">
+                    </div>
+                    <div class="information">
+                        <span>${msg}</span>
+                        <span>${newfilename}</span>
+                        <form action="profileUpload" method="POST" enctype="multipart/form-data">
+                            <input type="text" name="title"/>
+                            <input type="file" name="profile"/>
+                            <input type="submit" value="업로드"/>
+                        </form>
+                    </div>
                 </div>
                 <div class="input1">
                     <div class="preveal">
@@ -192,7 +192,6 @@
                     </div>
                 </div>
             </div>
->>>>>>> 1a83412c5dc37fa33c29d3e09fdbf30683ed2bda
         </div>
 
     </body>
