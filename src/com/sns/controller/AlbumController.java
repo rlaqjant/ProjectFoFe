@@ -16,7 +16,7 @@ import com.sns.dto.ReplyDTO;
 import com.sns.service.AlbumService;
 
 
-@WebServlet({"/albumupload","/albumlist","/albumdetail","/albumdel","/replyList","/albumReply","/AlbumReply","/replyDel","/replyUpdate"})
+@WebServlet({"/albumupload","/albumlist","/albumdetail","/albumdel","/replyList","/albumReply","/AlbumReply","/replyDel","/replyUpdate", "/giveAlbumlist"})
 public class AlbumController extends HttpServlet {
 	
 	@Override
@@ -60,7 +60,12 @@ public class AlbumController extends HttpServlet {
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			break;
-			
+			case "/giveAlbumlist":
+				String homephost = req.getParameter("homephost");
+				req.setAttribute("homephost", homephost);
+				dis = req.getRequestDispatcher("Albumlist.jsp");
+				dis.forward(req, resp);
+				break;
 			case "/albumlist":
 				service.list();
 				break;

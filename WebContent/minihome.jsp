@@ -223,7 +223,7 @@
                             	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<%-- <iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe> --%>
+                            	<iframe id="albumView" src="giveAlbumlist?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             	<iframe id="manageView" src="manage.jsp?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
                             </div>

@@ -78,18 +78,19 @@ public class AlbumDAO {
 		return com;
 	}
 
-	public ArrayList<AlbumDTO> list(int page) {
+	public ArrayList<AlbumDTO> list(int page, String id) {
 		
 		int pagecnt = 9;//페이지 내의 게시물 갯수
 		int end = page * pagecnt;
 		int start = (end-pagecnt)+1;
 		String sql = "select  rnum,albumidx, albumnewfilename from "+
-				"(select row_number() over(order by albumidx desc) as rnum,albumidx, albumnewfilename from albumupfile) where rnum between ? and ?";
+				"(select row_number() over(order by albumidx desc) as rnum,albumidx, albumnewfilename from albumupfile where albumidx in(select albumidx from album where id=?)) where rnum between ? and ?";
 		ArrayList<AlbumDTO> list = new ArrayList<AlbumDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, start);
-			ps.setInt(2, end);
+			ps.setString(1, id);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
