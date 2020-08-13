@@ -4,154 +4,140 @@
     <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
     <head>
-        <meta charset="">
+        <meta charset="UTF-8">
         <title></title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style>
-            #background{
-                width: 100%;
-                height: 33%;
-                position: relative;
-                background-color: crimson;
-            }
-            #photo{
-                width: 100%;
-                height: 33%;
-                position: relative;
-                background-color: cornflowerblue;
-                
-            }
+        	#color{
+				box-sizing: border-box;
+				width: 580px;
+				height: 200px;
+				margin-left: auto;
+				margin-right: auto;
+				border: 1px solid gray;
+				margin-bottom: 5px;
+			}
+			p{
+				font-size: 20px;
+				font-weight: 800;
+				margin: 10px 0 0 30px;
+				clear: left;
+			}
+			.color{
+				font-size: 20px;
+				margin: 15px;
+			}
+			#choice{
+				width: 289px;
+				height: 200px;
+				float: left;			
+			}
+			#preveal{
+				box-sizing: border-box;
+				width: 289px;
+				height: 198px;
+				padding: 20px;
+				float: left;
+				background-color: green;
+			}
+			#manage_photo{
+				box-sizing: border-box;
+				width: 580px;
+				height: 220px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.manage_profile{
+				width: 284px;
+				height: 200px;
+				border: 1px solid gray;
+				float: left;
+				margin: 2px;
+				padding-top: 10px;
+				text-align: center;
+			}
+			#manage_profile_preveal{
+				width: 150px;
+				height: 130px;
+				border: 1px solid gray;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			#manage_gate_preveal{
+				width: 200px;
+				height: 130px;
+				border: 1px solid gray;
+				margin-left: auto;
+				margin-right: auto;
+			}
             #music{
-                width: 100%;
-                height: 33%;
-                position: relative;
-                background-color: brown;
+                box-sizing: border-box;
+				width: 580px;
+				height: 60px;
+				padding: 15px;
+				margin-left: auto;
+				margin-right: auto;
+				border: 1px solid gray;
             }
-            .inputbox{
-                width: 80%;
-                height: 80%;
-                position: relative;
-                margin-left: 10%;
-            }
-            header{
-                font-size: 18px;
-                padding: 1%;
-                padding-left: 10%;
-                font-weight: bold;
-                
-            }
-            .input{
-                
-                width: 50%;
-                height: 100%;
-                background-color: skyblue;
-                position: absolute;
-            }
-            .input1{
-                
-                width: 50%;
-                height: 100%;
-                background-color: darkkhaki;
-                position: absolute;
-                left: 50%;
-            }
-            #choice{
-                position: absolute;
-                top: 10%;
-                left: 10%;
-                width: 80%;
-                height: 80%;
-            }
-            .color{
-                font-size: 16px;
-			    margin: 4%;
-                padding: 4%;
-            }
-            .preveal{
-                width: 50%;
-                height: 50%;
-                border: 1px solid gray;
-                margin-top: 5%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .information{
-                width: 100%;
-                height: 50%;
-            }
+               
         </style>
     </head>
     <body>
-        <div id="background">
-            <header>꾸미기</header>
-            <div class="inputbox">
-                <div class="input">
+        <p>배경색 변경</p>
+		<div id="color">			
+			<div id="choice">
+				<div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
+				<div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
+				<div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
+				<div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
+			</div>
+			<div id="preveal">
+				<img src="https://lh3.googleusercontent.com/proxy/AreEmtjsqgvbsF3A4FOPTzCjetmRv6p9WioPPfijSJ0i-VpNiVwceseNEgUrPIQP9LaKbNGBaBveM8fDU89xeV94DjdbIeG93pNHJKzNy3kEIWFiEaxa2JKJLw" width="250px" height="160px">
+			</div>
+		</div>
+		
+		<p>프로필 및 대문사진 변경</p>
+		<div id="manage_photo">
+			<div class="manage_profile">
+				<div id="manage_profile_preveal"><img src="" width="100%" height="100%"></div>
+				<div class="information">
+                    <span>${msg}</span>
+                    <span>${newfilename}</span>
+                    <form action="profileUpload" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="title"/>
+                        <input type="file" name="profile"/>
+                        <input type="submit" value="업로드"/>
+                    </form>
+                </div>
+			</div>
+			<div class="manage_profile">
+				<div id="manage_gate_preveal"><img src="" width="100%" height="100%"></div>
+				<div class="information">
+                     <span>${msg}</span>
+                     <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
+                         <input type="text" name="title"/>
+                         <input type="file" name="profile1"/>
+                         <input type="submit" value="업로드"/>
+                     </form>
+                 </div>
+			</div>
+		</div>
 
-                </div>
-                <div class="input1">
-                    <div id="choice">
-                        <div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
-                        <div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
-                        <div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
-                        <div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
-                    </div>
-                </div>
-                
-            </div>
-            
-        </div>
-        <div id="photo">
-            <header>프로필 & 대문사진 변경</header>
-            <div class="inputbox">
-                <div class="input">
-                        <div class="preveal">
-                            <img src="" width="100%" height="100%">
-                        </div>
-                        <div class="information">
-                            <span>${msg}</span>
-                            <span>${newfilename}</span>
-                            <form action="profileUpload" method="POST" enctype="multipart/form-data">
-                                <input type="text" name="title"/>
-                                <input type="file" name="profile"/>
-                                <input type="submit" value="업로드"/>
-                            </form>
-                        </div>
-                </div>
-                <div class="input1">
-                    <div class="preveal">
-                        <img src="" width="100%" height="100%">
-                    </div>
-                    <div class="information">
-                        <span>${msg}</span>
-                        <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
-                            <input type="text" name="title"/>
-                            <input type="file" name="profile1"/>
-                            <input type="submit" value="업로드"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<p>BGM 변경</p>
         <div id="music">
-            <header>BGM 변경</header>
-            <div class="inputbox">
-                <div class="input">
-
-                </div>
-                <div class="input1">
-                    <div class="information">
-                        <span>${msg}</span>
-                        <form action="BgmUpload" method="POST" enctype="multipart/form-data">
-                            <input type="text" name="title"/>
-                            <input type="file" name="profile2"/>
-                            <input type="submit" value="업로드"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
+             <span>${msg}</span>
+             <form action="BgmUpload" method="POST" enctype="multipart/form-data">
+                 <input type="text" name="title"/>
+                 <input type="file" name="profile2"/>
+                 <input type="submit" value="업로드"/>
+             </form>
         </div>
 
     </body>
     <script>
-
+	    $(document).ready(function(){});
+		$("input[type='radio']").click(function(){
+			$("#preveal").css({"background-color":$(this).val()});//미리보기 색상 변경
+		});
     </script>
 </html>
