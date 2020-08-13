@@ -15,7 +15,7 @@
                 width: 640px;
                 height: 600px;
                 background-color:black;
-                opacity: 0.5;
+                opacity: 0.3;
                 z-index: 1;
             }
             #upload{
@@ -98,7 +98,7 @@
             <div>
                 <div style="padding-top:5px; border-bottom: 1px solid black; font-size: 25px; text-align: center; padding: 10px 0px; width: 100%; height: 10%;" >게시물만들기</div> 
                 <div id="upload2">
-                    <img src="upload"/><!--주인프로필사진업로드-->
+                    <img src=""/><!--주인프로필사진업로드-->
                     <td>ㅇㅇ</td><br/><!--주인이름-->
                 </div>
 

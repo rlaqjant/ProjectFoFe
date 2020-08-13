@@ -118,10 +118,11 @@ public class AlbumService {
 		try {
 			//dto를 이용하여 댓글 정보 저장
 			dto.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
+			System.out.println("넘겨받은 albumidx : "+Integer.parseInt(req.getParameter("albumIdx")));
 			dto.setReplyLevel(req.getParameter("replyLevel"));
 			dto.setReplyRef(req.getParameter("replyRef"));
 			dto.setReplyCont(req.getParameter("replyCont"));
-			
+			System.out.println("넘겨받은 content : "+req.getParameter("replyCont"));
 			// 테스트용 : dto.setReplyUser_id("dbckdgur12");
 			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
 			

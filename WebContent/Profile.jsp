@@ -12,6 +12,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style TYPE="text/css">
             #profile{
+            	box-sizing: border-box;
                 position: relative;
                 border: 1px solid black;
                 width: 640px;
