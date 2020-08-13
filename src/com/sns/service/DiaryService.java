@@ -14,8 +14,9 @@ import com.sns.dto.DiaryDTO;
 
 
 
-	
+   
 public class DiaryService {
+
 	HttpServletRequest req = null;
 	HttpServletResponse resp = null;
 	 
@@ -54,9 +55,7 @@ public class DiaryService {
 		int page = 1;//페이지초기화
 		if(pageParam !=null) {//현재페이지가있다면
 			page = Integer.parseInt(pageParam);//페이지에 현재 페이지를 넣어라
-			if (page==0) {
-				page=1;
-			}
+			
 		}
 		String homephost = req.getParameter("homephost");//homephost는 어디서온애였더라?★
 		System.out.println("homehost : " + homephost);
@@ -139,29 +138,29 @@ public class DiaryService {
 		dis.forward(req, resp);
 	}
 
-	//디테일 창 안에서 삭제하기 
-	public void detaildelete() throws ServletException, IOException {
-		String idx = req.getParameter("idx");
-		System.out.println("디테일 삭제파라미터:"+idx);
-		DiaryDAO dao = new DiaryDAO();
-		boolean result = dao.detaildelete(idx);
-		String page ="/diaryList";
-		String msg="삭제에 실패했습니다.";
-		if(result) {
-			msg = "삭제에 성공했습니다.";
-		}
-		req.setAttribute("msg", msg);
-		RequestDispatcher dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
-	}
+   //디테일 창 안에서 삭제하기 
+   public void detaildelete() throws ServletException, IOException {
+      String idx = req.getParameter("idx");
+      System.out.println("디테일 삭제파라미터:"+idx);
+      DiaryDAO dao = new DiaryDAO();
+      boolean result = dao.detaildelete(idx);
+      String page ="/diaryList";
+      String msg="삭제에 실패했습니다.";
+      if(result) {
+         msg = "삭제에 성공했습니다.";
+      }
+      req.setAttribute("msg", msg);
+      RequestDispatcher dis = req.getRequestDispatcher(page);
+      dis.forward(req, resp);
+   }
 
-	public void writeForm() throws ServletException, IOException {
-		String homephost = req.getParameter("homephost");
-		System.out.println("다이어리 쓸 미니홈피 주인 아이디 : "+homephost);
-		req.setAttribute("homephost", homephost);
-		RequestDispatcher dis = req.getRequestDispatcher("/diarywrite.jsp");
-		dis.forward(req, resp);
-	}
+   public void writeForm() throws ServletException, IOException {
+      String homephost = req.getParameter("homephost");
+      System.out.println("다이어리 쓸 미니홈피 주인 아이디 : "+homephost);
+      req.setAttribute("homephost", homephost);
+      RequestDispatcher dis = req.getRequestDispatcher("/diarywrite.jsp");
+      dis.forward(req, resp);
+   }
 
-	
+   
 }
