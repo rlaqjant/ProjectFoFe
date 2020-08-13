@@ -117,10 +117,7 @@ public class ManageService {
 			//5. 이름 변경
 			String oriFileName = multi.getFilesystemName("profile");//원래 파일명 가져오기
 			System.out.println("원래 파일 이름 : " + oriFileName);//확장자명을 항상 붙여줘야 본연의 모습을 잃지 않기때문에 확장자명 추출한다.
-			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));//확장자만 추출(substring, split)
-			System.out.println("확장자 : " + ext);
-			
-			newFileName = System.currentTimeMillis() + ext;;//파일명 새로 생성 + 확장자 붙이기
+			newFileName = dto.getId() + "profilephoto" + ".jpg";;//파일명 새로 생성 + 확장자 붙이기
 			System.out.println(oriFileName + " -> " + newFileName);
 			
 			//새 파일명으로 변경
