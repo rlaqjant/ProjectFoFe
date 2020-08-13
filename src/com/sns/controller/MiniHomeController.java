@@ -1,6 +1,7 @@
 package com.sns.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -11,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.sns.dto.DiaryDTO;
 import com.sns.dto.MiniHomeDTO;
 import com.sns.service.MiniHomeService;
 
-@WebServlet({"/loadMinihome", "/minihomeCheck" , "/followCheck", "/minihomeNameEdit", "/profileMessageEdit"})
+@WebServlet({"/loadMinihome", "/minihomeCheck" , "/followCheck", "/minihomeNameEdit", "/profileMessageEdit", "/getNewDiaryList", "/minihomeMain"})
 public class MiniHomeController extends HttpServlet {
 	
 	@Override
@@ -95,6 +97,25 @@ public class MiniHomeController extends HttpServlet {
 			gson = new Gson();
 			map.put("result",result);
 			obj = gson.toJson(map);
+			resp.getWriter().println(obj);
+			break;
+		case "/minihomeMain":
+			id = req.getParameter("homephost");
+			String mainphoto = miniHomeService.minihomeMain(id);
+			req.setAttribute("mainphoto", mainphoto);
+			req.setAttribute("homephostId", id);
+			dis = req.getRequestDispatcher("minihomeMain.jsp");
+			dis.forward(req, resp);
+			break;
+		case "/getNewDiaryList":
+			homephostId = req.getParameter("homephostId");
+			ArrayList<DiaryDTO> list = new ArrayList<DiaryDTO>();
+			list = miniHomeService.getNewDiaryList(homephostId);
+			map = new HashMap<String, Object>();
+			gson = new Gson();
+			map.put("list", list);
+			obj = gson.toJson(map);
+			resp.setContentType("text/html; charset=UTF-8");
 			resp.getWriter().println(obj);
 			break;
 		};
