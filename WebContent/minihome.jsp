@@ -186,49 +186,6 @@
    <body style="background-color : ${minihome.backcolor}">
    <div style="background-color: #caebc7; width: 101%; height: 101%;">
       <div id="whole">
-<<<<<<< HEAD
-            <div id="back">
-                <div id="dotted_line">
-                    <div id="minihome">
-                        <div id="top">
-                            <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
-                                <div id="minihome_nameDetail">${minihome.minihname}<input type="hidden" name="minihome_nameDetail" value="${minihome.minihname}"></div>
-                                <div><input type="button" name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
-                            </div>
-                            <div id="top-menu">
-                                <button class="top_menu" id="homeBtn">홈</button>
-                                <button class="top_menu" id="profileBtn">프로필</button>
-                                <button class="top_menu" id="diaryBtn">다이어리</button>
-                                <button class="top_menu" id="albumBtn">사진첩</button>
-                                <button class="top_menu" id="guestBookBtn">방명록</button>
-                                <button class="top_menu" id="manageBtn">관리</button>
-                            </div>
-                        </div>
-                        <div id="center">
-                            <div id="side_menu">
-                                <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" style="border-radius:50%" height="240px"></div>
-                                <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
-                                <div id="profile_message">
-                                	<div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}"></div>
-                                	<div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
-                                </div>
-                                <audio autoplay controls loop>
-						               <source src="C:/upload/${newfilename}" type="audio/mp3">
-						        </audio>
-                                <div id="email">조회수</br>${minihome.email}</div>
-                            </div>
-                            <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
-                            	<iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<%-- <iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe> --%>
-                            	<iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            	<iframe id="manageView" src="manage.jsp?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-=======
          <div id="minihome">
             <div id="top">
                <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
@@ -243,7 +200,6 @@
                   <button class="top_menu" id="guestBookBtn" onclick='viewFrame("guestBookList?homephost=${minihome.id}")'>방명록</button>
                   <button class="top_menu" id="homeBtn" onclick='viewFrame("minihomeMain?homephost=${minihome.id}")'>홈</button>
                </div>
->>>>>>> 308fd7fff8207d89c36424a14c2389ed47209d6c
             </div>
             <div id="center">
                <div id="side_menu">
