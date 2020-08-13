@@ -20,7 +20,7 @@
 			p{
 				font-size: 20px;
 				font-weight: 800;
-				margin: 10px 0 0 30px;
+				margin: 5px 0 0 30px;
 				clear: left;
 			}
 			.color{
@@ -73,8 +73,8 @@
             #music{
                 box-sizing: border-box;
 				width: 580px;
-				height: 60px;
-				padding: 15px;
+				height: 50px;
+				padding: 10px;
 				margin-left: auto;
 				margin-right: auto;
 				border: 1px solid gray;
@@ -131,69 +131,7 @@
                  <input type="file" name="profile2"/>
                  <input type="submit" value="업로드"/>
              </form>
-                <div class="input1">
-                    <div id="choice">
-	                	<form action="backgrounduplolad" method="POST">
-	                        <div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
-	                        <div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
-	                        <div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
-	                        <div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
-	                        <input type="submit" value="업로드"/>
-	                    </form>
-                    </div>
-                </div>
         </div>
-        <div id="photo">
-            <header>프로필 & 대문사진 변경</header>
-            <div class="inputbox">
-                <div class="input">
-                    <div class="preveal">
-                        <img src="" width="100%" height="100%">
-                    </div>
-                    <div class="information">
-                        <span>${msg}</span>
-                        <span>${newfilename}</span>
-                        <form action="profileUpload" method="POST" enctype="multipart/form-data">
-                            <input type="text" name="title"/>
-                            <input type="file" name="profile"/>
-                            <input type="submit" value="업로드"/>
-                        </form>
-                    </div>
-                </div>
-                <div class="input1">
-                    <div class="preveal">
-                        <img src="" width="100%" height="100%">
-                    </div>
-                    <div class="information">
-                        <span>${msg}</span>
-                        <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
-                            <input type="text" name="title"/>
-                            <input type="file" name="mainPhoto"/>
-                            <input type="submit" value="업로드"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="music">
-            <header>BGM 변경</header>
-            <div class="inputbox">
-                <div class="input">
-
-                </div>
-                <div class="input1">
-                    <div class="information">
-                        <span>${msg}</span>
-                        <form action="BgmUpload" method="POST" enctype="multipart/form-data">
-                            <input type="text" name="title"/>
-                            <input type="file" name="BGM"/>
-                            <input type="submit" value="업로드"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </body>
     <script>
 	    $(document).ready(function(){});
