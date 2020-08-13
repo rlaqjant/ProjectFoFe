@@ -89,9 +89,9 @@
                 </div>
               </form>  
                 <div id="page">
-                    <a href="./diaryList?page=${currPage-1}&&homephost=${homephost}"><span>PREV</span></a>
+                    <a href="./diaryList?page=${currPage-1}&&homephost=${homephost}"><span style="text-decoration: none;color: black;">PREV</span></a>
                     <span><b>${currPage}</b></span>
-                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}"><span>NEXT</span></a>
+                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}"><span >NEXT</span></a>
                 </div>
             </div>
         </div>

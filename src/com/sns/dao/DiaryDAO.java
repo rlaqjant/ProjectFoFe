@@ -72,8 +72,9 @@ public class DiaryDAO {
 			//리스트를 보여주기위해선... list가 있어야한다. 그다음에 view에서 list를 가져와서 보여준다. 
 			//list를 만들기 위해선 dto를 이용해 많은 변수들을 한번에 묶고 그다음 arrayList를 객체화해서 리스트 전체를 가져온다.
 			//순서,db를 연결하고서..... dto를 쓰고서 
-			System.out.println("limit실행");
-			limit(homephost, page);
+		/*
+		 * System.out.println("limit실행"); limit(homephost, page);
+		 */
 		
 			 int pagePerCnt = 10;//페이지당 보여줄 게시물의 수
 			 int end = page*pagePerCnt; 
@@ -83,9 +84,9 @@ public class DiaryDAO {
 			 
 			
 			
-			String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date\r\n" + 
-					"   FROM (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum\r\n" + 
-					"    , id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diary) WHERE RNUM BETWEEN ? AND ? AND id=?";//diaryidx기준으로 내림차순
+			String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date FROM"
+					+ " (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum, id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diaryWHERE id = ? )"
+					+ "WHERE RNUM BETWEEN ? AND ?";//diaryidx기준으로 내림차순
 			
 			//SELECT diaryidx,id,diarysubject,diarybhit,diaryreg_date FROM diary WHERE id=? ORDER BY diaryidx DESC;
 			
@@ -93,9 +94,9 @@ public class DiaryDAO {
 			try {
 				
 				ps = conn.prepareStatement(sql);
-				ps.setInt(1, start);
-		        ps.setInt(2, end);
-				ps.setString(3, homephost);
+				ps.setString(1, homephost);
+				ps.setInt(2, start);
+		        ps.setInt(3, end);
 				
 				rs = ps.executeQuery();
 				list = new ArrayList<DiaryDTO>();//얠 여기서 만들어줘야 list가 제대로 생성될것같다.
@@ -119,25 +120,17 @@ public class DiaryDAO {
 			return list;
 		}
 		
-		private boolean limit(String homephost, int page) {
-			String sql="SELECT count (*) FROM diary WHERE id=?";
-			HashMap<String ,Object> map = new HashMap<String, Object>();
-			try {
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, homephost);
-				rs = ps.executeQuery();
-				System.out.println(rs.getInt("count(*)"));
-				while(rs.next()) {
-					map.put("count", rs.getInt("count(*)"));
-					
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				resClose();
-			}
-			return false;
-		}
+	/*
+	 * private boolean limit(String homephost, int page) { String
+	 * sql="SELECT count (*) FROM diary WHERE id=?"; HashMap<String ,Object> map =
+	 * new HashMap<String, Object>(); try { ps = conn.prepareStatement(sql);
+	 * ps.setString(1, homephost); rs = ps.executeQuery();
+	 * System.out.println(rs.getInt("count(*)")); while(rs.next()) {
+	 * map.put("count", rs.getInt("count(*)"));
+	 * 
+	 * } } catch (SQLException e) { e.printStackTrace(); }finally { resClose(); }
+	 * return false; }
+	 */
 
 
 
