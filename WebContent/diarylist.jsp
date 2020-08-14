@@ -19,12 +19,15 @@
                 margin: 0px;
             }
             #list{
-                width: 590px;
+               	position:absolute;
+               	top:10px;
+               	left:10px;
                 border-top: solid 1px black; 
                 border-bottom: solid 1px black;
                 margin: auto;
-                height: auto;
                 margin-top: 15px;
+                width: 1000px;
+  				height: 700px;
             
             }
             #page{
