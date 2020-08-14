@@ -34,8 +34,8 @@ public class AlbumDAO {
 			if(rs != null) {rs.close();}
 			if(ps != null) {ps.close();}
 			if(conn != null) {conn.close();}
-			//System.out.println("자원반납");
-			//System.out.println("conn : "+conn);
+			System.out.println("자원반납");
+			System.out.println("conn : "+conn);
 			//System.out.println("rs : "+rs);
 			//System.out.println("ps : "+ps);
 			
@@ -194,13 +194,14 @@ public class AlbumDAO {
 		return com;
 	}
 	
-	public int listcnt() {
-		String sql = "select count(albumidx) from albumupfile";
+	public int listcnt(String id) {
+		String sql = "select count(albumidx) from album where id=?";
 		int pagecnt = 9;
 		int allcnt = 0;
 		try {
 			int p=0;
 			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				p = (int) rs.getLong(1);
