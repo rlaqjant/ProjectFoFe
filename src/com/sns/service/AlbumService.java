@@ -79,7 +79,10 @@ public class AlbumService {
 
 	public void list() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int page = Integer.parseInt(req.getParameter("page"));
+		String spage = req.getParameter("page");//현재 페이지
+		System.out.println("받아온 값 : "+spage);
+		int page = Integer.parseInt(spage);
+		System.out.println("변환값 : " + page);
 		String id = req.getParameter("homephost");
 		System.out.println("앨범 아이디:"+id);
 		Gson gson = new Gson();
@@ -88,8 +91,26 @@ public class AlbumService {
 		int allcnt = dao.listcnt();
 		dao = new AlbumDAO();
 		list = dao.list(page, id);
+		
+		int pagecnt = 5;
+		int startpage = 0;
+		int endpage=0;
+		
+		if(page%pagecnt == 1) {
+			startpage = page;
+			endpage = startpage + 4;
+		}else if (page % pagecnt == 0) {
+			endpage = page;
+			startpage = page-4;
+		}
+		
+		if(page > allcnt) {
+			endpage = allcnt;
+		}
+		
 		map.put("list", list);
-		map.put("allcnt", allcnt);
+		map.put("allcnt", allcnt);//총페이지수
+		map.put("curpage", page);
 		String obj = gson.toJson(map);
 		System.out.println(obj);
 		resp.setContentType("text/html; charset=UTF-8");

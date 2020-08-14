@@ -211,9 +211,9 @@
 	           </table>
 	           <input type="button" value="게시글 작성" id="writeclick"/>
 	           <div id="button">
-	               <a id="prev"><span>이전</span></a>
+	               <a name="prev" onclick="prev(this)"><span>이전</span></a>
 	               <span id=page></span>
-	               <a id="next"><span>다음</span></a>
+	               <a name="next" onclick="next(this)"><span>다음</span></a>
 	           </div>
 	            <div id="gray"></div><!-- 팝업뒷창 -->
 		        <div id="upload">
@@ -236,101 +236,40 @@
     </body>
     <script>
     var homephost = $("input[name='homephost']").val();
-    var page = 1;//현재 페이지
- 	var allcnt = 0;//총페이지
- 	var startpage = 0;//시작페이지
- 	var endpage = 0 ;//마지막 페이지
- 	var pagecnt = 5;//페이징 갯수
- 	var change =0;
-
+    console.log(homephost)
+    var page=1;//현재 페이지
+ 	var allcnt=0;//총페이지
+ 	var startpage=1;//시작페이지
+ 	var endpage=0 ;//마지막 페이지
  	$(document).ready(function(){
  		albumlistCall(page);
  	});
  	var albumidx = 0;
  	
-    function albumlistCall(currpage){
-
-    	page = currpage;
+    function albumlistCall(page){
+		
     	$.ajax({
     		type:"post",
     		url:"albumlist",
     		data:{"page":page,
-    			"homephost":homephost
-    			},
+    			  "homephost":homephost},
     		dataType:"JSON",
     		success:function(data){
-    			albumList(data.list);
-    			allcnt = data.allcnt;
-    			paging(page, allcnt);
+    			if(data.curpage < 1){
+    				alert("첫번째 페이지 입니다.");
+    			}else if(data.curpage > data.allcnt){
+    				alert("마지막 페이지 입니다.");
+    			}else{
+    				albumList(data.list,data.allcnt, data.curpage);
+    			}
     		},error:function(e){
     			console.log(e);
     		},
     	});
-    	
-    	return allcnt, page;
     }
-	
-    function paging(currpage,allcnt){
-    	if(currpage == 1){
-			$('#prev').css("display","none");
-			$('#next').css("dixplay","");
-		}else if(currpage == allcnt){
-			$('#prev').css("display","");
-			$('#next').css("dixplay","none");
-		}
-    	
-    	if(currpage%pagecnt == 0){
-    		$('#page').empty();
-    		if(change != 1){change=change-1;}
-    		endpage = change * pagecnt;
-    		startpage = (endpage - pagecnt)+1;
-    		console.log(allcnt);
-    		if(allcnt < endpage){endpage=allcnt;}
-    		console.log(endpage);
-    		console.log(startpage);
-    		for(i=startpage;i<=endpage;i++){
-    			$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
-    		}
-    	}else if(currpage%pagecnt == 1){
-    		$('#page').empty();
-    		change=change+1;
-    		endpage = change * pagecnt;
-    		startpage = (endpage - pagecnt)+1;
-    		console.log(allcnt);
-    		console.log(startpage);
-    		if(allcnt < endpage){endpage=allcnt;}
-    		console.log(endpage);
-    		for(i=startpage; i<=endpage; i++){
-    			$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
-    		}
-    	}
-    	return change;
-   		
-    }
-    
-    $('#next').click(function(){
-    	if(allcnt > page){
-    		page = page+1;
-    		albumlistCall(page);
-    	}else{
-    		alert('마지막 페이지 입니다.');
-    	}
-    	return page;
-    });
-    
-    $('#prev').click(function(){
-    	if(page > 1){
-    		page = page-1;
-    		albumlistCall(page);
-    	}else{
-    		alert('첫번째 페이지입니다.');
-    	}
-    	return page;
-    });
-    
-    
-    
-    function albumList(list){
+
+    function albumList(list, allcnt, curpage){
+    	var pagecnt = 5; 
     	$('table').empty();
     	for(i=0; i<list.length;i++){
     		if(i==0 || i==3 || i ==6){
@@ -338,7 +277,46 @@
     		}
     		$('tr').last().append("<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
     	}
+    	
+    	if(curpage%pagecnt==1){
+    		$('#page').empty();
+    		startpage = curpage;
+    		endpage = curpage+4;
+    		if(endpage >=allcnt){
+    			endpage = allcnt;
+    		}
+    		for(var i = startpage; i<=endpage; i++){
+        		$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+        	}
+    	}else if(curpage%pagecnt==0){
+    		$('#page').empty();
+    		endpage = curpage;
+    		startpage = curpage - 4;
+    		if(endpage >=allcnt){
+    			endpage = allcnt;
+    		}
+    		for(var i = startpage; i<=endpage; i++){
+        		$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+        	}
+    	}
+    	
+    	
+    	$("a[name='prev']").attr("id", curpage-1);
+    	$("a[name='next']").attr("id", curpage+1);
     }
+    
+    function prev(e){
+    	var page = e.id;
+    	albumlistCall(page);
+    }
+    
+    function next(e){
+    	var page = e.id;
+    	albumlistCall(page);
+    }
+    
+    
+    
     
     function detail(e){
     	$('#dark').show();
