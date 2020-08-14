@@ -146,7 +146,7 @@ public class AlbumService {
 			dto.setReplyCont(req.getParameter("replyCont"));
 			System.out.println("넘겨받은 content : "+req.getParameter("replyCont"));
 			// 테스트용 : dto.setReplyUser_id("dbckdgur12");
-			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
+			dto.setReplyUser_id((String) req.getSession().getAttribute("id"));
 			
 			System.out.println(dto);
 		}catch(Exception e) {
