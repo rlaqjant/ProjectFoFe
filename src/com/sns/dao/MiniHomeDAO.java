@@ -68,12 +68,12 @@ public class MiniHomeDAO {
 			while(rs.next()) {
 				dto.setProfilephoto(rs.getString("newFileName"));
 			}
-			sql="SELECT newFileName FROM mainphotoup where id=?";//대문 사진
+			sql="SELECT newFileName FROM mp3up where id=?";//대문 사진
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				dto.setMainphoto(rs.getString("newFileName"));
+				dto.setMp3(rs.getString("newFileName"));
 			}
 
 		} catch (SQLException e) {

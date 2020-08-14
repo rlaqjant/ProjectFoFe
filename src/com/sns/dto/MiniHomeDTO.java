@@ -8,9 +8,15 @@ public class MiniHomeDTO {
 	private String minihintro; 
 	private String email; 
 	private String profilephoto; 
-	private String mainphoto;
+	private String mp3;
 	
 	
+	public String getMp3() {
+		return mp3;
+	}
+	public void setMp3(String mp3) {
+		this.mp3 = mp3;
+	}
 	public String getId() {
 		return id;
 	}
@@ -47,10 +53,4 @@ public class MiniHomeDTO {
 	public void setProfilephoto(String profilephoto) {
 		this.profilephoto = profilephoto;
 	}
-	public String getMainphoto() {
-		return mainphoto;
-	}
-	public void setMainphoto(String mainphoto) {
-		this.mainphoto = mainphoto;
-	} 
 }

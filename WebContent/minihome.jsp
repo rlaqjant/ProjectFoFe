@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
    <head>
+	   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	   <meta http-equiv="Pragma" content="no-cache" />
+	   <meta http-equiv="Expires" content="0" />
       <meta charset="UTF-8">
       <title>Forest Friends</title>
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -210,7 +213,7 @@
                      <div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                   </div>
                   <audio autoplay controls loop>
-                        <source src="#" type="audio/mp3">
+                        <source src="/profilePhoto/${minihome.mp3}" type="audio/mp3">
                   </audio>
                   <div id="email">조회수</br>${minihome.email}</div>
                </div>
