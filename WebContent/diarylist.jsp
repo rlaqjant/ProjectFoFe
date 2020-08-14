@@ -19,28 +19,39 @@
                 margin: 0px;
             }
             #list{
-               	position:absolute;
-               	top:10px;
-               	left:10px;
+                width:1050px;
                 border-top: solid 1px black; 
                 border-bottom: solid 1px black;
                 margin: auto;
+                margin-left:10px;
+                max-height: 800;
                 margin-top: 15px;
-                width: 1000px;
-  				height: 700px;
             
             }
             #page{
-                margin-left: auto;
+                margin-left: 479px;
                 margin-right: auto;
                 text-align: center;
                 font-size: 15pt;
             }
             .check{width: 15%; text-align: center;}
-            #subject{width: 35%;}
+            #subject{
+            width: 35%;
+            text-align: center;
+            
+            
+            }
             #user{width: 15%; text-align: center;}
-            #date{width: 25%; text-align: center;}
-            #hit{width: 10%; text-align: center;}
+            #date{
+            width: 25%; 
+            text-align: center;
+           
+            }
+            #hit{
+            width: 10%; 
+            text-align: center;
+            
+            }
             tr{height: 70px; margin: 0px;}
             #btn{margin-top: 7px;}
             #wr{text-align: right;}
@@ -50,21 +61,23 @@
             height:640px;
             }
             #wr{
-            margin:3px;
+            position:relative;
+	       	left: 440px;
+	    	top: 10px;
             }
             table{
         
             background-image: url(images/simple.jpg);
             background-size: 600px 600px;
             }
-            
+           
         </style>
 </head>
 <body>
    
     <form action="diaryDelete" method="get"><!-- 폼태그로 보내야...파라미터를받겠지? 근데 버튼으로안주고 보낼수가잇나? 일단 컨트롤러는 action으로 탈수있는데..아니다 꼭 form을 써야하나... -->
             <table id="list">
-                <tr>
+                <tr style="background-color:#fff591;">
                     <th class="check">삭제</th>
                     <th id="subject">제목</th>
                 <!--     <th id="user">작성자</th> -->
@@ -78,8 +91,8 @@
                           <td id="subject"><a href="./diaryDetail?idx=${diary.diaryidx}" style="text-decoration: none;color: black;">${diary.diarysubject}</a></td><!--제목누르는순간 컨트롤러탄다.  -->
                           <!--  <a href="detail?idx=${bbs.idx}"> 얘는 list의  idx값을 idx안에 넣어준거다?  -->
                           <%-- <td id="user">${diary.id}</td> --%>
-                          <td id="date">${diary.diaryreg_date}</td>
-                          <td id="hit">${diary.diarybhit}</td>
+                          <td  id="date" >${diary.diaryreg_date}</td>
+                          <td id="hit" >${diary.diarybhit}</td>
                        </tr>
                     </c:forEach>
                       
@@ -106,13 +119,13 @@ var page  =  "${currPage}"
 
 
 function hide(){
-	$("#next").css({"display":"none"});
+   $("#next").css({"display":"none"});
 }
 
  if(parseInt(count/10)==(page-1)|| count<=10  ){
-	
-	 hide()
-	
+   
+    hide()
+   
 }
 
 
