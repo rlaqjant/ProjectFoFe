@@ -89,7 +89,7 @@ public class AlbumService {
 		dao = new AlbumDAO();
 		list = dao.list(page, id);
 		map.put("list", list);
-		if(page == 1) {map.put("allcnt", allcnt);}
+		map.put("allcnt", allcnt);
 		String obj = gson.toJson(map);
 		System.out.println(obj);
 		resp.setContentType("text/html; charset=UTF-8");
