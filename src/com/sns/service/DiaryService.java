@@ -60,6 +60,8 @@ public class DiaryService {
 		String homephost = req.getParameter("homephost");//homephost는 어디서온애였더라?★
 		System.out.println("homehost : " + homephost);
 		ArrayList<DiaryDTO> list = dao.list(homephost,page);//1.db에 일 시키기 2. dao에서 컨트롤러로 보낸 (dto)list 받기
+		int count = dao.limit(homephost);
+		req.setAttribute("count", count);
 		req.setAttribute("list", list);//변수 list에 받은 list값을 넣어준다.
 		req.setAttribute("homephost", homephost);//??★
 		req.setAttribute("currPage", page);//현재 페이지를 넣어줄거다.
