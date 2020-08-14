@@ -8,49 +8,54 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<style>
+			body{
+			font-size: 20px;
+			}
             #body{
                 position: static;
-                width: 620px;
-                height: 580px;
+				width: 1095px;
+     			height: 755px;
+                background-color: yellow;
             }
             #viewbox{
                 position: relative;
-                width: 620px;
-                height: 440px;
+                width: 1095px;
+                height: 610px;
+                background-color: yellowgreen;
             }
             #viewDetail{
                 position: absolute;
-                width: 580px;
-                height: 420px;
+                width: 1075px;
+                height: 610px;
                 top: 10px;
                 left: 20px;
-                text-align: center;
+                float:left;
                 overflow:auto;
             }
             .viewDetail2 {
                 position: relative;
-                margin: 25px 0px;
+                margin: 15px 0px;
+                text-align: center;
             }
             .viewDetail2 table, th, td{
                 border: 1px solid black;
                 border-collapse: collapse;
-                width: 530px;
-        
+                width: 700px;
             }
             .viewDetail2 table{
-                margin: 20px 5px;
+                margin: 10px auto;
             }
             table div{
                 float: left;
             }
             table img{
-                width: 150px;
-                height: 150px;
+                width: 250px;
+                height: 250px;
                 border-radius: 50%;
             }
             .date{
                 position: absolute;
-                left: 195px;
+                left: 440px;
             }
             .updateDelete{
                 position: absolute;
@@ -60,11 +65,11 @@
             .guestbookDelete{
            		position: absolute;
             	border: none;
-            	left: 64px;
+            	left: 400px;
            		background: url( "images/deleteIcon.png" ) no-repeat;
-             	background-size: 20px 20px;
-             	width: 20px;
-             	height: 20px;
+             	background-size: 27px 27px;
+             	width: 35px;
+             	height: 35px;
              	text-indent: -9000px;
              	border: none;
              	 
@@ -72,33 +77,25 @@
             .guestBookUpdateBtn{
             	position: absolute;
               	background: url( "images/updateIcon.png" ) no-repeat;
-             	background-size: 20px 20px;
-             	width: 20px;
-             	height: 20px;
+             	background-size: 27px 27px;
+             	width: 35px;
+             	height: 35px;
              	text-indent: -9000px;
              	border: none;
-             	left: 40px;
+             	left: 365px
             }
             .GuestbookDetail{
                 margin: 20px 20px;
-            }
-            #pageing{
-                position: absolute;
-                top: 460px;
-                width: 620px;
-                height: 40px;
-            }
-            .pageArea{
-                position: absolute;
-                left: 239px;
             }
             #wrightBox{
                 position: absolute;
                 top: 10px;
                 width: 620px;
                 height: 80px;
-                top: 500px;
+                top: 650px;
+                left: 241px;
                 text-align: center;
+                background-color: blue;
             }
             #wrightBox div{
                 position: absolute;
@@ -151,13 +148,6 @@
 	                    </div>
                     </c:forEach>
             	</div>
-            <div id="pageing"><!--페이징 영역-->
-                <div class="pageArea">
-                    <a href="./?page=${currPage-1}"><span><</span></a>
-                    <span><b>${currPage}</b></span>
-                    <a href="./?page=${currPage+1}"><span>></span></a>
-                </div>
-            </div>
             <div id="wrightBox"><!--방명록 작성 영역-->
                 <div id="wrightBoxForm">
                     <form action="guestbookWrite" method="POST">

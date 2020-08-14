@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sns.service.FollowService;
 
 
-@WebServlet({"/memberSearch", "/loadFollowList", "/loadFollowerList", "/follow", "/unFollow"})
+@WebServlet({"/memberSearch", "/loadFollowList", "/loadFollowerList", "/follow", "/unFollow", "/followerTalkWrite", "/getfollowerTalkList", "/followerTalkDelete"})
 public class FollowController extends HttpServlet {
 
 	@Override
@@ -57,7 +57,19 @@ public class FollowController extends HttpServlet {
 			followService.unFollow();
 			break;
 			
+			case "/followerTalkWrite":
+			System.out.println("일촌평 작성");
+			followService.followerTalkWrite();
+			break;
 			
+			case "/getfollowerTalkList":
+			System.out.println("일촌평 불러오기");
+			followService.getfollowerTalkList();
+			break;
+			
+			case "/followerTalkDelete":
+			System.out.println("일촌평 삭제");
+			followService.followerTalkDelete();
 		}
 	}
 

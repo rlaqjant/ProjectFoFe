@@ -73,18 +73,12 @@ public class DiaryDAO {
 			//리스트를 보여주기위해선... list가 있어야한다. 그다음에 view에서 list를 가져와서 보여준다. 
 			//list를 만들기 위해선 dto를 이용해 많은 변수들을 한번에 묶고 그다음 arrayList를 객체화해서 리스트 전체를 가져온다.
 			//순서,db를 연결하고서..... dto를 쓰고서 
-		/*
-		 * System.out.println("limit실행"); limit(homephost, page);
-		 */
-		
+			 //전체 컬럼 갯수 : 5개
 			 int pagePerCnt = 10;//페이지당 보여줄 게시물의 수
 			 int end = page*pagePerCnt; 
 			 int start =(end-pagePerCnt)+1;
 			 int endpage;
-		
-			 
-			
-			
+					
 			String sql = "SELECT rnum, id,diaryidx, diarysubject, diarybhit,diaryreg_date FROM"
 					+ " (SELECT ROW_NUMBER() over (ORDER BY diaryidx DESC) AS rnum, id, diaryidx, diarysubject, diarybhit, diaryreg_date FROM diary WHERE id = ? )"
 					+ "WHERE RNUM BETWEEN ? AND ?";//diaryidx기준으로 내림차순
@@ -115,23 +109,30 @@ public class DiaryDAO {
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}finally {
-				resClose();//자원반납
 			}
 			return list;
 		}
 		
-	/*
-	 * private boolean limit(String homephost, int page) { String
-	 * sql="SELECT count (*) FROM diary WHERE id=?"; HashMap<String ,Object> map =
-	 * new HashMap<String, Object>(); try { ps = conn.prepareStatement(sql);
-	 * ps.setString(1, homephost); rs = ps.executeQuery();
-	 * System.out.println(rs.getInt("count(*)")); while(rs.next()) {
-	 * map.put("count", rs.getInt("count(*)"));
-	 * 
-	 * } } catch (SQLException e) { e.printStackTrace(); }finally { resClose(); }
-	 * return false; }
-	 */
+
+public int limit(String homephost) { 
+	String sql="SELECT count (*) FROM diary WHERE id=?"; 
+	int count = 0 ;
+	try {
+	ps = conn.prepareStatement(sql);
+	 ps.setString(1, homephost); 
+	 rs = ps.executeQuery();
+	
+	 while(rs.next()) {		 
+		 count = rs.getInt("count(*)");
+		 System.out.println(count);
+	 	} 
+	 } catch (SQLException e) { 
+		 e.printStackTrace(); 
+	 }finally {
+		resClose();
+	}
+	return count;
+ }
 
 
 

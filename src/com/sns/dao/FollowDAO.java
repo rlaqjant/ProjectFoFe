@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.sns.dto.FollowerTalkDTO;
 import com.sns.dto.SearchDTO;
 
 public class FollowDAO {
@@ -114,6 +115,82 @@ public class FollowDAO {
 		}
 		
 		return arrList;
+	}
+
+	public boolean followerTalkWrite(String id, String content, String followerTalkUser_name) throws SQLException {
+		boolean result = false;
+		String sql = "INSERT INTO followerTalk(followerTalkIdx, id, followerTalkUser_name, followerTalkContent)VALUES(followerTalk_seq.NEXTVAL, ?, ?, ?)";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, id);
+		ps.setString(2, followerTalkUser_name);
+		ps.setString(3, content);
+		if(0<ps.executeUpdate()) {
+			result = true;
+		}
+		return result;
+	}
+
+	public ArrayList<FollowerTalkDTO> getfollowerTalkList(String id) throws SQLException{
+		ArrayList<FollowerTalkDTO> list = new ArrayList<FollowerTalkDTO>();
+		String sql = "SELECT followerTalkIdx, id, followerTalkUser_name, followertalkcontent FROM followertalk where id=?";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, id);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			FollowerTalkDTO dto = new FollowerTalkDTO();
+			dto.setFollowerTalkIdx(rs.getString("followerTalkIdx"));
+			dto.setId(rs.getString("id"));
+			dto.setFollowerTalkUser_name(rs.getString("followerTalkUser_name"));
+			dto.setFollowerTalkContent(rs.getString("followerTalkContent"));
+			list.add(dto);
+		}
+		
+		return list;
+		
+	}
+
+	public boolean followerTalkDelete(String idx, String deleteId) {
+		boolean result = false;
+		try {
+			String sql = "SELECT followerTalkUser_name FROM followertalk WHERE followerTalkIdx = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, idx);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				String followerTalkUser_name = rs.getString("followerTalkUser_name");
+				if(deleteId.equals(followerTalkUser_name)) {
+					sql = "DELETE FROM followertalk WHERE followerTalkIdx=? ";
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, idx);
+					if(0<ps.executeUpdate()) {
+						result = true;
+					}
+				}else {
+					sql = "SELECT id FROM followertalk WHERE followerTalkIdx = ?";
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, idx);
+					rs = ps.executeQuery();
+					if(rs.next()) {
+						String id = rs.getString("id");
+						if(deleteId.equals(id)) {
+							sql = "DELETE FROM followertalk WHERE guestBookIdx=? ";
+							ps = conn.prepareStatement(sql);
+							ps.setString(1, idx);
+							if(0<ps.executeUpdate()) {
+								result = true;
+							}
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;		
 	}
 
 
