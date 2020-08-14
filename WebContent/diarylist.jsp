@@ -53,8 +53,8 @@
         
             background-image: url(images/simple.jpg);
             background-size: 600px 600px;
-            
             }
+            
         </style>
 </head>
 <body>
@@ -91,12 +91,33 @@
                 <div id="page">
                     <a href="./diaryList?page=${currPage-1}&&homephost=${homephost}"><span style="text-decoration: none;color: black;">PREV</span></a>
                     <span><b>${currPage}</b></span>
-                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}"><span >NEXT</span></a>
+                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}"><span id="next">NEXT</span></a>
                 </div>
             </div>
         </div>
 </body>
 <script>
+
+var count = "${count}";
+var page  =  "${currPage}"
+
+
+function hide(){
+	$("#next").css({"display":"none"});
+}
+
+ if(parseInt(count/10)==(page-1)|| count<=10  ){
+	
+	 hide()
+	
+}
+
+
+ 
+ 
+ 
+ 
+
     var msg ="${msg}";//msg보낸거 띄워야되는데...어떻게 띄우더라.
    if(msg!=""){
       alert(msg);

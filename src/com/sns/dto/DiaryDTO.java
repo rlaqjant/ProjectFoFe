@@ -10,7 +10,7 @@ public class DiaryDTO {
 	private int diarybhit;
 	private String diaryreg_date;
 	private String[] checkdel;
-	private int page;
+	private int count;
 	
 	
 	
@@ -58,12 +58,7 @@ public class DiaryDTO {
 	public void setCheckdel(String[] checkdel) {
 		this.checkdel = checkdel;
 	}
-	public int getPage() {
-		return page;
-	}
-	public void setPage(int page) {
-		this.page = page;
-	}
+	
 
 	
 	
