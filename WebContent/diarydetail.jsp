@@ -24,6 +24,7 @@
                 margin-bottom: 2%; 
                 padding: 0px;
                 border-spacing: 0px;
+                box-shadow: 0px 22px 31px 0px #dbd15c;
             }
             tr{
                 border-radius: 5px;   
@@ -33,19 +34,27 @@
             }
             #date{
                 width: 45%;
+                background-color: white;
             }
             #index{
+            	position:absolute;
+            	left:50%;
                 width: 15%;
                 border-top-left-radius: 5px;
+                
             }
             #hit{
                 width: 10%;
+                background-color: white;
             }
-            #update{width: 15%;}
+            #update{width: 15%;
+            background-color: white;
+            }
             
             #delete{
                 width: 20%;
                 border-top-right-radius: 5px;
+                background-color: white;
             }
             .detail{
                 border-bottom-left-radius: 5px;
@@ -73,6 +82,17 @@
             body{
             width:600px;
             height:600px;
+            }
+            .diarydetail{
+            position:absolute;
+            top:12%;
+            left:22%;
+            }
+            html{
+            background-color: #fff591;
+            }
+            #subject{
+             background-color: white;
             }
 	</style>
 </head>

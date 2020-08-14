@@ -49,16 +49,34 @@ public class AlbumController extends HttpServlet {
 		switch(url) {
 			//사진 업로드
 			case "/albumupload":
+			String homeid = req.getParameter("homephost");
+			System.out.println("홈피 아이디 :" +homeid);
+			System.out.println("로그인아이디 : "+(String) req.getSession().getAttribute("id"));
 			msg = "저장 실패";
-			page = "Albumlist.jsp";
-			dao = new AlbumDAO();
-			AlbumDTO dto = service.upload();
-			if(dao.write(dto)) {
-				msg = "저장 성공";
+			//String l ="?homephost=\"+homeid+\"&&page=1"
+			if(homeid.equals((String) req.getSession().getAttribute("id"))) {
+				page = "Albumlist.jsp";
+				dao = new AlbumDAO();
+				AlbumDTO dto = service.upload();
+				if(dao.write(dto)) {
+					msg = "저장 성공";
+				}
+				/*req.setAttribute("msg", msg);
+				dis=req.getRequestDispatcher(page);
+				dis.forward(req, resp);*/
+				req.setAttribute("homephost", homeid);
+				req.setAttribute("page", page);
+				dis = req.getRequestDispatcher(page);
+				dis.forward(req, resp);
+			}else {
+				page ="Albumlist.jsp";
+				msg = "홈피 주인만 작성 할 수 있습니다.";
+				req.setAttribute("msg", msg);
+				req.setAttribute("homephost", homeid);
+				dis=req.getRequestDispatcher(page);
+				dis.forward(req, resp);
 			}
-			req.setAttribute("msg", msg);
-			dis=req.getRequestDispatcher(page);
-			dis.forward(req, resp);
+			
 			break;
 			
 			case "/giveAlbumlist":

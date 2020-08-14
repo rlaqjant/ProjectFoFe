@@ -224,7 +224,7 @@
 		                    <td>ㅇㅇ</td><br/><!--주인이름-->
 		                </div>
 		
-		        		<form action="albumupload" method="post" enctype="multipart/form-data">
+		        		<form action="albumupload?homephost=${homephost}" method="post" enctype="multipart/form-data">
 		
 		        			<textarea style="width: 100%; height: 95px; border: none; resize: none; outline: none;" name="content" placeholder="ㅇㅇ님 무슨 생각을 하고계신가요?"></textarea>
 		                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile" name="uploadFile"></div>
@@ -247,7 +247,6 @@
  	var albumidx = 0;
  	
     function albumlistCall(page){
-		
     	$.ajax({
     		type:"post",
     		url:"albumlist",

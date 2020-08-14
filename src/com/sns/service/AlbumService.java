@@ -47,7 +47,7 @@ public class AlbumService {
 			MultipartRequest multi = new MultipartRequest(req, root, maxSize, "utf-8");
 			
 			//dto를 이용하여 게시물 정보 저장
-			dto.setId((String) req.getSession().getAttribute("loginId"));
+			dto.setId((String) req.getSession().getAttribute("id"));
 			dto.setAlbumcontent(multi.getParameter("content"));
 			String ext = null;
 			String oriFileName = multi.getFilesystemName("uploadFile");
@@ -88,7 +88,7 @@ public class AlbumService {
 		Gson gson = new Gson();
 		ArrayList<AlbumDTO> list = null;
 		AlbumDAO dao = new AlbumDAO();
-		int allcnt = dao.listcnt();
+		int allcnt = dao.listcnt(id);
 		dao = new AlbumDAO();
 		list = dao.list(page, id);
 		
