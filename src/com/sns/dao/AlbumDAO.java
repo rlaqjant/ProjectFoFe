@@ -215,6 +215,7 @@ public class AlbumDAO {
 		}finally {
 			close();
 		}
+		System.out.println("총 페이지 갯수  : " + allcnt);
 		return allcnt;
 	}
 
