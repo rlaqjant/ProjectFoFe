@@ -53,6 +53,7 @@
                 position: absolute;
                 top: 30%;
                 left: 1%;
+                display: none;<!--잠깐 지웠음-->
             }
             #background{
                 position: relative;
@@ -78,10 +79,9 @@
         </style>
     </head>
     <body>
-        <div id="sidelogo"><img  src="images/로고.png" /></div>
+        <div id="sidelogo"><img  src="images/로고.png" /></div><!-- 수정 편의를 위해 이 그림도 잠깐 지웠음. style -->
            <!-- <img id="x" src="images/x.png"> -->
 		<div id="jointitle" style="font-size: 40px;"><h2>회원가입</h2></div>
-        <form action="join" method="post">
             <div id="join">
                 <!--아이디 부분은 중복확인을 위해 따로 데이터전송을 해줘야하므로 그 부분은 추후에 추가-->
 	            <div id="joinchild">
@@ -98,11 +98,11 @@
 	               	이메일<br/>
 	                <input type="text" placeholder="이메일을 입력해주세요" name="email" style="width:298px; height:30px"/><br/> 
 	                <div id="makeJoinbuttonCenter">
-	                	<input id="joinbutton" type="submit" value="회원가입">
+	                	<input id="joinbutton" type="button" value="회원가입">
 	                </div>
                 </div>
             </div>
-        </form>
+        
     </body>
     <script>
     $(document).ready(function(){
@@ -116,13 +116,13 @@
 				data:{"id":id},
 				dataType:"JSON",
 				success:function(data){
-					console.log(data);
 					if(id==""){
 						alert("아이디를 입력하세요.");
 						$id.focus();
 					}else if(data.idCheck){
 						$("#checkMessage").html("사용 중인 아이디입니다.").css({"color":"red"});
 						$("input[name='id']").val("");
+						$("input[name='id']").focus();
 					}else{
 						$("#checkMessage").html("사용 가능한 아이디입니다.").css({"color":"green"});
 						ability=true;
@@ -132,29 +132,54 @@
 					console.log(e);
 				}
 			});
-		});
-		/*
+		});		
+		
 		$("#joinbutton").click(function(){
 			if(ability){
-				if($("input[name='id']").val()==""){
-					alert("아이디를 입력하세요.");
-				}else if($("input[name='pw']").val()==""){
+				if($("input[name='pw']").val()==""){
 					alert("비밀번호를 입력하세요.");
+					$("input[name='pw']").focus();
 				}else if($("input[name='name']").val()==""){
 					alert("이름을 입력하세요.");
+					$("input[name='name']").focus();
 				}else if($("input[name='phone']").val()==""){
 					alert("전화번호를 입력하세요.");
+					$("input[name='phone']").focus();
 				}else if($("input[name='email']").val()==""){
 					alert("이메일을 입력하세요.");
+					$("input[name='email']").focus();
+				}else{
+					var para={};
+					para.id=$("input[name='id']").val();
+					para.pw=$("input[name='pw']").val();
+					para.name=$("input[name='name']").val();
+					para.phone=$("input[name='phone']").val();
+					para.email=$("input[name='email']").val();
+					console.log("성공1");
+					$.ajax({
+						type: "post",
+						url: "join",
+						data: para,
+						dataType: "JSON",
+						success: function(data){
+							if(data.join){
+								console.log("성공2");
+								alert("회원가입에 성공했습니다.");
+								location.href="index.jsp";
+							}else{
+								alert("회원가입에 실패했습니다.");
+							}
+						},
+						error: function(e){
+							console.log(e);
+						}
+					});
 				}
 			}
 		});
-		*/
+		
     });
 
-    var msg="";
-    if(msg!=""){
-    	alert(msg);
-    }
+
     </script>
 </html>
