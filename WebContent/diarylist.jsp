@@ -19,12 +19,15 @@
                 margin: 0px;
             }
             #list{
-                width: 590px;
+               	position:absolute;
+               	top:10px;
+               	left:10px;
                 border-top: solid 1px black; 
                 border-bottom: solid 1px black;
                 margin: auto;
-                height: auto;
                 margin-top: 15px;
+                width: 1000px;
+  				height: 700px;
             
             }
             #page{
@@ -53,8 +56,8 @@
         
             background-image: url(images/simple.jpg);
             background-size: 600px 600px;
-            
             }
+            
         </style>
 </head>
 <body>
@@ -113,10 +116,10 @@ function hide(){
 }
 
 
-
-
-
-
+ 
+ 
+ 
+ 
 
     var msg ="${msg}";//msg보낸거 띄워야되는데...어떻게 띄우더라.
    if(msg!=""){
