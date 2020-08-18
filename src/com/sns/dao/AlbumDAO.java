@@ -1,5 +1,4 @@
 package com.sns.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import com.sns.dto.AlbumDTO;
 import com.sns.dto.ReplyDTO;
@@ -19,18 +17,16 @@ public class AlbumDAO {
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
-	BasicDataSource bds = null;
 	DataSource ds = null;
 	
 	public AlbumDAO() {
 		//생성자 이용해 DB연결
 		try {
+			System.out.println("dao 생성자 진입");
 			Context ctx = new InitialContext();
 			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle");
 			conn = ds.getConnection();
-			bds = (BasicDataSource)ds;
-			System.out.println("실행 중인 커넥션 : "+bds.getNumIdle());   
-			System.out.println("전체 커넥션 : "+bds.getMaxTotal());
+			System.out.println("conn 생성 완료");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -48,6 +44,7 @@ public class AlbumDAO {
 	}
 
 	public boolean write(AlbumDTO dto) {
+		System.out.println("write 진입");
 		String sql = "insert into album(albumidx, id, albumcontent) values(Album_seq.NEXTVAL,?,?)";
 		long pk=0;
 		boolean com = false;

@@ -45,7 +45,7 @@ public class AlbumController extends HttpServlet {
 		
 		String msg = "";
 		String page = "";
-
+		
 		switch(url) {
 			//사진 업로드
 			case "/albumupload":
@@ -57,7 +57,9 @@ public class AlbumController extends HttpServlet {
 			if(homeid.equals((String) req.getSession().getAttribute("id"))) {
 				page = "Albumlist.jsp";
 				dao = new AlbumDAO();
+				System.out.println("service upload 진입 전");
 				AlbumDTO dto = service.upload();
+				System.out.println("service upload 탈출후 dao write 진입 전");
 				if(dao.write(dto)) {
 					msg = "저장 성공";
 				}
@@ -91,16 +93,16 @@ public class AlbumController extends HttpServlet {
 				break;
 			
 			case "/albumdetail":
+				System.out.println("리스트 진입");
 				service.detail();
 				break;
 			
 			case "/albumdel":
+				String homehost = req.getParameter("homephost");
+				System.out.println("삭제 진입");
 				boolean success = service.del();
-				String delmsg = "삭제 실패";
-				if(success) {
-					delmsg = "삭제 성공";
-				}
-				req.setAttribute("msg", msg);
+				System.out.println("삭제후 보내는 homeid " + homehost);
+				req.setAttribute("homephost", homehost);
 				dis=req.getRequestDispatcher("Albumlist.jsp");
 				dis.forward(req, resp);
 				break;
@@ -133,7 +135,7 @@ public class AlbumController extends HttpServlet {
 				page = "albumReply.jsp";
 				dto1 = new ReplyDTO();
 				dto1.setAlbumidx(Integer.parseInt(req.getParameter("albumIdx")));
-				
+				dao = new AlbumDAO();
 				ArrayList<ReplyDTO> replyList = dao.replyList(dto1);
 				System.out.println(replyList);
 				req.setAttribute("replyList", replyList);

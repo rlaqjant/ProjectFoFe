@@ -26,7 +26,7 @@ public class AlbumService {
 
 	/* 사진 업로드 */
 	public AlbumDTO upload() {
-		
+		System.out.println("upload 진입");
 		int maxSize = 10*1024*1024;//사진 용량 제한
 		
 		String root = "C:/albumupload";
