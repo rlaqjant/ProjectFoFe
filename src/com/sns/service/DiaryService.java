@@ -55,8 +55,11 @@ public class DiaryService {
 		int page = 1;//페이지초기화
 		if(pageParam !=null) {//현재페이지가있다면
 			page = Integer.parseInt(pageParam);//페이지에 현재 페이지를 넣어라
-			
+			if(page==0) {
+				page=page+1;
+			}
 		}
+		
 		String homephost = req.getParameter("homephost");//homephost는 어디서온애였더라?★
 		System.out.println("homehost : " + homephost);
 		ArrayList<DiaryDTO> list = dao.list(homephost,page);//1.db에 일 시키기 2. dao에서 컨트롤러로 보낸 (dto)list 받기

@@ -94,7 +94,7 @@
     </body>
     <script>
     var msg="${msg}";
-    if(msg!=null){
+    if(msg!=""){
     	alert(msg);
     }
     </script>
