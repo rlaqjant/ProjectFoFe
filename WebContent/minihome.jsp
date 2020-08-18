@@ -57,7 +57,7 @@
    }
    #minihome_nameBtn{
       position: absolute;
-      top: 20px;
+      top: 25px;
       left: 400px; 
    }
    #minihome_nameEdit{
@@ -100,12 +100,20 @@
    }
    /* 팔로우 영역-----------------------------------------------*/
    #followArea{
-      position: relative;
+   	 position: relative;
       width: 240px;
       height: 30px;
       margin-left: 30px;
       margin-bottom: 10px;
-      background-color: blue;
+   }
+   input[name="followbtn"]{
+         position: absolute;
+         width: 235px;
+         height: 23px;
+         border-radius: 20px;
+         border: 0px;
+         margin-top: 5px;
+         margin-left: 3px;
    }
    #follow{
       background-color: white;
@@ -127,8 +135,8 @@
    }
    #profile_messageBtn{
       position: absolute;
-      left: 193px;
-      top: 100px;
+      left: 204px;
+      top: 102px;
    }
    input[name="minihome_nameEdit"]{
       width: 396px;
@@ -143,6 +151,12 @@
       width: 240px;
       height: 100px;
       border: none;
+   }
+   .editBtn{
+   background-color: transparent;
+   border: 0;
+   outline: 0;
+   font-weight: 700;
    }
    #email{
       width: 240px;
@@ -193,7 +207,7 @@
             <div id="top">
                <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
                   <div id="minihome_nameDetail">${minihome.minihname}<input type="hidden" name="minihome_nameDetail" value="${minihome.minihname}"></div>
-                  <div><input type="button" name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
+                  <div><input type="button" class ='editBtn' name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
                </div>
                <div id="top-menu">
                   <button class="top_menu" id="manageBtn" onclick='viewFrame("manage.jsp?homephost=${minihome.id}")'>관리</button>
@@ -210,7 +224,7 @@
                   <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                   <div id="profile_message">
                      <div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}"></div>
-                     <div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
+                     <div><input type="button" class ='editBtn' name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                   </div>
                   <audio autoplay controls loop>
                         <source src="/profilePhoto/${minihome.mp3}" type="audio/mp3">

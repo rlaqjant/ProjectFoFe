@@ -11,20 +11,26 @@
         <style TYPE="text/css">
             #profile{
             	box-sizing: border-box;
-                width: 600px;
-                height: 500px;                
+                width: 800px;
+                height: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 150px;
             }
             #chart{
                 font-size: 20px;
-                width: 400px;
+                width: 800px;
                 height: 400px;
                 padding: 8px;
                 margin-left: auto;
                 margin-right: auto;
                 margin-top: 60px;
             }
+            .tdMenu{
+            	width: 200px;
+            }
             #chart tr td{
-            	background-color: #c7e2b2;
+            	background-color: #ebecf1;
             	border-radius: 5px;
             	padding: 10px;
             }
@@ -38,14 +44,14 @@
 	        <input type="hidden" name="homephost" value="${Profile.id}">
 	        <div id="posi">
 		        <table id="chart">
-			        <tr><td>이름</td><td>${Profile.nickname}</td></tr>
-			        <tr><td>생일</td><td>${Profile.myBirth}</td></tr>
-			        <tr><td>혈액형</td><td>${Profile.blood}</td></tr>
-			        <tr><td>주소</td><td>${Profile.addr}</td></tr>			       
-			        <tr><td>전공</td><td>${Profile.major}</td></tr>
-			        <tr><td>나만의 이성유혹법</td><td>${Profile.seduWay}</td></tr>
-			        <tr><td>좌우명</td><td>${Profile.motto}</td></tr>
-			        <tr><td>인생영화</td><td>${Profile.fMovie}</td></tr>
+			        <tr><td class="tdMenu">이름</td><td>${Profile.nickname}</td></tr>
+			        <tr><td class="tdMenu">생일</td><td>${Profile.myBirth}</td></tr>
+			        <tr><td class="tdMenu">혈액형</td><td>${Profile.blood}</td></tr>
+			        <tr><td class="tdMenu">주소</td><td>${Profile.addr}</td></tr>
+			        <tr><td class="tdMenu">전공</td><td>${Profile.major}</td></tr>
+			        <tr><td class="tdMenu">나만의 이성유혹법</td><td>${Profile.seduWay}</td></tr>
+			        <tr><td class="tdMenu">좌우명</td><td>${Profile.motto}</td></tr>
+			        <tr><td class="tdMenu">인생영화</td><td>${Profile.fMovie}</td></tr>
 		        </table>
 	       	</div>
 	      	<input id="update" type="button" value="EDIT" onclick="location.href='profileUpdateForm?id=${Profile.id}'"/>
