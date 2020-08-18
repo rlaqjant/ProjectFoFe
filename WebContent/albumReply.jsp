@@ -16,7 +16,7 @@
 					<td width="70%">${reply.replyCont}</td>
 					<td width="15%">
 						<c:choose>
-							<c:when test="${reply.replyUser_id eq sessionScope.loginId}">
+							<c:when test="${reply.replyUser_id eq sessionScope.id}">
 								<button onclick="replyDelete('${reply.replyIdx}'); return false;">삭제</button>
 							</c:when>
 						</c:choose>
