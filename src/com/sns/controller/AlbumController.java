@@ -41,7 +41,7 @@ public class AlbumController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		AlbumService service = new AlbumService(req, resp);
-		AlbumDAO dao = new AlbumDAO();
+		AlbumDAO dao = null;
 		
 		String msg = "";
 		String page = "";

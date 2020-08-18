@@ -18,13 +18,11 @@
                 position: static;
 				width: 1095px;
      			height: 755px;
-                background-color: yellow;
             }
             #viewbox{
                 position: relative;
                 width: 1095px;
                 height: 610px;
-                background-color: yellowgreen;
             }
             #viewDetail{
                 position: absolute;
@@ -98,7 +96,6 @@
                 top: 650px;
                 left: 241px;
                 text-align: center;
-                background-color: blue;
             }
             #wrightBox div{
                 position: absolute;

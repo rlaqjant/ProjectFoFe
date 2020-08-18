@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+
 import com.sns.dto.AlbumDTO;
 import com.sns.dto.ReplyDTO;
 
@@ -17,13 +19,18 @@ public class AlbumDAO {
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	BasicDataSource bds = null;
+	DataSource ds = null;
 	
 	public AlbumDAO() {
 		//생성자 이용해 DB연결
 		try {
 			Context ctx = new InitialContext();
-			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle");
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle");
 			conn = ds.getConnection();
+			bds = (BasicDataSource)ds;
+			System.out.println("실행 중인 커넥션 : "+bds.getNumIdle());   
+			System.out.println("전체 커넥션 : "+bds.getMaxTotal());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -34,11 +41,7 @@ public class AlbumDAO {
 			if(rs != null) {rs.close();}
 			if(ps != null) {ps.close();}
 			if(conn != null) {conn.close();}
-			System.out.println("자원반납");
-			System.out.println("conn : "+conn);
-			//System.out.println("rs : "+rs);
-			//System.out.println("ps : "+ps);
-			
+			System.out.println("자원반납");					
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

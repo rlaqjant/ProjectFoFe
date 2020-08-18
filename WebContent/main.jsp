@@ -171,7 +171,6 @@
     					$(".followerFriends").append("<tr>"
     				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
     				            +"<td>"+name+"</td>"
-    				            +"<td><input type='button' value='"+id+"' class='unfollowBtn'/></td>"
     				            +"</tr>");
     				}
     			},
@@ -238,10 +237,6 @@
     		$("#searchResult").empty();
 		})
 		
-		var msg="${msg}";
-		if(msg!=""){
-			alert(msg);	
-		}
 		
     </script>
 </html>
