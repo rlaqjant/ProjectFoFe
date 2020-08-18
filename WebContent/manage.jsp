@@ -23,6 +23,7 @@
 				margin-right: auto;
 				border: 1px solid gray;
 				margin-bottom: 5px;
+				border-radius: 30px;
 			}
 			p{
 				font-size: 20px;
@@ -40,6 +41,7 @@
 				width: 289px;
 				height: 200px;
 				float: left;			
+				
 			}
 			#preveal{
 				box-sizing: border-box;
@@ -47,7 +49,8 @@
 				height: 198px;
 				padding: 20px;
 				float: left;
-				background-color: green;
+				background-color: white;
+				border-radius: 30px;
 			}
 			#manage_photo{
 				box-sizing: border-box;
@@ -79,7 +82,7 @@
 				margin-left: auto;
 				margin-right: auto;
 			}
-            #music{
+            .music{
                 box-sizing: border-box;
 				width: 580px;
 				height: 50px;
@@ -87,6 +90,8 @@
 				margin-left: auto;
 				margin-right: auto;
 				border: 1px solid gray;
+				text-align: center;
+				border-radius: 20px;
             }
             #bgupload{
             	text-align: center;
@@ -101,39 +106,36 @@
 		<div id="color">			
 			<div id="choice">
 				<form action="backgrounduplolad" method="POST">
-                        <div class="color"><input name="background" type="radio" value="#cf1b1b"/>빨강</div>
-                        <div class="color"><input name="background" type="radio" value="#fbd46d"/>노랑</div>
-                        <div class="color"><input name="background" type="radio" value="#0f4c75"/>파랑</div>
-                        <div class="color"><input name="background" type="radio" value="#206a5d"/>초록</div>
+                        <div class="color"><label><input name="background" type="radio" value="white"/>우유</label></div>
+                        <div class="color"><label><input name="background" type="radio" value="#fff591"/>바나나 우유</label></div>
+                        <div class="color"><label><input name="background" type="radio" value="#ffaaa5"/>딸기 우유</label></div>
+                        <div class="color"><label><input name="background" type="radio" value="#e0f9b5"/>메론맛 우유</label></div>
                         <input id="bgupload" type="submit" value="업로드"/>
                     </form>
 			</div>
 			<div id="preveal">
-				<img src="https://lh3.googleusercontent.com/proxy/AreEmtjsqgvbsF3A4FOPTzCjetmRv6p9WioPPfijSJ0i-VpNiVwceseNEgUrPIQP9LaKbNGBaBveM8fDU89xeV94DjdbIeG93pNHJKzNy3kEIWFiEaxa2JKJLw" width="250px" height="160px">
+				<img src="" width="250px" height="160px">
 			</div>
 		</div>
 		<p>프로필 변경</p>
-        <div id="music">
+        <div class="music">
              <form action="profileUpload" method="POST" enctype="multipart/form-data">
-                 <input type="text" name="title"/>
-                 <input type="file" name="profile"/>
+                 <input id ="teen" type="file" name="profile"/>
                  <input type="submit" value="업로드"/>
              </form>
         </div>
         <p>대문사진 변경</p>
-        <div id="music">
+        <div class="music">
              
              <form action="mainPhotoUpload" method="POST" enctype="multipart/form-data">
-                 <input type="text" name="title"/>
                  <input type="file" name="mainPhoto"/>
                  <input type="submit" value="업로드"/>
              </form>
         </div>
 		
 		<p>BGM 변경</p>
-        <div id="music">
+        <div class="music">
              <form action="BgmUpload" method="POST" enctype="multipart/form-data">
-                 <input type="text" name="title"/>
                  <input type="file" name="BGM"/>
                  <input type="submit" value="업로드"/>
              </form>
@@ -148,11 +150,11 @@
 			$("#preveal").css({"background-color":$(this).val()});//미리보기 색상 변경
 		});
 		var msg ="${msg}"
+		
 		var newfilename = "${newfilename}"
 		if(msg!=""){
-			alert(msg + newfilename)
-			parent.document.location.reload()
-
+			alert("업로드 성공~!");
+			parent.document.location.reload();
 		}
     </script>
 </html>
