@@ -26,7 +26,7 @@ public class AlbumService {
 
 	/* 사진 업로드 */
 	public AlbumDTO upload() {
-		
+		System.out.println("upload 진입");
 		int maxSize = 10*1024*1024;//사진 용량 제한
 		
 		String root = "C:/albumupload";
@@ -146,7 +146,7 @@ public class AlbumService {
 			dto.setReplyCont(req.getParameter("replyCont"));
 			System.out.println("넘겨받은 content : "+req.getParameter("replyCont"));
 			// 테스트용 : dto.setReplyUser_id("dbckdgur12");
-			dto.setReplyUser_id((String) req.getSession().getAttribute("loginId"));
+			dto.setReplyUser_id((String) req.getSession().getAttribute("id"));
 			
 			System.out.println(dto);
 		}catch(Exception e) {

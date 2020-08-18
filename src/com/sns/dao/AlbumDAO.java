@@ -1,5 +1,4 @@
 package com.sns.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
 import com.sns.dto.AlbumDTO;
 import com.sns.dto.ReplyDTO;
 
@@ -17,13 +17,16 @@ public class AlbumDAO {
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	DataSource ds = null;
 	
 	public AlbumDAO() {
 		//생성자 이용해 DB연결
 		try {
+			System.out.println("dao 생성자 진입");
 			Context ctx = new InitialContext();
-			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle");
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle");
 			conn = ds.getConnection();
+			System.out.println("conn 생성 완료");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -34,17 +37,14 @@ public class AlbumDAO {
 			if(rs != null) {rs.close();}
 			if(ps != null) {ps.close();}
 			if(conn != null) {conn.close();}
-			System.out.println("자원반납");
-			System.out.println("conn : "+conn);
-			//System.out.println("rs : "+rs);
-			//System.out.println("ps : "+ps);
-			
+			System.out.println("자원반납");					
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public boolean write(AlbumDTO dto) {
+		System.out.println("write 진입");
 		String sql = "insert into album(albumidx, id, albumcontent) values(Album_seq.NEXTVAL,?,?)";
 		long pk=0;
 		boolean com = false;
