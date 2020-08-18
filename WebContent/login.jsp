@@ -67,7 +67,7 @@
     <div id="helper">
         
         <div id="loginbox">
-        	<div id="cyworld"><img width="100%" height="100%" src="images/로고.png" alt=""></div>
+        	<div id="cyworld"><a href="./"><img width="100%" height="100%" src="images/로고.png" alt=""></a></div>
         	<div id="login_texting">
 	            <form action="login" method="post">
 	                <div id="id">
