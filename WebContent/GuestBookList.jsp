@@ -33,6 +33,7 @@
                 float:left;
                 overflow:auto;
             }
+	/* 		 html{ -ms-overflow-style: none;}::-webkit-scrollbar { display: none; } */
             .viewDetail2 {
                 position: relative;
                 margin: 15px 0px;

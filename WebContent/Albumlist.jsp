@@ -83,9 +83,6 @@
             table{
 /*                 border-spacing: 15px 15px; */
             }
-            tr, td{
-                border: 1px solid black;
-            }
             td {
 			    padding: 0px;
 			    width: 318px;
@@ -97,8 +94,13 @@
 			    font-size: 15px;
 			}
             img{
+            	position : relative;
             	width: 100%;
             	height: 100%;
+            	cursor: pointer;
+            	border-radius: 10px;
+            	box-sizing: border-box;
+}
             }
             #layer{
             	background-color: black;
@@ -233,6 +235,9 @@
 			.rebtn{
 				width: 20%;
 			}
+			a { text-decoration:none; }
+			img:hover{border: 2px solid black;}
+
         </style>
     </head>
     <body>
@@ -261,9 +266,9 @@
 	           </table>
 	           <input type="button" value="게시글 작성" id="writeclick"/>
 	           <div id="button">
-	               <a name="prev" onclick="prev(this)"><span>이전</span></a>
+	               <a name="prev" href='#' onclick="prev(this)"><span>이전</span></a>
 	               <span id=page></span>
-	               <a name="next" onclick="next(this)"><span>다음</span></a>
+	               <a name="next" href='#' onclick="next(this)"><span>다음</span></a>
 	           </div>
 	            <div id="gray"></div><!-- 팝업뒷창 -->
 	            <button id="write_close" style="display: none;">x</button>
@@ -338,7 +343,7 @@
     			endpage = allcnt;
     		}
     		for(var i = startpage; i<=endpage; i++){
-        		$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+        		$('#page').append("<a href='#' onclick='albumlistCall("+i+")'>"+i+"</a>");
         	}
     	}else if(curpage%pagecnt==0){
     		$('#page').empty();
@@ -348,7 +353,7 @@
     			endpage = allcnt;
     		}
     		for(var i = startpage; i<=endpage; i++){
-        		$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+        		$('#page').append("<a href='#' onclick='albumlistCall("+i+")'>"+i+"</a>");
         	}
     	}
     	
