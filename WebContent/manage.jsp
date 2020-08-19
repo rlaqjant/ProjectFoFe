@@ -114,7 +114,6 @@
                     </form>
 			</div>
 			<div id="preveal">
-				<img src="" width="250px" height="160px">
 			</div>
 		</div>
 		<p>프로필 변경</p>

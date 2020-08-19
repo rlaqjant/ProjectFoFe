@@ -68,7 +68,7 @@
                 -->
                 </div>
             	<input type="hidden" name="homephost" value="${Profile.id}">
-                <input id="confirm" type="submit" value="완료" />
+                <input id="confirm" type="submit" value="OK!" />
             </form>
         </div>
     </body>

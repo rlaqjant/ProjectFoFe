@@ -20,7 +20,6 @@
             }
             #list{
                 width:1050px;
-                border-top: solid 1px black; 
                 border-bottom: solid 1px black;
                 margin: auto;
                 margin-left:10px;
@@ -52,7 +51,7 @@
             text-align: center;
             
             }
-            tr{height: 70px; margin: 0px;}
+            tr{height: 60px; margin: 0px;}
             #btn{margin-top: 7px;}
             #wr{text-align: right;}
             

@@ -8,12 +8,20 @@
 	<title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
+	
+		html{
+            background-color: #fff591;
+            }
 		.write{
+				position: absolute;
+			    top: 68px;
+			    left: 244px;
                 width: 600px;
                 height: 590px;
                 margin: 0px;
-                border: solid 1px black;
                 border-radius: 10px;
+                background-color:white;
+                box-shadow: 0px 22px 31px 0px #dbd15c;
             }
             table{
                 font-size: 20pt;
@@ -35,7 +43,22 @@
             form{
             	width:570px;
             	height:600px;
+            	
+            }
+            #subject{
+            position:absolute;
+            top: 20px;
+   			left: 38px;
+            width:10px;
+            height:10px
+            }
             
+            #content{
+            position:absolute;
+            top: 85px;
+   			left: 38px;
+            width:10px;
+            height:10px
             }
 	</style>
 </head>
@@ -45,19 +68,19 @@
 	            <table>
 	                <tr class="a1">
 	                    <td style="width: 90%;">
-	                        <input type="text" id="subject" name="subject" style="width: 90%; height: 40%; font-size: 20pt;" placeholder="제목을 입력해 주세요.">
+	                        <input type="text" id="subject" name="subject" style="width: 86%;height: 8%; font-size: 20pt;" placeholder="제목을 입력해 주세요.">
 	                    </td>
 	                </tr>
 	                <tr class="a2">
 	                    <td>
-	                        <textarea id="content" name="content" style="width: 90%; height: 100%; resize: none;" placeholder="내용을 입력해 주세요"></textarea>
+	                        <textarea id="content" name="content" style="width: 86%; height: 74%; resize: none;" placeholder="내용을 입력해 주세요"></textarea>
 	                    </td>
 	                </tr>
 	            </table>
             
 	            <div class="complete">
 	            	<input type="hidden" name="homephost" value="${homephost}"/>
-	                <input type="submit" value="완료" style="width: 70px; height: 30px; margin-right: 30px;">
+	                <input type="submit" value="완료" style="width: 70px; height: 30px; margin-right: 30px; position: absolute; top: 537px; left: 490px;">
 	            </div>
             </form>
      </div>
