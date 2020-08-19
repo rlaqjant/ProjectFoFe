@@ -234,10 +234,8 @@
 			.rebtn{
 				width: 20%;
 			}
-			tr, td:hover{
-				border: 2px solid black;
-			}
 			a { text-decoration:none }
+
         </style>
     </head>
     <body>
