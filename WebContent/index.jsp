@@ -300,15 +300,10 @@
                   <div id="profile_message">
                      <div id="profile_messageDetail">새로운 SNS의 시작, Forest Friend</div>
                   </div>
-                  <div id="email">TOTAL 17310</br>forestfriends@ff.kr</div>
+                  <div id="email">forest friends</br>forestfriends@ff.kr</div>
                </div>
                <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
-                  <iframe id="homeView" src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="profileView" src="profileDetail?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="diaryView" src="diaryList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="albumView" src="#?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="guestBookView" src="guestBookList?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
-                  <iframe id="manageView" src="manage.jsp?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+               		<img alt="" src="images/Main.png" width="100%">
                </div>
             </div>
          </div>
