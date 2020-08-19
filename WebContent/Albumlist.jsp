@@ -97,7 +97,9 @@
             	position : relative;
             	width: 100%;
             	height: 100%;
+            	cursor: pointer;
             	border-radius: 10px;
+            	box-sizing: border-box;
 }
             }
             #layer{
@@ -233,6 +235,9 @@
 			.rebtn{
 				width: 20%;
 			}
+			a { text-decoration:none; }
+			img:hover{border: 2px solid black;}
+
         </style>
     </head>
     <body>
@@ -261,9 +266,9 @@
 	           </table>
 	           <input type="button" value="게시글 작성" id="writeclick"/>
 	           <div id="button">
-	               <a name="prev" onclick="prev(this)"><span>이전</span></a>
+	               <a name="prev" href='#' onclick="prev(this)"><span>이전</span></a>
 	               <span id=page></span>
-	               <a name="next" onclick="next(this)"><span>다음</span></a>
+	               <a name="next" href='#' onclick="next(this)"><span>다음</span></a>
 	           </div>
 	            <div id="gray"></div><!-- 팝업뒷창 -->
 	            <button id="write_close" style="display: none;">x</button>
@@ -309,8 +314,10 @@
     		success:function(data){
     			if(data.curpage < 1){
     				alert("첫번째 페이지 입니다.");
-    			}else if(data.curpage > data.allcnt){
+    			}else if(data.curpage > data.allcnt && data.allcnt > 0){
     				alert("마지막 페이지 입니다.");
+    			}else if(data.allcnt == 0){
+    				alert("게시글이 없습니다.")
     			}else{
     				albumList(data.list,data.allcnt, data.curpage);
     			}
@@ -327,7 +334,7 @@
     		if(i==0 || i==3 || i ==6){
     			$('table').append("<tr></tr>");
     		}
-    		$('tr').last().append("<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
+    		$('tr').last().append("<td><img width='100%' height='100%' id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
     	}
     	
     	if(curpage%pagecnt==1){
@@ -338,7 +345,7 @@
     			endpage = allcnt;
     		}
     		for(var i = startpage; i<=endpage; i++){
-        		$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+        		$('#page').append("<a href='#' onclick='albumlistCall("+i+")'>"+i+"</a>");
         	}
     	}else if(curpage%pagecnt==0){
     		$('#page').empty();
@@ -348,11 +355,17 @@
     			endpage = allcnt;
     		}
     		for(var i = startpage; i<=endpage; i++){
-        		$('#page').append("<a onclick='albumlistCall("+i+")'>"+i+"</a>");
+        		$('#page').append("<a href='#' onclick='albumlistCall("+i+")'>"+i+"</a>");
         	}
     	}
-    	
-    	
+    	if(curpage == endpage){
+    		$("a[name='next']").hide();
+    	}else if(curpage == 1){
+    		$("a[name='prev']").hide();
+    	}else{
+    		$("a[name='next']").show();
+    		$("a[name='prev']").show();
+    	}
     	$("a[name='prev']").attr("id", curpage-1);
     	$("a[name='next']").attr("id", curpage+1);
     }
@@ -473,10 +486,7 @@
     $("#any_close").click(function(){
     	$("#dark").css("display","none");
     });
-    var msg = "${msg}";
-    if(msg != ""){
-    	alert(msg);
-    }
+
     
     </script>
 </html>

@@ -112,13 +112,13 @@
 
 var count = "${count}";
 var page  =  "${currPage}"
-
+var recentPage = parseInt(count/10) + parseInt(count%10)
 
 function hide(){
    $("#next").css({"display":"none"});
 }
 
- if(parseInt(count/10)==(page-1)|| count<=10  ){
+ if(parseInt(count/10)+1==page|| count<=10 ||recentPage==page){
    
     hide()
    
