@@ -53,13 +53,14 @@ public class MiniHomeDAO {
 				dto.setMinihname(rs.getString("minihname"));
 				dto.setMinihintro(rs.getString("minihintro"));
 			}
-			sql = "SELECT id, email FROM member WHERE id = ?";//회원 email, id
+			sql = "SELECT id, email, name FROM member WHERE id = ?";//회원 email, id
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				dto.setId(rs.getString("id"));
 				dto.setEmail(rs.getString("email"));
+				dto.setName(rs.getString("name"));
 			}
 			sql="SELECT newFileName FROM profilephotoup where id=? ";//프로필 사진
 			ps = conn.prepareStatement(sql);

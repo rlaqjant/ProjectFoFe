@@ -222,9 +222,9 @@ public class ManageService {
 	}
 
 
-	public void bgUpload(HttpServletRequest req) {
+	public boolean bgUpload(HttpServletRequest req) {
 		ManageDAO dao = new ManageDAO();
-		dao.bgUpload(req);
+		return dao.bgUpload(req);
 		
 	}
 

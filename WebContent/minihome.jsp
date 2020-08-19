@@ -52,12 +52,12 @@
       margin-bottom: 10px;
       margin-right: 120px;
       background-color: transparent;
-      border: 1px solid white;
+      border: 0;
       float: left;
    }
    #minihome_nameBtn{
       position: absolute;
-      top: 20px;
+      top: 25px;
       left: 400px; 
    }
    #minihome_nameEdit{
@@ -100,12 +100,20 @@
    }
    /* 팔로우 영역-----------------------------------------------*/
    #followArea{
-      position: relative;
+   	 position: relative;
       width: 240px;
       height: 30px;
       margin-left: 30px;
       margin-bottom: 10px;
-      background-color: blue;
+   }
+   input[name="followbtn"]{
+         position: absolute;
+         width: 235px;
+         height: 23px;
+         border-radius: 20px;
+         border: 0px;
+         margin-top: 5px;
+         margin-left: 3px;
    }
    #follow{
       background-color: white;
@@ -120,15 +128,14 @@
    #profile_message{
       position: relative;
       width: 240px;
-      height: 100px;
+      height:230px;
       margin-left: 30px;
-      border: 1px solid gray;
       font-size: 15px;
    }
    #profile_messageBtn{
       position: absolute;
-      left: 193px;
-      top: 100px;
+      left: 204px;
+      top: 232px;
    }
    input[name="minihome_nameEdit"]{
       width: 396px;
@@ -144,12 +151,16 @@
       height: 100px;
       border: none;
    }
+   .editBtn{
+   background-color: transparent;
+   border: 0;
+   outline: 0;
+   font-weight: 700;
+   }
    #email{
       width: 240px;
       height: 50px;
       margin-left: 30px;
-      margin-top: 40px;
-      border: 1px solid gray;
       font-size: 15px;
    }
    #changer {
@@ -171,9 +182,9 @@
       float: left;
    }*/
    audio{
-      width: 150px;
-      height: 30px;
-      margin: 20px 70px;
+      width: 250px;
+      height: 35px;
+     margin: 50px 22px;
    }
    iframe {
       width: 1095px;
@@ -193,29 +204,29 @@
             <div id="top">
                <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
                   <div id="minihome_nameDetail">${minihome.minihname}<input type="hidden" name="minihome_nameDetail" value="${minihome.minihname}"></div>
-                  <div><input type="button" name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
+                  <div><input type="button" class ='editBtn' name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
                </div>
                <div id="top-menu">
                   <button class="top_menu" id="manageBtn" onclick='viewFrame("manage.jsp?homephost=${minihome.id}")'>관리</button>
-                  <button class="top_menu" id="profileBtn" onclick='viewFrame("profileDetail?homephost=${minihome.id}")'>프로필</button>
-                  <button class="top_menu" id="diaryBtn" onclick='viewFrame("diaryList?homephost=${minihome.id}")'>다이어리</button>
-                  <button class="top_menu" id="albumBtn" onclick='viewFrame("giveAlbumlist?homephost=${minihome.id}")'>사진첩</button>
                   <button class="top_menu" id="guestBookBtn" onclick='viewFrame("guestBookList?homephost=${minihome.id}")'>방명록</button>
+                  <button class="top_menu" id="albumBtn" onclick='viewFrame("giveAlbumlist?homephost=${minihome.id}")'>사진첩</button>
+                  <button class="top_menu" id="diaryBtn" onclick='viewFrame("diaryList?homephost=${minihome.id}")'>다이어리</button>
+                  <button class="top_menu" id="profileBtn" onclick='viewFrame("profileDetail?homephost=${minihome.id}")'>프로필</button>
                   <button class="top_menu" id="homeBtn" onclick='viewFrame("minihomeMain?homephost=${minihome.id}")'>홈</button>
                </div>
             </div>
             <div id="center">
                <div id="side_menu">
-                  <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" style="border-radius:50%" height="240px"></div>
+                  <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" height="240px"></div>
                   <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                   <div id="profile_message">
                      <div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}"></div>
-                     <div><input type="button" name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
+                     <div><input type="button" class ='editBtn' name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                   </div>
                   <audio autoplay controls loop>
                         <source src="/profilePhoto/${minihome.mp3}" type="audio/mp3">
                   </audio>
-                  <div id="email">조회수</br>${minihome.email}</div>
+                  <div id="email">&nbsp${minihome.name}</br>&nbsp${minihome.email}</div>
                </div>
                <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
                   <iframe id="viewDetail"  src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
@@ -321,7 +332,7 @@
          $("#minihome_nameDetail").empty();
          $("#minihome_nameDetail").append("<input type='text' name='minihome_nameEdit' id='minihome_nameEditBox' value='"+minihome_nameDetail+"'/>");
          $("#minihome_nameEditBox").focus();
-         $("input[name='minihome_nameBtn']").attr({"onclick":"minihome_nameEdit()", "value":"수정"});
+         $("input[name='minihome_nameBtn']").attr({"onclick":"minihome_nameEdit()", "value":"DONE"});
       }
          function minihome_nameEdit() {
             var minihome_nameEdit = $("input[name='minihome_nameEdit']").val();
@@ -350,7 +361,7 @@
          $("#profile_messageDetail").empty();
          $("#profile_messageDetail").append("<input type='text' name='profile_messageEdit' id='profile_messageEditBox' value='"+profile_messageDetail+"'/>");
          $("#profile_messageEditBox").focus();
-         $("input[name='profile_messageBtn']").attr({"onclick":"profile_messageEdit()", "value":"수정"});
+         $("input[name='profile_messageBtn']").attr({"onclick":"profile_messageEdit()", "value":"DONE"});
       }
          function profile_messageEdit() {
             var profile_messageEdit = $("input[name='profile_messageEdit']").val();

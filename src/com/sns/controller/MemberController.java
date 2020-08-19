@@ -38,7 +38,6 @@ public class MemberController extends HttpServlet {
 			case "/join":
 				req.setCharacterEncoding("UTF-8");
 				boolean success=false;
-				req.setCharacterEncoding("UTF-8");
 				String id=req.getParameter("id");
 				String pw=req.getParameter("pw");
 				String name=req.getParameter("name");
@@ -52,7 +51,7 @@ public class MemberController extends HttpServlet {
 				map.put("join", success);
 				String obj = gson.toJson(map);
 				System.out.println(obj);
-				resp.setContentType("text/html; charset=UTF-8"); 
+				resp.setContentType("text/html; charset=UTF-8");
 				resp.getWriter().println(obj);
 				break;
 				

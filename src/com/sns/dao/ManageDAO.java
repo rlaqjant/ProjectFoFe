@@ -286,22 +286,23 @@ public class ManageDAO {
 		}return result;
 	}
 
-	public void bgUpload(HttpServletRequest req) {
+	public boolean bgUpload(HttpServletRequest req) {
 		ManageDTO dto = new ManageDTO();
 		String sql = "UPDATE MINIHMAIN SET BACKCOLOR = ? WHERE id = ? ";
+		boolean result = false;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, req.getParameter("background"));
 			ps.setString(2, (String) req.getSession().getAttribute("id"));
 			if (ps.executeUpdate()>0) {
 				System.out.println("색이 변경되었습니다.");
-				
+				result =true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			Close();
-		}
+		}return result;
 		
 		
 	}

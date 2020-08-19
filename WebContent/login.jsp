@@ -16,30 +16,23 @@
             	margin-right: auto;
             	margin-top: 150px;
             }
-            #miniimg{
-                display: inline-block;
-                width: 400px;
-                height: 600px;
-                border: 1px solid black;
-                float: left;
-                margin-right: 20px;
-            }
             #loginbox{
-                display: inline-block;
+                position : relative;
                 width: 400px;
                 height: 600px;
                 border: 1px solid black;
                 float: left;
                 text-align: center;
+                border-radius: 30px;
+                left : 27%;
             }
             #cyworld{
                 margin-top: 10px;
-                margin-bottom: 50px;
-                background-image: url("images/cyworld_logo.png");
+                margin-bottom: 0px;
                 text-align: center;
                 position: relative;
                 width: 100%;
-                height: 30%;
+                height: 40%;
             }
 
             #id{
@@ -60,7 +53,7 @@
             }
             #joining{
             	text-align: center;
-            	margin-top: 5px;
+            	margin-top: 15px;
             	width:300px; 
             	height:50px; 
             	background-color: black; 
@@ -72,19 +65,19 @@
     </head>
     <body>
     <div id="helper">
-        <div id="miniimg"></div>
+        
         <div id="loginbox">
-        	<div id="cyworld"><img src="" alt=""></div>
+        	<div id="cyworld"><a href="./"><img width="100%" height="100%" src="images/로고.png" alt=""></a></div>
         	<div id="login_texting">
 	            <form action="login" method="post">
 	                <div id="id">
-	                    <input type="text" placeholder="싸이계정(이메일 또는 전화번호)
+	                    <input type="text" placeholder="Forest Friend계정(이메일 또는 전화번호)
 	                    " name="id" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;" /><br/><br/><br/>
 	                    <input type="password" placeholder="비밀번호
 	                    " name="pw" style="width:80%; height:50px; border-right:0px; border-top:0px; border-left:0px;"; /><br/>
 	                </div>
 	                <div id="loginbutton">
-	                    <input type="submit" value="로그인" style="margin-top: 50px; width:300px; height:50px; background-color: black; color: white; border-radius: 15px;";><br/>
+	                    <input type="submit" value="로그인" style="margin-top: 40px; width:300px; height:50px; background-color: black; color: white; border-radius: 15px;";><br/>
 	                </div>
 	            </form>
             </div>
