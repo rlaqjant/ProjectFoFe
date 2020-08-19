@@ -51,13 +51,20 @@
              height: 217px;
              top: 40px;
              left: 40px;
-                border: 1px solid black;
-         }
+             border: 1px solid black;
+			 overflow-y:auto;
+			 -ms-overflow-style: none;
+         }::-webkit-scrollbar { display: none; }
          #followerTalkTxt{
-         width: 634px;
+         width: 598px;
           height: 20px;
           background-color: transparent;
           border: 1px solid;
+          margin-left: 1px;        
+         }
+         #followerTalkWriteBtn{
+         position: absolute;
+         margin: 1px 0px 0px 1px;
          }
          #mainImage{
              position: absolute;
