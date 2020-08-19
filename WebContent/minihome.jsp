@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
    <head>
@@ -55,11 +54,20 @@
       border: 0;
       float: left;
    }
-   #minihome_nameBtn{
+   #minihome_nameBtn {
       position: absolute;
-      top: 25px;
-      left: 400px; 
+      width: 650px;
+      height: 50px;
+      top: 4px;
+      left: 0px;
+      cursor: pointer;
+      font-size: 10px;
+      text-align: right;
+      z-index: 0;
    }
+   #minihome_nameBtn:hover{color: black;}
+   #minihome_nameBtn:active{font-weight: 900;}
+
    #minihome_nameEdit{
       position: absolute;
       top: 20px;
@@ -78,32 +86,34 @@
       background-color: white;
       border: 1px solid white;
       border-radius: 3px;
-      box-shadow: 0px 6px 21px 1px #d3d3d3;
    }
    #side_menu{
-      
       box-sizing: border-box;
       width: 285px;
       height: 775px;
-      background-color: #caebc7;
-      border-radius: 10px;
-      box-shadow: 4px 17px 55px 1px #d3d3d3;
+      background-color: blanchedalmond;
+      border-radius: 10px 0px 0px 10px;
       float: left;
+      z-index: 100;
+      position: absolute;
+      top: 50%;
+      margin-top: -359.5px;
    }
-   #profile_image{
+   #profile_image {
       width: 240px;
       height: 240px;
-      margin: 30px 30px 10px 30px;
+      margin: 30px 30px 15px 23px;
       border: 1px solid white;
       background-size: cover;
       background-position: 50%;
+      border-radius: 50%;
    }
    /* 팔로우 영역-----------------------------------------------*/
    #followArea{
-   	 position: relative;
+   	position: relative;
       width: 240px;
       height: 30px;
-      margin-left: 30px;
+      margin-left: 23px;
       margin-bottom: 10px;
    }
    input[name="followbtn"]{
@@ -127,17 +137,22 @@
    /* 팔로우 영역----------------------------------------------- */
    #profile_message{
       position: relative;
-      width: 240px;
-      height:230px;
-      margin-left: 30px;
+      width:240px;
+      height:280px;
+      margin-left: 25px;
       font-size: 15px;
+      text-align: center;
+      border-bottom: 1px solid black;
    }
    #profile_messageBtn{
       position: absolute;
       left: 204px;
-      top: 232px;
+      top: 262px;
+      cursor: pointer;
    }
    input[name="minihome_nameEdit"]{
+      position: relative;
+      z-index: 2;
       width: 396px;
       height: 40px;
       font-size: 32px;
@@ -151,16 +166,18 @@
       height: 100px;
       border: none;
    }
-   .editBtn{
-   background-color: transparent;
-   border: 0;
-   outline: 0;
-   font-weight: 700;
+   .editBtn {
+      background-color: transparent;
+      border: 0;
+      outline: 0;
+      font-weight: 700;
+      font-size: 6px;
    }
-   #email{
+   #email {
       width: 240px;
-      height: 50px;
+      height: 70px;
       margin-left: 30px;
+      margin-top: 40px;
       font-size: 15px;
    }
    #changer {
@@ -168,10 +185,9 @@
       width: 1115px;
       height: 775px;
       background-color: snow;
-      border-radius: 10px;
-      box-shadow: 4px 17px 55px 1px #d3d3d3;
-      /* border: 2px solid gray; */
+      border-radius: 0px 0px 10px 0px;
       float: right;
+      z-index: 99;
    }
    /*
    #assist{
@@ -184,7 +200,7 @@
    audio{
       width: 250px;
       height: 35px;
-     margin: 50px 22px;
+      margin: 0px 19px;
    }
    iframe {
       width: 1095px;
@@ -195,16 +211,48 @@
       margin-top: 377.5px;
    }
    #viewDetail{margin: 10px 0px 0px 10px;}
+
+   #shadow{
+      width: 1400px;
+      height: 775px;
+      position: absolute;
+      left: 50%;
+      margin-left: -700px;
+      top: 50%;
+      margin-top: -359.5px;
+      background-color: transparent;
+      z-index: -1;
+      box-shadow: 4px 17px 55px 1px #d3d3d3;
+      border-radius: 15px;
+   }
+   .menu_shadow {
+      width: 620px;
+      height: 56px;
+      position: absolute;
+      z-index: -1;
+      top: -53px;
+      right: 0px;
+      box-shadow: 0px 6px 21px 1px #d3d3d3;
+   }
+   #minihome_nameDetail{
+      position: relative;
+      z-index: 1;
+   }
    </style>
    </head>
    <body style="background-color : ${minihome.backcolor}">
    <div style="background-color: #caebc7; width: 101%; height: 101%;">
       <div id="whole">
+         <div id="shadow">
+            <div class="menu_shadow"></div>
+         </div>
          <div id="minihome">
             <div id="top">
                <div id="minihome_name"><!--최상단의 미니홈피 이름 구역-->
                   <div id="minihome_nameDetail">${minihome.minihname}<input type="hidden" name="minihome_nameDetail" value="${minihome.minihname}"></div>
-                  <div><input type="button" class ='editBtn' name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT"></div>
+                  <div>
+                     <input type="button" class ='editBtn' name="minihome_nameBtn" id="minihome_nameBtn" onclick="minihome_nameChange()" value="EDIT">
+                  </div>
                </div>
                <div id="top-menu">
                   <button class="top_menu" id="manageBtn" onclick='viewFrame("manage.jsp?homephost=${minihome.id}")'>관리</button>
@@ -220,13 +268,15 @@
                   <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" height="240px"></div>
                   <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                   <div id="profile_message">
-                     <div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}"></div>
+                     <div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}">
+                        <textarea name="profile_messageDetail" style="display: none;" cols="30" rows="10">${minihome.minihintro}</textarea>
+                     </div>
                      <div><input type="button" class ='editBtn' name="profile_messageBtn" id="profile_messageBtn" onclick="profile_messageChange()" value="EDIT"></div>
                   </div>
+                  <div id="email">&nbsp${minihome.name}</br>&nbsp${minihome.email}</div>
                   <audio autoplay controls loop>
                         <source src="/profilePhoto/${minihome.mp3}" type="audio/mp3">
                   </audio>
-                  <div id="email">&nbsp${minihome.name}</br>&nbsp${minihome.email}</div>
                </div>
                <div id="changer"><!-- 게시판 내용 나타나는 구역 homeView만 나타나있고 나머지는 메뉴버튼 클릭 시 나타남 -->
                   <iframe id="viewDetail"  src="minihomeMain?homephost=${minihome.id}" frameborder="0" marginwidth="0" marginheight="0"></iframe>
@@ -356,15 +406,16 @@
              }
           });
       }
+      
          function profile_messageChange() {//미니홈피 소개글 수정 버튼(주인만 나타남)
             var profile_messageDetail = $("input[name='profile_messageDetail']").val();
          $("#profile_messageDetail").empty();
-         $("#profile_messageDetail").append("<input type='text' name='profile_messageEdit' id='profile_messageEditBox' value='"+profile_messageDetail+"'/>");
+         $("#profile_messageDetail").append("<textarea name='profile_messageDetail' style='resize: none;' cols='31' rows='16' style='text-align:center;'>"+profile_messageDetail+"</textarea>");
          $("#profile_messageEditBox").focus();
          $("input[name='profile_messageBtn']").attr({"onclick":"profile_messageEdit()", "value":"DONE"});
       }
          function profile_messageEdit() {
-            var profile_messageEdit = $("input[name='profile_messageEdit']").val();
+            var profile_messageEdit = $("textarea").val();
             console.log(profile_messageEdit);
             $.ajax({
              type:"post",
