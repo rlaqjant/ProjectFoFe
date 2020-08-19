@@ -206,7 +206,7 @@ public class AlbumDAO {
 			if(rs.next()) {
 				p = (int) rs.getLong(1);
 			}
-			if((p%pagecnt)>=0 && (p%pagecnt)<=8) {
+			if((p%pagecnt)>0 && (p%pagecnt)<=8) {
 				allcnt = (p/pagecnt)+1;
 			}else {
 				allcnt = p/pagecnt;

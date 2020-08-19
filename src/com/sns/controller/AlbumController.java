@@ -110,6 +110,7 @@ public class AlbumController extends HttpServlet {
 			//사진첩 댓글달기
 			case "/albumReply":
 				System.out.println("albumReply 요청");
+				dao = new AlbumDAO();
 				msg = "저장 실패";
 				page = "albumReply.jsp";
 				ReplyDTO dto1 = service.reply();
@@ -150,6 +151,7 @@ public class AlbumController extends HttpServlet {
 			//사진첩 댓글 삭제
 			case "/replyDel":
 				System.out.println("replyDel 요청");
+				dao = new AlbumDAO();
 				msg = "삭제 실패";
 				page = "albumReply.jsp";
 				dto1 = new ReplyDTO();
