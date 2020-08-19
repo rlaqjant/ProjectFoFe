@@ -99,6 +99,7 @@
             	height: 100%;
             	cursor: pointer;
             	border-radius: 10px;
+            	box-sizing: border-box;
 }
             }
             #layer{
@@ -234,7 +235,8 @@
 			.rebtn{
 				width: 20%;
 			}
-			a { text-decoration:none }
+			a { text-decoration:none; }
+			img:hover{border: 2px solid black;}
 
         </style>
     </head>
