@@ -3,6 +3,7 @@ package com.sns.dto;
 public class MiniHomeDTO {
 	
 	private String id;
+	private String name;
 	private String backcolor; 
 	private String minihname; 
 	private String minihintro; 
@@ -11,6 +12,12 @@ public class MiniHomeDTO {
 	private String mp3;
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getMp3() {
 		return mp3;
 	}

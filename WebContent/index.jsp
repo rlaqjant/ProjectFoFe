@@ -250,7 +250,7 @@
                         <div class="search">
                             <!--로고-->
                             <div class="logo">
-                                <a href="#"><img src="images/logo_fofriends.png" width="55px"></a>
+                                <a href="javascript:window.location.reload();"><img src="images/logo_fofriends.png" width="55px"></a>
                             </div>
                             <input id="srch" type="text" name="srchText" placeholder="포플 친구를 검색하세요!">
                             <input type="button" id="srchBtn" value="검색">
@@ -271,7 +271,7 @@
         
         
         
-        <!-- 2 -->
+        <!-- 2페이지 -->
         <div style="background-color: #caebc7; width: 101%; height: 101%;" id="hmpclick">
       <div id="whole">
          <div id="minihome">

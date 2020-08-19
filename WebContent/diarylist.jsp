@@ -65,11 +65,7 @@
 	       	left: 440px;
 	    	top: 10px;
             }
-            table{
         
-            background-image: url(images/simple.jpg);
-            background-size: 600px 600px;
-            }
            
         </style>
 </head>

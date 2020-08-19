@@ -130,7 +130,11 @@ public class ManageController extends HttpServlet {
 		case "/backgrounduplolad":
 			System.out.println("배경색 바꾸기 요청");
 			System.out.println(req.getParameter("background"));
-			service.bgUpload(req);
+			if(service.bgUpload(req)) {
+				msg = "저장 성공";
+				System.out.println(msg);
+			}
+			req.setAttribute("msg", msg);
 			dis=req.getRequestDispatcher(page);
 			dis.forward(req, resp);			
 			break;
