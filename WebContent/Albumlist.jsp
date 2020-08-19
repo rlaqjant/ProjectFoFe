@@ -334,7 +334,7 @@
     		if(i==0 || i==3 || i ==6){
     			$('table').append("<tr></tr>");
     		}
-    		$('tr').last().append("<td><img id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
+    		$('tr').last().append("<td><img width='100%' height='100%' id='"+list[i].albumidx+"' src='/Photo/"+list[i].albumNewFileName+"' onclick='detail(this)'></td>");	
     	}
     	
     	if(curpage%pagecnt==1){

@@ -87,7 +87,7 @@
                 </form>
                 <table id="followerTalkList"></table>
              </div>
-             <div id="mainPhoto"><img alt="" src="/profilePhoto/${mainphoto}" height="345px"></div>
+             <div id="mainPhoto"><img alt="" src="/profilePhoto/${mainphoto}" width="100%" height="100%"></div>
              <div id="mainImage"><img src="images/" /></div>
          </div>
          
