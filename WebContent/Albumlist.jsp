@@ -81,7 +81,8 @@
 			    float: left;
 			}
             table{
-/*                 border-spacing: 15px 15px; */
+				position: absolute;
+			    top: 34px;
             }
             td {
 			    padding: 0px;
@@ -89,9 +90,13 @@
 			    height: 205px;
 			}
             #button {
-			    width: 1000px;
+			    width: 960px;
 			    text-align: center;
 			    font-size: 15px;
+			    position: fixed;
+    			bottom: 25px;
+    			border-top: 2px solid burlywood;
+    			padding-top: 6px;
 			}
             img{
             	position : relative;
@@ -100,7 +105,6 @@
             	cursor: pointer;
             	border-radius: 10px;
             	box-sizing: border-box;
-}
             }
             #layer{
             	background-color: black;
@@ -199,9 +203,20 @@
                 clip:rect(0,0,0,0);
                 border: 0; 
                 }
-         	 input{
-         	 	outline: none;
-         	 }
+         	 input {
+			    outline: none;
+			}
+			
+			#writeclick{
+				border-radius: 15px;
+			    padding: 5px 10px 5px 10px;
+			    background-color: burlywood;
+			    border: 0;
+			    color: white;
+			    position: fixed;
+			    bottom: 63px;
+			    right: 90px;
+			}
          	 #page a{
          	 	margin: 5px;
          	 }
@@ -236,7 +251,7 @@
 				width: 20%;
 			}
 			a { text-decoration:none; }
-			img:hover{border: 2px solid black;}
+			tr img:hover{border: 2px solid black;}
 
         </style>
     </head>
