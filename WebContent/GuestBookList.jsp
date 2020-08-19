@@ -47,6 +47,15 @@
             .viewDetail2 table{
                 margin: 10px auto;
             }
+            .viewDetail2 a{
+            	color: black;
+            	font-weight: 700;
+         		text-decoration:none;
+            }
+            .viewDetail2 a:hover{
+            	font-weight: 700;
+         		text-decoration:underline;
+            }
             table div{
                 float: left;
             }

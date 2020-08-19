@@ -157,10 +157,17 @@ public class FollowService {
 		FollowDAO dao = new FollowDAO();
 		if(followerTalkUser_name!=null) {
 			try {
-				if(dao.followerTalkWrite(id,content,followerTalkUser_name)) {
+				if(content!="") {
+					if(dao.followerTalkWrite(id,content,followerTalkUser_name)) {
+						RequestDispatcher dis =  req.getRequestDispatcher("minihomeMain?homephost="+id);
+						dis.forward(req, resp);
+					}
+				}else {
+					req.setAttribute("msg", "내용을 입력해주세요");
 					RequestDispatcher dis =  req.getRequestDispatcher("minihomeMain?homephost="+id);
 					dis.forward(req, resp);
 				}
+				
 			} catch (SQLException | ServletException | IOException e) {
 				e.printStackTrace();
 			}finally {

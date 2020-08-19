@@ -17,23 +17,34 @@
             }
          #newDiaryList{
             position: absolute;
+            border-radius: 10px;
             width: 335px;
             height: 217px;
             top: 40px;
             left: 725px;
-                border: 1px solid black;
+            border: 1px solid black;
+			text-align: center;
+         }
+         #newDiaryList span{
+         position:relative;
+         top: 10px;
+         font-size: 22px;
          }
          #newDiaryList a{
          color: black;
          text-decoration:none;
          }
-         
+         #newDiaryList a:hover{
+         color: black;
+         text-decoration:underline;
+         }
          #newDiaryListTable{
-         margin:5px;
-         font-size: 18px;
+         text-align: left;
+         margin:20px 0px 0px 5px;
+         font-size: 15px;
          }
          #newDiaryListTable tr,td{
-         padding: 10px
+         padding: 5px;
          }
 
          #mainPhoto{
@@ -42,11 +53,11 @@
              height: 419px;
              top: 296px;
              left: 40px;
-                border: 1px solid black;
-                text-align: center;
+             text-align: center;
          }
          #followerTalk{
             position: absolute;
+            border-radius: 10px;
              width: 650px;
              height: 217px;
              top: 40px;
@@ -55,40 +66,81 @@
 			 overflow-y:auto;
 			 -ms-overflow-style: none;
          }::-webkit-scrollbar { display: none; }
+         #followerTalk span{
+         position: relative;
+        top: 10px;
+        left: 5px;
+         }
+         #followerTalk a{
+         	color: black;
+         	text-decoration:none;
+         }
+         #followerTalk a:hover{
+         	text-decoration:underline;
+         }
          #followerTalkTxt{
-         width: 598px;
+         position: relative;
+         width: 642px;
           height: 20px;
           background-color: transparent;
-          border: 1px solid;
-          margin-left: 1px;        
+          border: 1px solid #80808033;
+          margin-left: 1px; 
+          top: 16px;
          }
          #followerTalkWriteBtn{
          position: absolute;
+         left: 625px;
+         top: 39px;
          margin: 1px 0px 0px 1px;
+   		background: url( "images/updateIcon.png" ) no-repeat;
+     	background-size: 20px 20px;
+     	width: 20px;
+     	height: 20px;
+     	text-indent: -9000px;
+     	border: none;
+         }
+         #followerTalkList{
+         position: relative;
+         top: 13px;
+         }
+         #followerTalkDeleteBtn{
+         margin: 1px 0px 0px 1px;
+   		background: url( "images/updateIcon.png" ) no-repeat;
+     	background-size: 20px 20px;
+     	width: 20px;
+     	height: 20px;
+     	text-indent: -9000px;
+     	border: none;
+         margin: 1px 0px 0px 1px;
+   		 background: url( "images/deleteIcon.png" ) no-repeat;
+     	 background-size: 20px 20px;
+     	 width: 20px;
+     	 height: 20px;
+     	 text-indent: -9000px;
+     	 border: none;
          }
          #mainImage{
-             position: absolute;
-             border: 1px solid black;
-             top: 296px;
-             left: 777px;
-             width: 280px;
-             height: 417px;
+			position: absolute;
+		    top: 320px;
+		    left: 676px;
+		    width: 462px;
+		    height: 468px;
          }
       </style>
    </head>
    <body>
       <div id="homeView">
-             <div id="newDiaryList">new 다이어리<table id="newDiaryListTable"></table></div>
+             <div id="newDiaryList"><span>new 다이어리</span><table id="newDiaryListTable"></table></div>
              <div id="followerTalk">
-                   한줄평
+                 <span>한줄평</span>
                 <form action="followerTalkWrite" method="post">
                    <input type="text" name="followerTalk" id="followerTalkTxt"><input type="submit" id="followerTalkWriteBtn" value="작성">
                    <input type="hidden" name="homephost" value="${homephostId}">
                 </form>
                 <table id="followerTalkList"></table>
              </div>
-             <div id="mainPhoto"><img alt="" src="/profilePhoto/${mainphoto}" width="100%" height="100%"></div>
-             <div id="mainImage"><img src="images/" /></div>
+             <div id="mainPhoto"><img alt="" src="/profilePhoto/${mainphoto}" height="100%" width="100%" style="border-radius: 10px;"></div>
+             <div id="mainImage"><img src="images/mainFriends.png" width="100%" height="100%"/></div>
          </div>
          
    </body>
@@ -114,7 +166,7 @@
                var diarysubject = data.list[i].diarysubject;
                var diaryidx = data.list[i].diaryidx;
                $("#newDiaryListTable").append("<tr>"
-                        +"<td><a href='diaryDetail?idx="+diaryidx+"' target='_self'>"+diarysubject+"</a></td>"
+                        +"<td> ㆍ <a href='diaryDetail?idx="+diaryidx+"' target='_self'>"+diarysubject+"</a></td>"
                         +"</tr>");
             }
          },
