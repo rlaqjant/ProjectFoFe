@@ -35,6 +35,7 @@
             #date{
                 width: 45%;
                 background-color: white;
+                border-top-left-radius: 5px;
             }
             #index{
             	position:absolute;
@@ -59,6 +60,7 @@
             .detail{
                 border-bottom-left-radius: 5px;
                 border-bottom-right-radius: 5px;
+                background-image: url(images/simple.jpg);
             }
             .a1{height: 5%;}
 
@@ -71,8 +73,8 @@
             height: 99%; 
             border: 0; 
             resize: none;
-            background-image: url(images/simple.jpg);
-            background-size: 600px 600px;
+            background: none;
+            
             
             }
             .list{
@@ -110,7 +112,7 @@
                 </tr>
                 
                 <tr class="a2">
-                    <td id="subject" colspan="5"><h3 style="font-size: 20px;">TITLE:${diary.diarysubject}</h3></td>
+                    <td id="subject" colspan="5"><h3 style="font-size: 20px;">TITLE : ${diary.diarysubject}</h3></td>
                 </tr>
                 <tr class="a3">
                     <td class="detail" colspan="5">

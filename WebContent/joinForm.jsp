@@ -19,6 +19,7 @@
                 width: 400px;
                 height: 500px;
                 padding: 50px 25px 0 25px;
+                border-radius: 30px;
             }
             #joinbutton{
                 border-radius: 30px;
@@ -26,15 +27,15 @@
                 color: blanchedalmond;
                 width: 200px;
                 height: 40px;
-                margin: 10px;
+                margin: 25px;
             }
             #jointitle{
                 font-size: 20px;
                 margin-left: auto;
                 margin-right: auto;
                 margin-top: 100px;
-                width: 300px;
-                height: 150px;
+                width: 400px;
+                height: 200px;
             }
             #joinchild{
                 font-size: 20px;
@@ -53,7 +54,7 @@
                 position: absolute;
                 top: 30%;
                 left: 1%;
-                display: none;<!--잠깐 지웠음-->
+                /* display: none;<!--잠깐 지웠음--> */
             }
             #background{
                 position: relative;
@@ -76,12 +77,22 @@
             .forMargin{
             	margin-bottom: 10px;
             }
+            input[type="text"]{
+            border : none;
+            border-bottom: 1px solid black;
+            
+            }
+            input[type="password"]{
+            border : none;
+            border-bottom: 1px solid black;
+            
+            }
         </style>
     </head>
     <body>
-        <div id="sidelogo"><img  src="images/로고.png" /></div><!-- 수정 편의를 위해 이 그림도 잠깐 지웠음. style -->
+        <div id="sidelogo"></div><!-- 수정 편의를 위해 이 그림도 잠깐 지웠음. style -->
            <!-- <img id="x" src="images/x.png"> -->
-		<div id="jointitle" style="font-size: 40px;"><h2>회원가입</h2></div>
+		<div id="jointitle" style="font-size: 40px;"><img  src="images/로고.png" / width=100% height=100%></div>
             <div id="join">
                 <!--아이디 부분은 중복확인을 위해 따로 데이터전송을 해줘야하므로 그 부분은 추후에 추가-->
 	            <div id="joinchild">
