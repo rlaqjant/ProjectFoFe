@@ -141,11 +141,9 @@
       #profile_image{
          width: 220px;
          height: 220px;
-         border-radius: 130px;
+         border-radius: 50%;
          margin: 15px;
          border: 1px solid white;
-         background-size: cover;
-         background-position: 50%;
       }
       /* 팔로우 영역-----------------------------------------------*/
       #followArea{
@@ -295,7 +293,7 @@
             </div>
             <div id="center">
                <div id="side_menu">
-                  <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" style="border-radius:50%" height="240px"></div>
+                  <div id="profile_image"><img alt="" src="images/mainProfile.png" width="230px" style="border-radius:50%" height="230px"></div>
                   <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                   <div id="profile_message">
                      <div id="profile_messageDetail">새로운 SNS의 시작, Forest Friend</div>
