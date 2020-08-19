@@ -35,7 +35,7 @@
             	padding: 10px;
             }
             #update{
-                margin-left: 450px;
+                margin-left: 750px;
             }
         </style>
     </head>
