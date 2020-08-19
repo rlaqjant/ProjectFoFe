@@ -314,8 +314,10 @@
     		success:function(data){
     			if(data.curpage < 1){
     				alert("첫번째 페이지 입니다.");
-    			}else if(data.curpage > data.allcnt){
+    			}else if(data.curpage > data.allcnt && data.allcnt > 0){
     				alert("마지막 페이지 입니다.");
+    			}else if(data.allcnt == 0){
+    				alert("게시글이 없습니다.")
     			}else{
     				albumList(data.list,data.allcnt, data.curpage);
     			}
@@ -356,8 +358,14 @@
         		$('#page').append("<a href='#' onclick='albumlistCall("+i+")'>"+i+"</a>");
         	}
     	}
-    	
-    	
+    	if(curpage == endpage){
+    		$("a[name='next']").hide();
+    	}else if(curpage == 1){
+    		$("a[name='prev']").hide();
+    	}else{
+    		$("a[name='next']").show();
+    		$("a[name='prev']").show();
+    	}
     	$("a[name='prev']").attr("id", curpage-1);
     	$("a[name='next']").attr("id", curpage+1);
     }
@@ -478,10 +486,7 @@
     $("#any_close").click(function(){
     	$("#dark").css("display","none");
     });
-    var msg = "${msg}";
-    if(msg != ""){
-    	alert(msg);
-    }
+
     
     </script>
 </html>

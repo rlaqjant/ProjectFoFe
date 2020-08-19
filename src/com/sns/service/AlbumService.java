@@ -89,6 +89,7 @@ public class AlbumService {
 		ArrayList<AlbumDTO> list = null;
 		AlbumDAO dao = new AlbumDAO();
 		int allcnt = dao.listcnt(id);
+		System.out.println("게시물 갯수 : "+allcnt);
 		dao = new AlbumDAO();
 		list = dao.list(page, id);
 		
