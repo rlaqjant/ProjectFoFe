@@ -323,6 +323,11 @@
  	});
  	var albumidx = 0;
  	
+ 	if('${sessionScope.id}' == homephost){
+ 		$('#writeclick').show();
+ 	}else{
+ 		$('#writeclick').hide();
+ 	}
  	//$("textarea[name='content']").
  	
     function albumlistCall(page){
