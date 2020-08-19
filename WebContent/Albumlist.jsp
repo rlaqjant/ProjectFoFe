@@ -83,9 +83,6 @@
             table{
 /*                 border-spacing: 15px 15px; */
             }
-            tr, td{
-                border: 1px solid black;
-            }
             td {
 			    padding: 0px;
 			    width: 318px;
@@ -97,9 +94,12 @@
 			    font-size: 15px;
 			}
             img{
+            	position : relative;
             	width: 100%;
             	height: 100%;
             	cursor: pointer;
+            	border-radius: 10px;
+}
             }
             #layer{
             	background-color: black;

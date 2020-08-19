@@ -81,12 +81,14 @@
 			
 			 .profileImg2{
 		      border-radius: 50%;
-		      width: 35px;
-		      height: 35px;
+		      width: 70px;
+		      height: 70px;
 			}
-			
+			a:link {text-decoration: underline; color: black;}
+			a:visited {text-decoration: underline; color: black;}
+			a:active {text-decoration: underline; color: black;}
 			/* 무한스크롤 */
-			#infinityScroll{width:100%;height:1080px; background-color:whitesmoke;}
+			#infinityScroll{width:100%;height:1080px;}
 			html{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
 			
         </style>
@@ -136,13 +138,8 @@
 
 				<!-- 무한스크롤 -->
 				<div id="infinityScroll">
-					<h1>Infinity Scroll</h1>
 				</div>
 				
-                <!--더보기 버튼-->
-                <div>
-                    <a id="button" href="#ScreenB" style="text-align: center;">▼</a>
-                </div>
             </div>
         </div>
 
@@ -161,16 +158,17 @@
     			success:function(data){
     				console.log(data);
     				$(".followingFriends").empty();
-    				for (var i = 0; i < data.arrList.length; i++) {
-    					var id = data.arrList[i].id;
-    					var name = data.arrList[i].name;
-    					
-    					$(".followingFriends").append("<tr>"
-    							+"<td><img src='/profilePhoto/"+id+"profilephoto.jpg' class='profileImg2'/></td>"
-    				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
-    				            +"<td>"+name+"</td>"
-    				            +"</tr>");
-    				}
+    					for (var i = 0; i < data.arrList.length; i++) {
+        					var id = data.arrList[i].id;
+        					var name = data.arrList[i].name;
+        					
+        					$(".followingFriends").append("<tr>"
+        							+"<td><img src='/profilePhoto/"+id+"profilephoto.jpg' class='profileImg2'/></td>"
+        				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
+        				            +"<td>"+name+"</td>"
+        				            +"</tr>");
+        				}
+					    				
     			},
     			error:function(e){
     				console.log(e);
@@ -247,7 +245,9 @@
         				            +"<td><a href='loadMinihome?id="+id+"' target='_blank'>"+id+"</a></td>"
         				            +"<td>"+name+"</td>"
         				            +"</tr>");
+        					
         				}
+    					
     				}
     					
     			},
@@ -282,9 +282,9 @@
 	       });
 		
 	       //무한 스크롤
-	       /* 팔로워 수가 많아질경우를 대비. 현재(5명 -> 130명 일 경우라면? 무한스크롤 필요.
-    	   var appendDocument = function(){
-    		   for (var i=0; i< 30; i++){
+	       //팔로워 수가 많아질경우를 대비. 현재(5명 -> 130명 일 경우라면? 무한스크롤 필요.
+    	  /*   var appendDocument = function(){
+    		   for (var i=0; i< 1000; i++){
     			   $('<h1>Infinity Scroll</h1>').appendTo('#infinityScroll');
     		   }
     	   };
@@ -295,6 +295,6 @@
     		   if(scrollHeight == documentHeight){
     			   appendDocumnet();
     		   }
-    	   });*/
+    	   }); */
     </script>
 </html>
