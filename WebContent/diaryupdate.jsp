@@ -11,7 +11,8 @@
 		.write{
                 width: 600px;
                 height: 590px;
-                margin: 0px;
+                margin-left: 242px;
+    			margin-top: 76px;
                 border: solid 1px black;
                 border-radius: 10px;
             }
@@ -28,29 +29,53 @@
             tr{
                 border: solid 1px black; 
             }
+            th{
+            text-align:left;
+            padding-top:4%;
+            }
             .a1{height: 20%;}
             .a2{height: 80%;}
-            .complete{text-align: right; }
+            .complete{text-align: right; 
+            				margin-left:0;
+            				}
 			
 			#subject{
-				width: 75%; height: 40%; font-size: 20pt
+				position: absolute;
+			    top: 13%;
+   				left: 29%;
+   				width: 45%;
+			    height: 5%;
+			    font-size: 20px;
 			}
 			#content{
-				width: 90%; height: 100%; resize: none
+				position: absolute;
+			    top: 22%;
+   				left: 24%;
+			    width: 50%;
+			    height: 59%;
+			    resize: none;
 			}
 			#com{
-			style="width: 70px; height: 30px; margin-right: 30px
+			width: 70px; 
+			height: 30px; 
+			margin-right: 30px;
+			position:absolute;
+			top: 83%;
+  			left: 46%;
 			}
+			
 			
 	</style>
 </head>
 <body>
-우웅${diary}<!--테이블이 불러와졌나 확인해본다.  -->
+
 	<div class="write">
 		<form action="diaryComplete" method="post">
             <table>
-            	<tr>글번호</tr>
-            		<th>${diary.diaryidx}</th>
+           			
+		            	<%-- <tr>
+		            		<th>${diary.diaryidx}</th>
+            			</tr> --%>
             		<input type="hidden" name="idx" value="${diary.diaryidx}"/><!-- 받아올 값 유일한 pk 서버엔 전송o사용자에겐 안보임 -->
             		<!-- 파라미터보내서 나중에 ?대응하는 애 -->
             		
