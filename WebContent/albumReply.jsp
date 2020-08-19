@@ -7,14 +7,17 @@
         <title>photo</title>
         <meta charset="UTF-8">
        	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+       	<style>
+       	
+       	</style>
     </head>
     <body>
-		<table>
+		<table id="replyt">
 			<c:forEach items="${replyList}" var="reply">
 				<tr>
-					<td width="15%">${reply.replyUser_id}</td>
-					<td width="70%">${reply.replyCont}</td>
-					<td width="15%">
+					<td class="reid">${reply.replyUser_id}</td>
+					<td class="recont">${reply.replyCont}</td>
+					<td class="rebtn">
 						<c:choose>
 							<c:when test="${reply.replyUser_id eq sessionScope.id}">
 								<button onclick="replyDelete('${reply.replyIdx}'); return false;">삭제</button>

@@ -8,80 +8,94 @@
         <meta charset="UTF-8">
        	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style>
-            #phli{
-                position: relative;
-                width: 640px;
-                height: 600px;
-                left: 5%;
-            }
-            #dark{
-                width: 640px;
-                height: 600px;
-                background: rgba(0,0,0,0.4);
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: none;
-            }
-            #popup{
-             box-sizing: border-box;
-             width: 90%;
-             height: 90%;
-             background-color: snow;
-             margin-left: auto;
-             margin-right: auto;
-             margin-top: 15px;
-            }
-            #album_photo{
-             box-sizing: border-box;
-             width: 320px;
-             height: 540px;
-             border-right: 1px solid gray;
-             float: left;
-             }
-            #album_text{
-             box-sizing: border-box;
-             width: 256px;
-             height: 200px;
-             border-bottom: 1px solid gray;
-             float: left;
-	         }
-	         #x_close{
-	         	position: fixed;
-	         	top: 2px;
-	         	left: 673px;
-	         	width: 45px;
-	         	height:45px;
-	         	color: black;
-	         	font-size: 40px;
-	         	background-color: transparent;
-	         	border: none;
-	         }
-	         #album_reply{
-	             box-sizing: border-box;
-	             width: 256px;
-	             height: 340px;
-	             float: left;
-	         }
+            #phli {
+			    position: relative;
+			    width: 1000px;
+			    height: 755px;
+			    left: 50%;
+			    margin-left: -500px;
+			}
+            #dark {
+			    width: 1095px;
+			    height: 755px;
+			    background: rgba(0,0,0,0.4);
+			    position: absolute;
+			    top: 0;
+			    left: -50px;
+			    display: none;
+			}
+            #popup {
+			    box-sizing: border-box;
+			    width: 90%;
+			    height: 93%;
+			    background-color: snow;
+			    margin-left: -500px;
+			    /* margin-right: auto; */
+			    margin-top: 15px;
+			    z-index: 5;
+			    position: fixed;
+			    left: 50%;
+			}
+            #album_photo {
+			    box-sizing: border-box;
+			    width: 65%;
+			    height: 100%;
+			    border-right: 1px solid gray;
+			    float: left;
+			}
+            #album_text {
+			    box-sizing: border-box;
+			    width: 35%;
+			    min-height: 20%;
+			    border-bottom: 1px solid gray;
+			    float: left;
+			    max-height: 35%;
+			}
+	         #x_close {
+			    position: fixed;
+			    top: 1px;
+			    left: 1045px;
+			    width: 45px;
+			    height: 45px;
+			    color: black;
+			    font-size: 40px;
+			    background-color: transparent;
+			    border: none;
+			}
+			#write_close {
+			    position: fixed;
+			    top: 1px;
+			    left: 1045px;
+			    width: 45px;
+			    height: 45px;
+			    color: black;
+			    font-size: 40px;
+			    background-color: transparent;
+			    border: none;
+			    z-index: 10;
+			}
+	         #album_reply {
+			    box-sizing: border-box;
+			    width: 35%;
+			    max-height: 65%;
+			    float: left;
+			}
             table{
-                border-spacing: 15px 15px;
+/*                 border-spacing: 15px 15px; */
             }
             tr, td{
                 border: 1px solid black;
             }
-            td{
-                padding: 0px;
-                width: 170px;
-                height: 170px;
-            }
-            #button{
-                width: 576px;
-                text-align: center;
-                font-size: 13px;
-            }
-            #ph11, #ph12, #ph13, #ph21, #ph22, #ph23, #ph31, #ph32, #ph33{
-                display: none;
-            }
+            td {
+			    padding: 0px;
+			    width: 318px;
+			    height: 205px;
+			}
+            #button {
+			    width: 1000px;
+			    text-align: center;
+			    font-size: 15px;
+			}
             img{
             	width: 100%;
             	height: 100%;
@@ -95,33 +109,32 @@
             	display: none;
             	position: absolute;
             }
-            #del{
-            	position: absolute;
-            	margin-top: 10px;
-            	left: 300px;
-            	top: 555px;
-            }
-            
+            #del {
+			    position: absolute;
+			    margin-top: 10px;
+			    left: 495px;
+			    top: 700px;
+			}
             #gray{
                 position: absolute;
-			    width: 640px;
-			    height: 600px;
+			    width: 1095px;
+			    height: 755px;
 			    background-color: black;
 			    opacity: 0.3;
-			    z-index: 10;
+			    z-index: 9;
 			    display: none;
 			    top: 0;
-			    left: -30px;
+			    left: -50px;
 			   
             }
             #upload{
                 border-radius: 30px;
                 position: absolute;
                 background-color: white;
-                width: 300px;
-                height: 300px;
-                top: 18%;
-                left: 15%;
+                width: 80%;
+                height: 80%;
+                top: 11%;
+                left: 11%;
                 z-index: 10;
                 display: none;
             }
@@ -171,7 +184,8 @@
                 border-bottom-color: #e2e2e2; 
                 border-radius: .25em;
                 width: 80%;
-                } 
+                margin-top: 43%
+            } 
 
             .filebox input[type="file"]{
                 position: absolute; 
@@ -186,6 +200,39 @@
          	 input{
          	 	outline: none;
          	 }
+         	 #page a{
+         	 	margin: 5px;
+         	 }
+         	 .replyCont {
+			    margin-left: 15px;
+			    padding-left: 10px;
+			    padding-right: 10px;
+			    width: 65%;
+			}
+			#replyt{
+				border-spacing: 4px;
+			}
+         	.replyBtn {
+			    float: right;
+			    margin-right: 25px;
+			}
+			#replyt td{
+				height: 10px;
+				border: none;
+				word-break: break-all;
+			}
+			#replyt tr{
+				
+			}
+			.reid{
+				width: 17%;
+			}
+			.recont{
+				width: 70%;
+			}
+			.rebtn{
+				width: 20%;
+			}
         </style>
     </head>
     <body>
@@ -199,12 +246,15 @@
 	                <div id="album_reply">
 		                 </br>
 		                <!-- 게시 버튼 -->
+		                <div style="position: fixed; bottom: 49px; width: 340px;">
 			                <input id="replyCont" name="replyCont" type="text" placeholder="댓글 달기.."/>
 			                <input id="replyBtn" type="button" value="게시"/>
+			            </div>
 		                	<div id="replyDiv"></div>
 	                </div>
 	                <input id="del" type="button" value="삭제" onclick="del()"/>
 	            </div>
+	            <button style="top: 0; position: fixed; z-index: 1; width: 101%; height: 101%; border: none; background-color: transparent;" id="any_close"></button>
 	        </div>
 	           <table id="">
 	               
@@ -216,17 +266,18 @@
 	               <a name="next" onclick="next(this)"><span>다음</span></a>
 	           </div>
 	            <div id="gray"></div><!-- 팝업뒷창 -->
+	            <button id="write_close" style="display: none;">x</button>
 		        <div id="upload">
 		            <div>
 		                <div style="padding-top:5px; border-bottom: 1px solid black; font-size: 25px; text-align: center; padding: 10px 0px; width: 100%; height: 10%;" >게시물만들기</div> 
 		                <div id="upload2">
-		                    <img src=""/><!--주인프로필사진업로드-->
+		                    <img style="width: 99%;" src=""/><!--주인프로필사진업로드-->
 		                    <td>${homephost}</td><br/><!--주인이름-->
 		                </div>
 		
 		        		<form action="albumupload?homephost=${homephost}" method="post" enctype="multipart/form-data">
 		
-		        			<textarea style="width: 100%; height: 95px; border: none; resize: none; outline: none;" name="content" placeholder='${homephost}님 무슨 생각을 하고계신가요?'></textarea>
+		        			<textarea style="position: absolute; left: 4px; width: 99%; height: 52%; border: none; resize: none; outline: none;" name="content" placeholder='${homephost}님 무슨 생각을 하고계신가요?'></textarea>
 		                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile" name="uploadFile"></div>
 		                    <div class="filebox"><input style="width: 88%; height: 13%;" type="submit" name="업로드" value="게시" /></div>
 		                </form>
@@ -342,8 +393,14 @@
     $("#writeclick").click(function(){
     	$('#gray').show();
     	$('#upload').show();
+    	$('#write_close').show();
     });
-    	
+   	
+    $('#write_close').click(function(){
+    	$('#gray').css("display","none");
+    	$('#upload').css("display","none");
+    	$('#write_close').css("display","none");
+    });
 
     
     $("#replyBtn").click(function(){
@@ -413,6 +470,9 @@
 		$("#dark").css("display","none");
 	});
     
+    $("#any_close").click(function(){
+    	$("#dark").css("display","none");
+    });
     var msg = "${msg}";
     if(msg != ""){
     	alert(msg);
