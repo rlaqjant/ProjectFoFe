@@ -102,7 +102,7 @@
                 <!--로그인, 회원가입-->
                 <div class="login">
                     <div class="login_box">
-	                    <span><a href="index.jsp">로그아웃</a></span>
+	                    <span><a href="logout">로그아웃</a></span>
                     </div>
                     <div id="myhome" onclick="goMyHome()"><a href='loadMinihome?id=${loginId}' target='_blank'>내 미니홈피</a></div>
                     

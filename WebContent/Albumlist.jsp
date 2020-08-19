@@ -77,10 +77,12 @@
 	         #album_reply {
 			    box-sizing: border-box;
 			    width: 35%;
+			    min-height: 512px;
 			    max-height: 65%;
 			    float: left;
+			    overflow-y: auto;
 			}
-            table{
+            #album{
 				position: absolute;
 			    top: 34px;
             }
@@ -225,9 +227,12 @@
 			    padding-left: 10px;
 			    padding-right: 10px;
 			    width: 65%;
+			    
 			}
 			#replyt{
 				border-spacing: 4px;
+			    position: relative;
+			    top: -17px;
 			}
          	.replyBtn {
 			    float: right;
@@ -244,7 +249,7 @@
 			.reid{
 				width: 17%;
 			}
-			.recont{
+/* 			.recont{ */
 				width: 70%;
 			}
 			.rebtn{
@@ -252,6 +257,7 @@
 			}
 			a { text-decoration:none; }
 			tr img:hover{border: 2px solid black;}
+			
 
         </style>
     </head>
@@ -266,17 +272,17 @@
 	                <div id="album_reply">
 		                 </br>
 		                <!-- 게시 버튼 -->
+		                <div id="replyDiv"></div>
 		                <div style="position: fixed; bottom: 49px; width: 340px;">
 			                <input id="replyCont" name="replyCont" type="text" placeholder="댓글 달기.."/>
 			                <input id="replyBtn" type="button" value="게시"/>
 			            </div>
-		                	<div id="replyDiv"></div>
 	                </div>
 	                <input id="del" type="button" value="삭제" onclick="del()"/>
 	            </div>
 	            <button style="top: 0; position: fixed; z-index: 1; width: 101%; height: 101%; border: none; background-color: transparent;" id="any_close"></button>
 	        </div>
-	           <table id="">
+	           <table id="album">
 	               
 	           </table>
 	           <input type="button" value="게시글 작성" id="writeclick"/>
@@ -375,6 +381,9 @@
     	}
     	if(curpage == endpage){
     		$("a[name='next']").hide();
+    		if(curpage == 1){
+    			$("a[name='prev']").hide();
+    		}
     	}else if(curpage == 1){
     		$("a[name='prev']").hide();
     	}else{
@@ -491,8 +500,16 @@
     }
     
     function del(){
+    	var id = '${sessionScope.id}';
+    	console.log(id);
     	console.log(albumidx);
-    	location.href="albumdel?albumidx="+albumidx+"&&homephost="+homephost;
+    	console.log(homephost);
+    	if(id == homephost){
+    		location.href="albumdel?albumidx="+albumidx+"&&homephost="+homephost;
+    	}else{
+    		alert('홈피 주인만 삭제 할 수 있습니다.');
+    	}
+    	
     }
     $("#x_close").click(function(){
 		$("#dark").css("display","none");

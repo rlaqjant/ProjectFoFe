@@ -98,6 +98,8 @@ public class AlbumController extends HttpServlet {
 				break;
 			
 			case "/albumdel":
+				String id = (String) req.getSession().getAttribute("id");
+				System.out.println("세션에 저장된 id : "+id);
 				String homehost = req.getParameter("homephost");
 				System.out.println("삭제 진입");
 				boolean success = service.del();
