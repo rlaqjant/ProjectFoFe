@@ -95,14 +95,14 @@
           
                 <div id="wr">
                     <span><input id="deletBtn" type="submit" value="삭제"></span>
-                    <button id="writeBtn" ><a href="diaryWriteForm?homephost=${homephost}" style="text-decoration: none;color: black;">글쓰기</a></button>
+                    <button id="writeBtn" ><a href="diaryWriteForm?homephost=${homephost}" style="text-decoration: none; color: black;">글쓰기</a></button>
                     <input type="hidden" value="${homephost}" name="homephost"/>
                 </div>
               </form>  
                 <div id="page">
-                    <a href="./diaryList?page=${currPage-1}&&homephost=${homephost}"><span style="text-decoration: none;color: black;">PREV</span></a>
+                    <a href="./diaryList?page=${currPage-1}&&homephost=${homephost}" style="text-decoration: none;"><span id="prev" style="color: black;">PREV</span></a>
                     <span><b>${currPage}</b></span>
-                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}"><span id="next">NEXT</span></a>
+                    <a href="./diaryList?page=${currPage+1}&&homephost=${homephost}" style="text-decoration: none;"><span id="next">NEXT</span></a>
                 </div>
             </div>
         </div>
@@ -110,10 +110,29 @@
 <script>
 
 var count = "${count}";
-var page  =  "${currPage}"
-var recentPage = parseInt(count/10) + parseInt(count%10)
+var page  =  "${currPage}";
+var recentPage = 0;
 
-function hide(){
+if(count%10 == 0){
+	recentPage = parseInt(count/10);
+}else if(count%10>0 && count%10<10){
+	recentPage = parseInt(count/10)+1;
+}
+
+console.log("recentPage : " + recentPage);
+if(page == recentPage){
+	$('#next').hide();
+	if(page == 1){
+		$('#prev').hide();
+	}
+}else if(page == 1){
+	$('#prev').hide();
+}else{
+	$('#prev').show();
+	$('#next').show();
+}
+
+/* function hide(){
    $("#next").css({"display":"none"});
 }
 
@@ -121,7 +140,7 @@ function hide(){
    
     hide()
    
-}
+} */
 
 
  

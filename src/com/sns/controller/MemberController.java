@@ -74,7 +74,8 @@ public class MemberController extends HttpServlet {
 				
 			case "/logout":
 				req.getSession().removeAttribute("id");
-				resp.sendRedirect("login.jsp");
+				System.out.println("로그아웃 후 세션 값 : " + (String)req.getSession().getAttribute("id"));
+				resp.sendRedirect("index.jsp");
 				msg="로그아웃 성공했습니다.";
 				break;
 				
