@@ -123,38 +123,36 @@
 			    left: 495px;
 			    top: 700px;
 			}
-            #gray{
-                position: absolute;
+            #gray {
+			    position: absolute;
 			    width: 1095px;
 			    height: 755px;
-			    background-color: black;
-			    opacity: 0.3;
+			    background-color: blanchedalmond;
+			    opacity: 0.6;
 			    z-index: 9;
 			    display: none;
 			    top: 0;
 			    left: -50px;
-			   
-            }
-            #upload{
-                border-radius: 30px;
-                position: absolute;
-                background-color: white;
-                width: 80%;
-                height: 80%;
-                top: 11%;
-                left: 11%;
-                z-index: 10;
-                display: none;
-            }
-            #upload2{
-                font-size: 17px;
-                position: relative;
-                height: 10%;
-                padding-top: 10px;
-                padding-left: 10px;
-
-                
-            }
+			}
+            #upload {
+			    border-radius: 30px;
+			    position: absolute;
+			    background-color: white;
+			    width: 660px;
+			    height: 580px;
+			    top: 11%;
+			    left: 15%;
+			    z-index: 10;
+			    display: none;
+			}
+            #upload2 {
+			    font-size: 17px;
+			    position: relative;
+			    height: 10%;
+			    width: 100%;
+			    padding-top: 10px;
+			    text-align: center;
+			}
             #submit{
                 width: 200px;
                 height: 50px;
@@ -163,37 +161,36 @@
                 margin: 10px;
                 text-align: center;
             }
-            .filebox input{
-                text-align: center;
-                display: inline-block; 
-                padding: .5em .75em; 
-                color: #999; 
-                font-size: inherit; 
-                line-height: normal; 
-                vertical-align: middle;
-                background-color: #fdfdfd; 
-                cursor: pointer; 
-                border: 1px solid #ebebeb;
-                border-bottom-color: #e2e2e2; 
-                border-radius: .25em;
-                width: 80%;
-            }
-            .filebox label{ 
-                text-align: center;
-                display: inline-block; 
-                padding: .5em .75em; 
-                color: #999; 
-                font-size: inherit; 
-                line-height: normal; 
-                vertical-align: middle;
-                background-color: #fdfdfd; 
-                cursor: pointer; 
-                border: 1px solid #ebebeb;
-                border-bottom-color: #e2e2e2; 
-                border-radius: .25em;
-                width: 80%;
-                margin-top: 43%
-            } 
+            .filebox input {
+			    text-align: center;
+			    display: inline-block;
+			    padding: .5em .75em;
+			    color: #999;
+			    font-size: inherit;
+			    line-height: normal;
+			    vertical-align: middle;
+			    background-color: #fdfdfd;
+			    cursor: pointer;
+			    border: 1px solid #ebebeb;
+			    border-bottom-color: #e2e2e2;
+			    border-radius: .25em;
+			}
+            .filebox label {
+			    text-align: center;
+			    display: inline-block;
+			    padding: .5em .75em;
+			    color: #999;
+			    font-size: inherit;
+			    line-height: normal;
+			    vertical-align: middle;
+			    background-color: #fdfdfd;
+			    cursor: pointer;
+			    border: 1px solid #ebebeb;
+			    border-bottom-color: #e2e2e2;
+			    border-radius: .25em;
+			    width: 560px;
+			    margin-top: 310px;
+			}
 
             .filebox input[type="file"]{
                 position: absolute; 
@@ -227,7 +224,6 @@
 			    padding-left: 10px;
 			    padding-right: 10px;
 			    width: 65%;
-			    
 			}
 			#replyt{
 				border-spacing: 4px;
@@ -273,7 +269,7 @@
 		                 </br>
 		                <!-- 게시 버튼 -->
 		                <div id="replyDiv"></div>
-		                <div style="position: fixed; bottom: 49px; width: 340px;">
+		                <div style="position: fixed; bottom: 49px; width: 345px; text-align: center;">
 			                <input id="replyCont" name="replyCont" type="text" placeholder="댓글 달기.."/>
 			                <input id="replyBtn" type="button" value="게시"/>
 			            </div>
@@ -295,17 +291,18 @@
 	            <button id="write_close" style="display: none;">x</button>
 		        <div id="upload">
 		            <div>
-		                <div style="padding-top:5px; border-bottom: 1px solid black; font-size: 25px; text-align: center; padding: 10px 0px; width: 100%; height: 10%;" >게시물만들기</div> 
+		                <div style="padding-top: 5px;border-bottom: 1px solid grey;font-size: 25px;text-align: center;padding: 10px 0px;width: 100%;height: 10%;" >게시물만들기</div> 
 		                <div id="upload2">
 		                    <img style="width: 50px;" src="/profilePhoto/${homephost}profilephoto.jpg"/><!--주인프로필사진업로드-->
+		                    <br/>
 		                    <td>${homephost}</td><br/><!--주인이름-->
 		                </div>
 		
 		        		<form action="albumupload?homephost=${homephost}" method="post" enctype="multipart/form-data">
 		
-		        			<textarea style="position: absolute; left: 4px; width: 99%; height: 52%; border: none; resize: none; outline: none;" name="content" placeholder='${homephost}님 무슨 생각을 하고계신가요?'></textarea>
+		        			<textarea style="position: absolute;left: 4px;width: 580px;height: 250px;border: none;resize: none;outline: none;font-size: 33px;margin: 15px 35px 15px 35px;padding-top: 15px;" name="content" placeholder='${homephost}님 무슨 생각을 하고계신가요?'></textarea>
 		                    <div class="filebox"> <label for="uploadFile">사진 가져오기</label> <input type="file" id="uploadFile" name="uploadFile"></div>
-		                    <div class="filebox"><input style="width: 88%; height: 13%;" type="submit" name="업로드" value="게시" /></div>
+		                    <div class="filebox"><input style="width: 586px; height: 13%;" type="submit" name="업로드" value="게시" /></div>
 		                </form>
 		            </div>
         		</div>
