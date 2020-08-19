@@ -323,6 +323,11 @@
  	});
  	var albumidx = 0;
  	
+ 	if('${sessionScope.id}' == homephost){
+ 		$('#writeclick').show();
+ 	}else{
+ 		$('#writeclick').hide();
+ 	}
  	//$("textarea[name='content']").
  	
     function albumlistCall(page){
@@ -441,6 +446,8 @@
 
     
     $("#replyBtn").click(function(){
+    	var id = '${sessionScope.id}';
+    	if(id != ""){
     		var replyCont = $('#replyCont').val();
     		$.ajax({
     			type:'get',
@@ -454,7 +461,10 @@
     				console.log(error);
     			}
     		});
-    	});
+    	}else{
+    		alert('로그인 후 사용가능합니다.');
+    	}
+    });
     
     function ReplyList(){
     	$.ajax({
