@@ -159,10 +159,11 @@ public class DiaryService {
    //디테일 창 안에서 삭제하기 
    public void detaildelete() throws ServletException, IOException {
       String idx = req.getParameter("idx");
+      String homephost = req.getParameter("homephost");
       System.out.println("디테일 삭제파라미터:"+idx);
       dao = new DiaryDAO();
       boolean result = dao.detaildelete(idx);
-      String page ="/diaryList";
+      String page ="diaryList?homephost="+homephost;
       String msg="삭제에 실패했습니다.";
       if(result) {
          msg = "삭제에 성공했습니다.";

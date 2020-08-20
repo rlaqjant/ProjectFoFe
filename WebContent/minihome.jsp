@@ -265,7 +265,7 @@
             </div>
             <div id="center">
                <div id="side_menu">
-                  <div id="profile_image"><img alt="" src="/profilePhoto/${minihome.profilephoto}" width="240px" height="240px"></div>
+                  <div id="profile_image"><img alt="" class="NO-CACHE" src="/profilePhoto/${minihome.profilephoto}" width="240px" height="240px"></div>
                   <div id="followArea"><input type="button" name="followbtn" id="follow" onclick="follow()" value="팔로우"></div>
                   <div id="profile_message">
                      <div id="profile_messageDetail">${minihome.minihintro}<input type="hidden" name="profile_messageDetail" value="${minihome.minihintro}">
@@ -293,6 +293,8 @@
    </div>
    </body>
    <script>
+   		$(document).ready(function () { $('.NO-CACHE').attr('src',function () { return $(this).attr('src') + "?a=" + Math.random() }); });//이미지 캐싱 방지
+
          var homephostId = $("input[name='homephost']").val();
          
          minihomeCheck();//미니홈피 주인 확인

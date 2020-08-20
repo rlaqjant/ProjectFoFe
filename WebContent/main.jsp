@@ -146,6 +146,21 @@
 
     </body>
     <script>
+    $(document).ready(
+    		function () { 
+    			$('.profileImg').attr('src',function () { 
+    				return $(this).attr('src') + "?a=" + Math.random() 
+    			}); 
+    		}
+    );//이미지 캐싱 방지
+    $(document).ready(
+    		function () { 
+    			$('.profileImg2').attr('src',function () { 
+    				return $(this).attr('src') + "?a=" + Math.random() 
+    			}); 
+    		}
+    );//이미지 캐싱 방지
+    
     	loadFollowList ();
     	loadFollowerList();
     	function loadFollowList () { //팔로우 리스트 불러오기

@@ -310,6 +310,7 @@
    </div>
     </body>
     <script>
+    $(document).ready(function () { $('.profileImg').attr('src',function () { return $(this).attr('src') + "?a=" + Math.random() }); });//이미지 캐싱 방지
        //검색창 보이기
        $('document').ready(function(){
           $("#srchBtn").click(function(e){
@@ -357,7 +358,7 @@
                                 +"</tr>");
                     }
                 }
-                   
+                
              },
              error:function(e){
                 console.log(e);

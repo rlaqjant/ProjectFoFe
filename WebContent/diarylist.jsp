@@ -98,7 +98,7 @@
           
                 <div id="wr">
                     <span><input id="deletBtn" type="submit" value="삭제"></span>
-                    <button id="writeBtn" ><a href="diaryWriteForm?homephost=${homephost}" style="text-decoration: none; color: black;">글쓰기</a></button>
+                    <button id="writeBtn" type="button"><a href="diaryWriteForm?homephost=${homephost}" style="text-decoration: none; color: black;">글쓰기</a></button>
                     <input type="hidden" value="${homephost}" name="homephost"/>
                 </div>
               </form>  

@@ -296,7 +296,7 @@
 		            <div>
 		                <div style="padding-top: 5px;border-bottom: 1px solid grey;font-size: 25px;text-align: center;padding: 10px 0px;width: 100%;height: 10%;" >게시물만들기</div> 
 		                <div id="upload2">
-		                    <img style="width: 50px;" src="/profilePhoto/${homephost}profilephoto.jpg"/><!--주인프로필사진업로드-->
+		                    <img style="width: 50px;" class="NO-CACHE" src="/profilePhoto/${homephost}profilephoto.jpg"/><!--주인프로필사진업로드-->
 		                    <br/>
 		                    <td>${homephost}</td><br/><!--주인이름-->
 		                </div>
@@ -312,6 +312,7 @@
         </div>
     </body>
     <script>
+    $(document).ready(function () { $('.NO-CACHE').attr('src',function () { return $(this).attr('src') + "?a=" + Math.random() }); });//이미지 캐싱 방지
     var homephost = $("input[name='homephost']").val();
     console.log(homephost)
     var page=1;//현재 페이지

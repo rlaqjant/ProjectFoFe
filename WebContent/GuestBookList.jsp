@@ -147,7 +147,7 @@
 	                            <tr>
 	                                <td>
 	                                    <div>
-	                                    <img src="/profilePhoto/${guestBook.guestBookUser_name}profilephoto.jpg" alt="userProfile" title="userName">
+	                                    <img class="NO-CACHE" src="/profilePhoto/${guestBook.guestBookUser_name}profilephoto.jpg" alt="userProfile" title="userName">
 	                                    </div>
 	                                    <div class="GuestbookDetail" id="GuestbookDetail${guestBook.guestBookUser_name}">
 	                                        ${guestBook.guestBookContent}
@@ -170,6 +170,7 @@
         </div>
 	</body>
 	<script>
+	$(document).ready(function () { $('.NO-CACHE').attr('src',function () { return $(this).attr('src') + "?a=" + Math.random() }); });//이미지 캐싱 방지
 	var msg="${msg}";
 	if(msg!=""){
 		alert(msg);	
