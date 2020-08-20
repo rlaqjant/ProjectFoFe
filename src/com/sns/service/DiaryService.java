@@ -31,7 +31,7 @@ public class DiaryService {
 		
 		//서비스는 DB를 사용할지 생각한다.
 		//다이어리는 파라미터를 입력받아서 DB에 넣어야하기때문에 DB를 연결해야한다.
-		
+		dao = new DiaryDAO();
 		req.setCharacterEncoding("utf-8");
 		String id = req.getParameter("homephost");
 		String subject = req.getParameter("subject");//넣는애들만 넣을거고 sql에서 자동으로 들어가는 부분따로 그리고 걔네 다 채워서 나중에 글에 다 띄워준다.
