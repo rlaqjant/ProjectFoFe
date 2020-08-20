@@ -111,7 +111,7 @@
                     <td id="date">${diary.diaryreg_date}</td>
                     <td id="hit">${diary.diarybhit}</td>
                     <td id="update" ><a id="detailUpdate" href="./diaryUpdate?idx=${diary.diaryidx}" style="text-decoration: none;color: black;">수정</a></td><!--컨트롤러탈때 idx값 넣어보내기  -->
-                    <td id="delete"><a id="detailDelete" href="./diaryDetailDelete?idx=${diary.diaryidx}" style="text-decoration: none;color: black;">삭제</a></td>
+                    <td id="delete"><a id="detailDelete" href="./diaryDetailDelete?idx=${diary.diaryidx}&homephost=${homephost}" style="text-decoration: none;color: black;">삭제</a></td>
                 </tr>
                 
                 <tr class="a2">

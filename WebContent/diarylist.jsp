@@ -86,7 +86,7 @@
                 <c:forEach items="${list}" var="diary">
                       <tr>
                           <td class="check"><input type="checkbox" name="check" value="${diary.diaryidx}"></td><!--list안에있는 diaryidx를 가져올거야.  -->
-                          <td id="subject"><a href="./diaryDetail?idx=${diary.diaryidx}" style="text-decoration: none;color: black;">${diary.diarysubject}</a></td><!--제목누르는순간 컨트롤러탄다.  -->
+                          <td id="subject"><a href="./diaryDetail?idx=${diary.diaryidx}&homephost=${homephost}" style="text-decoration: none;color: black;">${diary.diarysubject}</a></td><!--제목누르는순간 컨트롤러탄다.  -->
                           <!--  <a href="detail?idx=${bbs.idx}"> 얘는 list의  idx값을 idx안에 넣어준거다?  -->
                           <%-- <td id="user">${diary.id}</td> --%>
                           <td  id="date" >${diary.diaryreg_date}</td>
